@@ -101,6 +101,7 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         titre: 'Données collectées par ce site',
         paragraphes: [
           'Ce site ne collecte que les informations saisies dans les formulaires de demande. Il n’utilise ni cookie publicitaire ni outil de mesure d’audience.',
+          'La carte du siège affichée sur la page d’accueil est fournie par OpenStreetMap : son affichage transmet votre adresse IP à ce service, qui ne dépose pas de cookie publicitaire.',
         ],
       },
       {

@@ -56,5 +56,22 @@ export function textePartenariat(): string {
  */
 export const ESPACE_AGENTS: { url: string | null } = { url: null };
 
+export type ReseauSocial = 'facebook' | 'linkedin' | 'instagram' | 'tiktok';
+
+/**
+ * Pages des réseaux sociaux du groupe, affichées dans le pied de page.
+ * À renseigner par le client : une icône n'apparaît que si son adresse est connue.
+ */
+export const RESEAUX_SOCIAUX: readonly {
+  reseau: ReseauSocial;
+  label: string;
+  url: string | null;
+}[] = [
+  { reseau: 'facebook', label: 'Facebook', url: null },
+  { reseau: 'linkedin', label: 'LinkedIn', url: null },
+  { reseau: 'instagram', label: 'Instagram', url: null },
+  { reseau: 'tiktok', label: 'TikTok', url: null },
+];
+
 export const lienTelephone = (numero: string): string => `tel:${numero.replace(/\s/g, '')}`;
 export const lienWhatsapp = (): string => `https://wa.me/${SITE.whatsapp}`;

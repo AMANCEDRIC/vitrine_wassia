@@ -460,6 +460,17 @@ footer nav a:hover {
   transform: rotateY(180deg);
 }
 
+/* FAQ : la réponse apparaît en douceur */
+.faq-item[open] .faq-answer {
+  animation: faq-in 0.5s var(--ease-doux);
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
 /* Carrousel des actualités : léger zoom de l'image au survol */
 .news-image {
   transition: transform 0.9s var(--ease-doux);
@@ -508,6 +519,7 @@ footer nav a:hover {
   .loader-bar span {
     animation: none !important;
   }
+  .faq-item[open] .faq-answer,
   .step-progress,
   .step-slide.is-active .step-anim,
   .step-slide.is-active .step-icon,

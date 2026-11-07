@@ -12,6 +12,23 @@
           loading="lazy"
         />
         <span class="leading-[1.6]">{{ site.nom }} · {{ site.baseline }}</span>
+        @if (reseaux.length) {
+          <ul class="m-0 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
+            @for (r of reseaux; track r.reseau) {
+              <li>
+                <a
+                  [href]="r.url"
+                  target="_blank"
+                  rel="noopener"
+                  [attr.aria-label]="r.label + ' (nouvel onglet)'"
+                  class="flex size-10 items-center justify-center rounded-full border border-ligne-sombre text-brume transition-colors duration-500 ease-doux hover:border-or hover:bg-or hover:text-marine"
+                >
+                  <app-icon [name]="r.reseau" [size]="18" />
+                </a>
+              </li>
+            }
+          </ul>
+        }
       </div>
 
       <nav aria-label="Activités" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
@@ -57,6 +74,23 @@
       class="block h-[60px] w-auto self-start"
       loading="lazy"
     />
+    @if (reseaux.length) {
+      <ul class="m-0 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
+        @for (r of reseaux; track r.reseau) {
+          <li>
+            <a
+              [href]="r.url"
+              target="_blank"
+              rel="noopener"
+              [attr.aria-label]="r.label + ' (nouvel onglet)'"
+              class="flex size-10 items-center justify-center rounded-full border border-ligne-sombre text-brume transition-colors duration-500 ease-doux hover:border-or hover:bg-or hover:text-marine"
+            >
+              <app-icon [name]="r.reseau" [size]="18" />
+            </a>
+          </li>
+        }
+      </ul>
+    }
     <nav aria-label="Le groupe" class="flex flex-wrap gap-x-7 gap-y-3">
       <a routerLink="/" fragment="poles">Activités</a>
       <a routerLink="/a-propos">À propos</a>

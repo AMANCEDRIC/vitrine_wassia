@@ -3,12 +3,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { LEGAL, LegalPageId } from '@content/legal';
+import { PageCta } from '@shared/ui/page-cta/page-cta';
 import { PageHero } from '@shared/ui/page-hero/page-hero';
 
 /** CGU, politique de confidentialité et mentions légales : un seul gabarit, contenu dans `legal.ts`. */
 @Component({
   selector: 'app-legal-page',
-  imports: [PageHero],
+  imports: [PageHero, PageCta],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './legal.page.html',
 })

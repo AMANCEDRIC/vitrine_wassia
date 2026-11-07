@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FORMULAIRES } from '@content/formulaires';
 import { SITE, lienTelephone, lienWhatsapp } from '@content/site';
 import { ContactForm } from '@shared/ui/contact-form/contact-form';
+import { Icon } from '@shared/ui/icon/icon';
 
 @Component({
   selector: 'app-home-contact',
-  imports: [ContactForm],
+  imports: [ContactForm, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="contact" class="bg-marine text-white">
@@ -35,11 +36,27 @@ import { ContactForm } from '@shared/ui/contact-form/contact-form';
               >
               <a [href]="'mailto:' + site.email" class="hover:text-white">{{ site.email }}</a>
             </address>
-            <!-- Carte du siège : à intégrer quand l'adresse précise sera fournie (voir CGU / cookies) -->
-            <div
-              class="flex h-[150px] items-center justify-center rounded-[10px] border border-ligne-sombre bg-roi text-[13px] text-brume"
-            >
-              Carte du siège à intégrer
+            <!--
+              Carte de la commune du siège (OpenStreetMap : pas de cookie ni de mesure d'audience).
+              À recentrer sur l'adresse exacte du siège quand le client l'aura fournie.
+            -->
+            <div class="overflow-hidden rounded-[10px] border border-ligne-sombre bg-roi">
+              <iframe
+                title="Carte : siège du GROUPE WASSIA à Yopougon, Abidjan"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-4.12%2C5.30%2C-4.03%2C5.37&amp;layer=mapnik&amp;marker=5.3364%2C-4.075"
+                class="block h-[180px] w-full border-0 grayscale-[30%]"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+              ></iframe>
+              <a
+                href="https://www.google.com/maps/search/?api=1&amp;query=Yopougon%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-2 px-4 py-3 text-[13px] font-semibold text-brume transition-colors duration-500 ease-doux hover:text-white"
+              >
+                <app-icon name="carte" [size]="16" color="var(--color-or)" />
+                Itinéraire vers le siège (nouvel onglet)
+              </a>
             </div>
           </div>
         </div>

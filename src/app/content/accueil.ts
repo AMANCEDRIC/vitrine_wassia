@@ -198,3 +198,56 @@ export const ACTUALITES: readonly Actualite[] = [
     alt: 'Illustration : immeuble, maison et véhicule suivi par GPS',
   },
 ];
+
+/** Bloc « Pourquoi choisir le GROUPE WASSIA ? » (atouts tirés des documents du client). */
+export const ATOUTS: readonly { titre: string; texte: string }[] = [
+  {
+    titre: 'Des garanties concrètes',
+    texte:
+      'Loyer versé chaque mois aux propriétaires, recette journalière convenue pour les véhicules en gestion : nous portons les aléas à votre place.',
+  },
+  {
+    titre: 'Des agents près de chez vous',
+    texte:
+      'Nos agents viennent à votre rencontre sur les marchés et dans les quartiers pour vous inscrire et suivre vos versements.',
+  },
+  {
+    titre: 'Chaque franc tracé',
+    texte:
+      'Chaque versement est enregistré, rattaché à votre carte membre et confirmé par SMS avec votre nouveau solde.',
+  },
+  {
+    titre: 'La technologie au service de la confiance',
+    texte:
+      'Carte membre à QR code, suivi GPS des véhicules 24 h/24, plateformes de suivi : chaque opération est transparente.',
+  },
+  {
+    titre: 'Un groupe, cinq pôles',
+    texte:
+      'Finance, immobilier, mobilité, voyage et agrobusiness : un interlocuteur unique pour vos biens, votre mobilité et vos projets.',
+  },
+  {
+    titre: 'Un statut d’intermédiaire en opérations de banque',
+    texte:
+      'WASSIA intervient comme IOB au service de l’inclusion financière, en cours de conventionnement avec des établissements bancaires agréés APBEF-CI.',
+  },
+];
+
+export interface ChiffreCle {
+  label: string;
+  /** Valeur réelle fournie par le client ; `null` tant qu'elle n'est pas connue. */
+  valeur: number | null;
+  suffixe?: string;
+}
+
+/**
+ * Bandeau de chiffres clés (compteurs animés sous la bannière).
+ * MASQUÉ tant que toutes les valeurs ne sont pas renseignées : ne jamais inventer de chiffres.
+ * À compléter avec les données du client (exemples de libellés à adapter).
+ */
+export const CHIFFRES_CLES: readonly ChiffreCle[] = [
+  { label: 'Commerçants inscrits', valeur: null, suffixe: '+' },
+  { label: 'Cartes membres actives', valeur: null, suffixe: '+' },
+  { label: 'Véhicules suivis par GPS', valeur: null, suffixe: '+' },
+  { label: 'Biens en gestion', valeur: null, suffixe: '+' },
+];

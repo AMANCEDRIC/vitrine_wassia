@@ -152,6 +152,23 @@
   </div>
 </section>
 
+<!-- Questions fréquentes -->
+<section id="faq">
+  <div class="container-site grid gap-8 py-12 nav:grid-cols-[1fr_1.6fr] nav:gap-14 nav:py-[72px]">
+    <div class="flex flex-col gap-3">
+      <span class="eyebrow text-sapin">Questions fréquentes</span>
+      <h2 class="section-title nav:text-[32px]">Tout savoir sur la carte membre</h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Une autre question ? Votre agent WASSIA vous répond, ou écrivez-nous.
+      </p>
+      <a routerLink="." fragment="contact" class="btn-sapin mt-2 self-start px-5 py-[13px]"
+        >Être contacté par un agent</a
+      >
+    </div>
+    <app-faq [questions]="faq" nom="faq-finance" />
+  </div>
+</section>
+
 <!-- Formulaire -->
 <section id="contact" class="bg-marine text-white">
   <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">

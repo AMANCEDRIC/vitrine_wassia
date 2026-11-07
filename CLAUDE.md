@@ -54,6 +54,11 @@ src/server/contact.ts   POST /api/contact, monté dans src/server.ts avant le re
 
 Les textes viennent des documents client et de la maquette. Ne pas les présenter comme définitifs : garanties chiffrées (loyer, recette, pannes), montants et taux de crédit du simulateur et de la page Finance, statut IOB, téléphone `+225 07 07 07 07 07` (probablement fictif), mentions légales marquées `[À COMPLÉTER]` dans `content/legal.ts`, couleurs des pôles Voyage et Agrobusiness. Logos et illustrations dans `public/images/` : extraits provisoirement de la maquette, à remplacer par les fichiers officiels.
 
+Éléments prêts mais masqués tant que le client n'a pas fourni les données (ne jamais inventer de valeurs) :
+- `CHIFFRES_CLES` (`content/accueil.ts`) : bandeau de compteurs animés sous la bannière, affiché seulement quand toutes les valeurs sont renseignées.
+- `RESEAUX_SOCIAUX` (`content/site.ts`) : icônes du pied de page, une par adresse renseignée.
+- La carte du siège (accueil, `#contact`) est centrée sur la commune de Yopougon : à recentrer sur l'adresse exacte quand elle sera connue.
+
 ## Partenaire bancaire (consigne du client)
 
 Ne citer AUCUN nom de banque ni de partenaire financier tant que les accords ne sont pas signés. Le site affiche la phrase « En cours de conventionnement avec des établissements bancaires agréés APBEF-CI. » et un emplacement vide sur la page Services financiers (section `#statut`). Après signature, renseigner uniquement `PARTENAIRE_BANCAIRE` (nom + numéro de convention) dans `content/site.ts` : le pied de page, la page Finance et la phrase se mettent à jour. Penser aussi à `content/legal.ts` (mentions légales).
