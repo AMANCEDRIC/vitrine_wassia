@@ -14,12 +14,15 @@ import {
   ReactiveFormsModule,
   ValidationErrors,
 } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { ContactApiService } from '@shared/data/contact-api.service';
 import { validerChamp } from '@shared/data/contact-validation';
 import { FormConfig, FormField } from '@shared/data/contact.model';
+import { SITE } from '@content/site';
 
-type Statut = 'saisie' | 'envoi' | 'erreur';
+/** `indisponible` : aucun serveur derrière le site (version de démonstration sur un hébergement statique). */
+type Statut = 'saisie' | 'envoi' | 'erreur' | 'indisponible';
 
 /**
  * Formulaire de demande générique : les 6 formulaires de la maquette ne diffèrent que par leurs champs.
@@ -43,6 +46,7 @@ export class ContactForm {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   protected readonly statut = signal<Statut>('saisie');
+  protected readonly site = SITE;
 
   protected readonly form = computed(() => {
     const controls: Record<string, FormControl<string>> = {};
@@ -90,7 +94,10 @@ export class ContactForm {
       })
       .subscribe({
         next: () => void this.router.navigate(['/merci']),
-        error: () => this.statut.set('erreur'),
+        error: (erreur: HttpErrorResponse) =>
+          this.statut.set(
+            erreur.status === 404 || erreur.status === 405 ? 'indisponible' : 'erreur',
+          ),
       });
   }
 }

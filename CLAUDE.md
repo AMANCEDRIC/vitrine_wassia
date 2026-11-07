@@ -13,6 +13,7 @@ Site vitrine du GROUPE WASSIA SARL HOLDING (holding ivoirienne, 5 pôles d'activ
 
 - `npm start` (`ng serve`) : serveur de développement sur http://localhost:4200
 - `npm run build` : build de production + pré-rendu dans `dist/wassia-vitrine/`
+- `npm run build:pages` : build pour GitHub Pages (base `/vitrine_wassia/`). Le déploiement est automatique à chaque envoi sur `main` (`.github/workflows/deploy-pages.yml`) vers https://amancedric.github.io/vitrine_wassia/. C'est une version statique, sans serveur Express : le formulaire de contact y affiche un message « version de démonstration » (réponse 404 ou 405).
 - `npm run serve:ssr:wassia-vitrine` : serveur Express compilé (port `PORT`, 4000 par défaut). **Le redémarrer après chaque build**, sinon il sert d'anciens fichiers CSS/JS supprimés.
 - `npm test` (`ng test`) : Vitest + jsdom. Un fichier : `ng test --include src/app/content/content.spec.ts` ; par nom : `ng test --filter "simuler"` ; une passe sans watch : `ng test --watch=false`
 - `npm run lint` (angular-eslint, règles d'accessibilité des templates incluses)

@@ -88,6 +88,14 @@
     {{ statut() === 'envoi' ? 'Envoi en cours…' : config().bouton }}
   </button>
 
+  @if (statut() === 'indisponible') {
+    <p role="alert" class="m-0 rounded-lg bg-or-clair/40 px-3 py-2.5 text-sm text-encre">
+      Version de démonstration : l’envoi en ligne n’est pas encore actif. Écrivez-nous à
+      <a [href]="'mailto:' + site.email" class="font-semibold underline">{{ site.email }}</a
+      >.
+    </p>
+  }
+
   @if (statut() === 'erreur') {
     <p role="alert" class="m-0 rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-800">
       L’envoi n’a pas abouti. Réessayez dans un instant ou appelez-nous.

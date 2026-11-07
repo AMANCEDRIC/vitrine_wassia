@@ -9,7 +9,8 @@
     "test": "ng test",
     "serve:ssr:wassia-vitrine": "node dist/wassia-vitrine/server/server.mjs",
     "lint": "ng lint",
-    "format": "prettier --write \"src/**/*.{ts,html,css}\""
+    "format": "prettier --write \"src/**/*.{ts,html,css}\"",
+    "build:pages": "ng build --base-href /vitrine_wassia/"
   },
   "private": true,
   "packageManager": "npm@11.19.1",
