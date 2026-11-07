@@ -2,9 +2,12 @@
 
 export interface LienAction {
   label: string;
+  /** Libellé raccourci sur mobile (boutons côte à côte). */
+  labelCourt?: string;
   route: string;
   fragment?: string;
-  style: 'or' | 'contour';
+  /** `or` : bouton doré (offre phare) ; `lien` : lien texte secondaire avec flèche. */
+  style: 'or' | 'lien';
 }
 
 export interface Diapositive {
@@ -35,11 +38,12 @@ export const DIAPOSITIVES: readonly Diapositive[] = [
       },
       {
         label: 'Recette véhicule garantie',
+        labelCourt: 'Recette garantie',
         route: '/immobilier-mobilite',
         fragment: 'flottes',
         style: 'or',
       },
-      { label: 'Découvrir nos services', route: '/', fragment: 'poles', style: 'contour' },
+      { label: 'Découvrir nos services', route: '/', fragment: 'poles', style: 'lien' },
     ],
     image: 'images/illustrations/immobilier-mobilite.svg',
     alt: 'Illustration : immeuble, maison et véhicule suivi par GPS',
@@ -51,7 +55,7 @@ export const DIAPOSITIVES: readonly Diapositive[] = [
       'Une carte membre à QR code, un agent de proximité sur votre marché et un solde que vous suivez à chaque passage.',
     actions: [
       { label: 'Devenir membre', route: '/services-financiers', fragment: 'contact', style: 'or' },
-      { label: 'Comment ça marche', route: '/', fragment: 'carte', style: 'contour' },
+      { label: 'Comment ça marche', route: '/', fragment: 'carte', style: 'lien' },
     ],
     image: 'images/illustrations/carte-membre.svg',
     alt: 'Illustration : commerçante avec sa carte membre à QR code',
@@ -63,7 +67,7 @@ export const DIAPOSITIVES: readonly Diapositive[] = [
       'Accompagnement des dossiers de visa, réservations et organisation de séjours pour les particuliers et les professionnels.',
     actions: [
       { label: 'Découvrir le pôle Voyage', route: '/voyage', style: 'or' },
-      { label: 'Nous contacter', route: '/', fragment: 'contact', style: 'contour' },
+      { label: 'Nous contacter', route: '/', fragment: 'contact', style: 'lien' },
     ],
     image: 'images/illustrations/voyage.svg',
     alt: 'Illustration : avion, valises et passeport',

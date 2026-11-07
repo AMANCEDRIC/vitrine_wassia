@@ -1,53 +1,117 @@
-<div class="flex items-center justify-between border-b border-trait bg-white px-4 py-3">
-  <img
-    src="images/logo.png"
-    width="479"
-    height="202"
-    [alt]="site.nomLogo"
-    class="block h-[60px] w-auto"
-  />
-  <button
-    type="button"
-    class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white"
-    aria-label="Fermer le menu"
-    (click)="close()"
-  >
-    <app-icon name="fermer" color="var(--color-marine)" />
-  </button>
-</div>
+<!-- Fond assombri : le toucher referme le menu -->
+<div
+  class="mm-backdrop absolute inset-0 bg-nuit/55 backdrop-blur-[2px]"
+  (click)="fermer()"
+  aria-hidden="true"
+></div>
 
-<nav aria-label="Menu principal" class="flex flex-col bg-white">
-  @for (link of links; track link.label) {
-    <a
-      [routerLink]="link.route"
-      [fragment]="link.fragment"
-      (click)="close()"
-      class="flex min-h-[52px] items-center border-b border-illustration px-4 font-display text-[17px] font-bold text-marine"
-      >{{ link.label }}</a
+<div
+  id="menu-mobile"
+  class="mm-panel absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col overflow-y-auto overscroll-contain bg-white shadow-[-20px_0_40px_rgba(0,13,31,.25)]"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu"
+  (touchstart)="toucheDebut($event)"
+  (touchend)="toucheFin($event)"
+>
+  <div
+    class="sticky top-0 z-10 flex items-center justify-between border-b border-trait bg-white/95 px-4 py-3 backdrop-blur"
+  >
+    <img
+      src="images/logo.png"
+      width="479"
+      height="202"
+      [alt]="site.nomLogo"
+      class="block h-12 w-auto"
+    />
+    <button
+      type="button"
+      class="mm-close flex size-12 cursor-pointer items-center justify-center rounded-full bg-fond transition-colors duration-500 ease-doux active:bg-trait"
+      aria-label="Fermer le menu"
+      (click)="fermer()"
     >
-    @if (link.poles) {
-      @for (pole of poles; track pole.id) {
+      <app-icon name="fermer" color="var(--color-marine)" />
+    </button>
+  </div>
+
+  <nav aria-label="Menu principal" class="flex flex-col px-2 py-3">
+    @for (link of links; track link.label; let i = $index) {
+      @if (link.poles) {
+        <div class="mm-item mt-2 mb-1 px-3" [style.--i]="i">
+          <span class="eyebrow text-sapin">{{ link.label }}</span>
+        </div>
+        <ul class="m-0 grid list-none grid-cols-1 gap-1 p-0 px-1">
+          @for (pole of poles; track pole.id; let j = $index) {
+            <li class="mm-item" [style.--i]="i + j + 1">
+              <a
+                [routerLink]="pole.route"
+                [fragment]="pole.fragment"
+                (click)="fermer()"
+                class="flex min-h-14 items-center gap-3 rounded-xl px-2 transition-colors duration-300 active:bg-fond"
+              >
+                <span
+                  class="flex size-10 flex-none items-center justify-center rounded-[10px]"
+                  [class]="pole.pastille"
+                >
+                  <app-icon [name]="pole.icone" [size]="20" [color]="pole.traitIcone" />
+                </span>
+                <span class="flex min-w-0 flex-col">
+                  <span class="font-display text-[15px] leading-tight font-bold text-marine">{{
+                    pole.titreCourt
+                  }}</span>
+                  <span class="truncate text-[13px] text-ardoise">{{ pole.resumeCourt }}</span>
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+        <div class="mm-item mx-3 my-2 h-px bg-trait" [style.--i]="i + poles.length + 1"></div>
+      } @else {
         <a
-          [routerLink]="pole.route"
-          [fragment]="pole.fragment"
-          (click)="close()"
-          class="flex min-h-[52px] items-center border-b border-illustration px-8 font-sans text-[15px] font-semibold text-ardoise"
-          >{{ pole.titreCourt }}</a
+          [routerLink]="link.route"
+          [fragment]="link.fragment"
+          (click)="fermer()"
+          [routerLinkActive]="link.fragment ? '' : 'text-sapin! bg-fond'"
+          [routerLinkActiveOptions]="exactPath"
+          class="mm-item flex min-h-[52px] items-center justify-between rounded-xl px-3 font-display text-[17px] font-bold text-marine transition-colors duration-300 active:bg-fond"
+          [style.--i]="i < 2 ? i : i + poles.length + 2"
         >
+          {{ link.label }}
+          <app-icon name="chevron" [size]="18" color="var(--color-champ)" />
+        </a>
       }
     }
-  }
-</nav>
+  </nav>
 
-<div class="flex flex-col gap-2.5 px-4 py-5">
-  @if (espaceAgents.url; as url) {
-    <a [href]="url" class="btn-contour-marine py-[15px] text-[15px] font-bold">Espace agents</a>
-  }
-  <a
-    [routerLink]="devenirMembre.route"
-    [fragment]="devenirMembre.fragment"
-    (click)="close()"
-    class="btn-sapin py-4 text-[15px] font-bold"
-    >Devenir membre</a
+  <!-- Contact rapide et actions -->
+  <div
+    class="mm-item mt-auto flex flex-col gap-2.5 border-t border-trait bg-fond px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
+    [style.--i]="links.length + poles.length + 2"
   >
+    <div class="grid grid-cols-2 gap-2.5">
+      <a
+        [href]="tel"
+        class="btn min-h-12 gap-2 border-[1.5px] border-marine bg-white text-[15px] font-bold text-marine"
+      >
+        Appeler
+      </a>
+      <a
+        [href]="whatsapp"
+        target="_blank"
+        rel="noopener"
+        class="btn min-h-12 gap-2 border-[1.5px] border-sapin bg-white text-[15px] font-bold text-sapin"
+        >WhatsApp</a
+      >
+    </div>
+    @if (espaceAgents.url; as url) {
+      <a [href]="url" class="btn-contour-marine min-h-12 text-[15px] font-bold">Espace agents</a>
+    }
+    <a
+      [routerLink]="devenirMembre.route"
+      [fragment]="devenirMembre.fragment"
+      (click)="fermer()"
+      class="btn-sapin min-h-[52px] text-base font-bold"
+      >Devenir membre</a
+    >
+  </div>
 </div>

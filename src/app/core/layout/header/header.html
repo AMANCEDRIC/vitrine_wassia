@@ -1,6 +1,10 @@
-<header class="border-b border-trait bg-white">
+<header
+  class="border-b border-trait bg-white/95 backdrop-blur transition-shadow duration-500 ease-doux"
+  [class.is-compact]="compact()"
+>
   <div
-    class="relative mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-4 py-3 nav:px-10 nav:py-4"
+    class="relative mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-4 transition-[padding] duration-500 ease-doux nav:px-10 lg:py-4"
+    [class]="compact() ? 'py-2' : 'py-3'"
   >
     <a routerLink="/" class="block" [attr.aria-label]="site.nomLogo + ' — accueil'">
       <img
@@ -8,14 +12,15 @@
         width="479"
         height="202"
         [alt]="site.nomLogo"
-        class="block h-[60px] w-auto transition-transform duration-500 ease-doux hover:scale-[1.02] nav:h-16"
+        class="block w-auto transition-[height,scale] duration-500 ease-doux hover:scale-[1.02] lg:h-16"
+        [class]="compact() ? 'h-11' : 'h-[60px]'"
       />
     </a>
 
     <!-- Menu ordinateur -->
     <nav
       aria-label="Menu principal"
-      class="hidden flex-wrap items-center gap-x-[30px] gap-y-1.5 font-sans text-[15px] font-semibold text-marine nav:flex"
+      class="hidden flex-wrap items-center gap-x-[30px] gap-y-1.5 font-sans text-[15px] font-semibold text-marine lg:flex"
     >
       @for (link of links; track link.label) {
         @if (link.poles) {
@@ -141,7 +146,7 @@
       }
     </nav>
 
-    <div class="hidden flex-wrap gap-2.5 nav:flex">
+    <div class="hidden flex-wrap gap-2.5 md:ml-auto md:flex lg:ml-0">
       @if (espaceAgents.url; as url) {
         <a [href]="url" class="btn-contour-marine">Espace agents</a>
       }
@@ -153,7 +158,8 @@
     <!-- Bouton du menu mobile -->
     <button
       type="button"
-      class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white transition-colors hover:bg-fond nav:hidden"
+      #boutonMenu
+      class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white transition-colors active:bg-fond lg:hidden"
       aria-label="Ouvrir le menu"
       aria-controls="menu-mobile"
       [attr.aria-expanded]="menuOpen()"
@@ -164,6 +170,4 @@
   </div>
 </header>
 
-@if (menuOpen()) {
-  <app-mobile-menu (closed)="menuOpen.set(false)" />
-}
+<app-mobile-menu [ouvert]="menuOpen()" (closed)="fermerMenu()" />

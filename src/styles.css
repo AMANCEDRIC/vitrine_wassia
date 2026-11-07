@@ -68,6 +68,13 @@
     text-decoration: none;
   }
 
+  /* Mobile : pas de flash gris au toucher (chaque élément a son propre retour visuel) */
+  a,
+  button,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   h1,
   h2 {
     text-wrap: balance;
@@ -80,7 +87,7 @@
 }
 
 @utility btn {
-  @apply inline-flex cursor-pointer items-center justify-center rounded-lg text-center font-display transition-[translate,transform,box-shadow,background-color,color] duration-500 ease-doux;
+  @apply inline-flex cursor-pointer items-center justify-center rounded-lg text-center font-display transition-[translate,transform,scale,box-shadow,background-color,color] duration-500 ease-doux active:scale-[.97];
 }
 
 @layer components {
@@ -320,11 +327,18 @@
   transform-origin: right;
   transition: transform 0.6s var(--ease-doux);
 }
-.nav-link:hover,
 .nav-link:focus-visible {
   color: var(--color-sapin);
 }
-.nav-link:hover::after,
+@media (hover: hover) {
+  .nav-link:hover {
+    color: var(--color-sapin);
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
 .nav-link:focus-visible::after,
 .nav-link.is-active::after {
   transform: scaleX(1);
@@ -351,8 +365,10 @@ footer a {
     color 0.4s var(--ease-doux),
     translate 0.5s var(--ease-doux);
 }
-footer nav a:hover {
-  translate: 4px 0;
+@media (hover: hover) {
+  footer nav a:hover {
+    translate: 4px 0;
+  }
 }
 
 /* Carrousel « La carte membre à QR code » */
@@ -460,6 +476,119 @@ footer nav a:hover {
   transform: rotateY(180deg);
 }
 
+/* En-tête compacté au défilement */
+header.is-compact {
+  box-shadow: 0 6px 20px rgba(10, 42, 94, 0.08);
+}
+
+/* Menu mobile : fond qui s'assombrit, panneau qui glisse depuis la droite, liens en cascade */
+.mobile-menu {
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.5s; /* reste visible le temps de l'animation de fermeture */
+}
+.mobile-menu.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.mm-backdrop {
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-doux);
+}
+.mobile-menu.is-open .mm-backdrop {
+  opacity: 1;
+}
+.mm-panel {
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-doux);
+}
+.mobile-menu.is-open .mm-panel {
+  transform: none;
+}
+.mm-item {
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.mobile-menu.is-open .mm-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease-doux),
+    transform 0.5s var(--ease-doux);
+  transition-delay: calc(120ms + var(--i, 0) * 35ms);
+}
+.mm-close app-icon {
+  transition: rotate 0.5s var(--ease-doux);
+}
+.mobile-menu.is-open .mm-close app-icon {
+  rotate: 90deg;
+}
+
+/* Organigramme de la page À propos : traits qui relient la holding à ses pôles */
+.org-branches {
+  padding-left: 28px; /* mobile : ligne verticale à gauche */
+}
+.org-branch::before,
+.org-branch::after {
+  content: '';
+  position: absolute;
+  background: var(--color-champ);
+}
+/* Mobile : un trait horizontal vers chaque carte, et un trait vertical continu */
+.org-branch::before {
+  left: -20px;
+  top: 42px;
+  width: 20px;
+  height: 1px;
+}
+.org-branch::after {
+  left: -20px;
+  top: -16px; /* remonte dans l'espace entre deux cartes */
+  bottom: 0;
+  width: 1px;
+}
+.org-branch:first-child::after {
+  top: 0;
+}
+.org-branch:last-child::after {
+  bottom: auto;
+  height: calc(42px + 16px); /* s'arrête au trait de la dernière carte */
+}
+@media (min-width: 53.75rem) {
+  .org-branches {
+    padding-left: 0;
+  }
+  /* Ordinateur : barre horizontale du centre de la 1re carte au centre de la 5e */
+  .org-branches::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc((100% - 64px) / 10);
+    right: calc((100% - 64px) / 10);
+    height: 1px;
+    background: var(--color-champ);
+  }
+  .org-branch {
+    padding-top: 32px;
+  }
+  .org-branch::before {
+    display: none;
+  }
+  .org-branch::after,
+  .org-branch:first-child::after,
+  .org-branch:last-child::after {
+    left: 50%;
+    top: 0;
+    bottom: auto;
+    width: 1px;
+    height: 32px;
+  }
+}
+
 /* FAQ : la réponse apparaît en douceur */
 .faq-item[open] .faq-answer {
   animation: faq-in 0.5s var(--ease-doux);
@@ -471,12 +600,27 @@ footer nav a:hover {
   }
 }
 
+/* Bannière : lien secondaire souligné en or, le trait se déploie au survol */
+.hero-link-texte {
+  background: linear-gradient(var(--color-or), var(--color-or)) left bottom / 100% 2px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.5s var(--ease-doux);
+}
+@media (hover: hover) {
+  .hero-link:hover .hero-link-texte {
+    background-size: 0 2px;
+    background-position: right bottom;
+  }
+}
+
 /* Carrousel des actualités : léger zoom de l'image au survol */
 .news-image {
   transition: transform 0.9s var(--ease-doux);
 }
-.news-card:hover .news-image {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .news-card:hover .news-image {
+    transform: scale(1.04);
+  }
 }
 
 /* Bandeau défilant de la barre utilitaire */

@@ -3,30 +3,29 @@ import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { POLES } from '@content/poles';
 import { SITE } from '@content/site';
+import { Icon } from '@shared/ui/icon/icon';
 import { PageHero } from '@shared/ui/page-hero/page-hero';
-
-/** Couleurs des pôles dans l'organigramme (maquette Site-A-propos). */
-const ORGANIGRAMME: Record<string, string> = {
-  finance: 'bg-emeraude text-marine',
-  immobilier: 'bg-sapin text-white',
-  mobilite: 'bg-marine text-white',
-  voyage: 'bg-or text-marine',
-  agrobusiness: 'bg-roi text-or',
-};
 
 @Component({
   selector: 'app-about-page',
-  imports: [PageHero, RouterLink, NgOptimizedImage],
+  imports: [PageHero, RouterLink, NgOptimizedImage, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './about.page.html',
 })
 export class AboutPage {
   protected readonly site = SITE;
+  /** Organigramme : pôles avec un titre court et leur résumé de l'accueil mobile. */
   protected readonly poles = POLES.map((p) => ({
-    id: p.id,
+    ...p,
     titre: p.id === 'voyage' ? 'Voyage et tourisme' : p.titreCourt,
-    couleur: ORGANIGRAMME[p.id],
+    resume: p.resumeCourt,
   }));
+
+  protected readonly roles = [
+    'Direction stratégique',
+    'Conformité juridique',
+    'Gestion financière centralisée',
+  ];
 
   protected readonly engagements = [
     {

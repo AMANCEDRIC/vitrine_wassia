@@ -64,7 +64,7 @@
               [step]="config()[p.cle].pas"
               [value]="valeurs()[p.cle]"
               (input)="saisir(p.cle, $any($event.target).value)"
-              class="m-0 h-7 w-full accent-sapin"
+              class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
             />
             <div class="flex justify-between text-xs text-ardoise">
               <span>{{ borne(p.cle, 'min') }}</span>

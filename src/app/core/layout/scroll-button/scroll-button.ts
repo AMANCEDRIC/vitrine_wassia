@@ -19,11 +19,14 @@ const CIRCONFERENCE = 2 * Math.PI * 22;
 @Component({
   selector: 'app-scroll-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'fixed right-4 bottom-4 z-40 nav:right-6 nav:bottom-6' },
+  host: {
+    class:
+      'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 nav:right-6 nav:bottom-6',
+  },
   template: `
     <button
       type="button"
-      class="group relative flex size-14 cursor-pointer items-center justify-center rounded-full bg-marine text-white shadow-[0_8px_24px_rgba(0,13,31,.3)] transition-[translate,transform,background-color] duration-500 ease-doux hover:-translate-y-1 hover:bg-roi"
+      class="group relative flex size-12 cursor-pointer items-center justify-center rounded-full bg-marine text-white shadow-[0_8px_24px_rgba(0,13,31,.3)] transition-[translate,transform,background-color] duration-500 ease-doux hover:-translate-y-1 hover:bg-roi nav:size-14"
       [class.opacity-0]="!pret()"
       [attr.aria-label]="enHaut() ? 'Descendre' : 'Remonter en haut de la page'"
       [attr.title]="enHaut() ? 'Descendre' : 'Remonter en haut'"

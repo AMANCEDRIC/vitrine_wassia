@@ -68,20 +68,64 @@
         financière centralisée de ses pôles d’activités.
       </p>
     </div>
-    <div class="flex flex-col items-stretch gap-5">
-      <div class="rounded-xl bg-marine px-7 py-6 text-center text-white">
-        <div class="font-display text-xl font-bold">{{ site.nom }}</div>
-        <div class="mt-1.5 text-[15px] text-brume">
-          Direction stratégique · conformité juridique · gestion financière centralisée
+    <!-- Organigramme : la holding, puis ses 5 pôles reliés par des traits -->
+    <div class="flex flex-col items-center">
+      <div
+        class="relative w-full max-w-[620px] overflow-hidden rounded-2xl bg-linear-150 from-marine to-bleu-vif px-7 py-7 text-center text-white shadow-[0_20px_40px_rgba(10,42,94,.22)]"
+      >
+        <span class="step-deco step-deco-a" aria-hidden="true"></span>
+        <div class="relative flex flex-col items-center gap-3">
+          <img src="images/logo-symbole.png" width="150" height="168" alt="" class="h-12 w-auto" />
+          <div class="font-display text-xl font-bold nav:text-[22px]">{{ site.nom }}</div>
+          <ul class="m-0 flex list-none flex-wrap justify-center gap-2 p-0">
+            @for (role of roles; track role) {
+              <li
+                class="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[13px] font-semibold text-brume"
+              >
+                {{ role }}
+              </li>
+            }
+          </ul>
         </div>
       </div>
-      <ul class="m-0 flex list-none flex-wrap gap-3.5 p-0">
+
+      <!-- Trait vertical sous la holding -->
+      <span
+        class="ml-2 h-8 w-px self-start bg-champ nav:ml-0 nav:self-center"
+        aria-hidden="true"
+      ></span>
+
+      <ul
+        class="org-branches relative m-0 grid w-full list-none gap-4 p-0 nav:grid-cols-5"
+        aria-label="Pôles d’activités du groupe"
+      >
         @for (pole of poles; track pole.id) {
-          <li
-            class="min-w-0 flex-[1_1_180px] rounded-[10px] p-[18px] text-center font-display text-[15px] leading-[1.35] font-bold"
-            [class]="pole.couleur"
-          >
-            {{ pole.titre }}
+          <li class="org-branch relative">
+            <a
+              [routerLink]="pole.route"
+              [fragment]="pole.fragment"
+              class="group card relative flex h-full flex-col gap-3 overflow-hidden p-5 transition-[translate,box-shadow] duration-500 ease-doux hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(10,42,94,.12)]"
+            >
+              <span
+                class="absolute inset-x-0 top-0 h-1"
+                [class]="pole.pastille"
+                aria-hidden="true"
+              ></span>
+              <span
+                class="flex size-11 items-center justify-center rounded-[10px]"
+                [class]="pole.pastille"
+              >
+                <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
+              </span>
+              <span class="font-display text-[15px] leading-tight font-bold text-marine">{{
+                pole.titre
+              }}</span>
+              <span class="text-[13px] leading-snug text-ardoise">{{ pole.resume }}</span>
+              <span
+                class="mt-auto pt-1 font-sans text-sm font-semibold text-sapin transition-[translate] duration-500 ease-doux group-hover:translate-x-1"
+                >Découvrir →</span
+              >
+            </a>
           </li>
         }
       </ul>

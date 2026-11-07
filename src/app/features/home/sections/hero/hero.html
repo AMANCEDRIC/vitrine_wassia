@@ -8,46 +8,71 @@
         [attr.aria-label]="$index + 1 + ' sur ' + diapositives.length"
       >
         <div
-          class="mx-auto flex max-w-site flex-col gap-5 px-4 pt-10 pb-5 nav:flex-row nav:flex-wrap nav:items-center nav:gap-12 nav:px-10 nav:pt-[72px] nav:pb-12"
+          class="mx-auto flex max-w-site flex-col gap-5 px-4 pt-8 pb-4 nav:grid nav:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] nav:items-center nav:gap-10 nav:px-10 nav:pt-16 nav:pb-10 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] xl:gap-12 xl:pt-[72px]"
         >
-          <div class="flex min-w-0 flex-col gap-5 nav:flex-[1_1_520px] nav:gap-6">
-            <span class="eyebrow text-[11px] text-or-clair nav:text-xs">{{ d.eyebrow }}</span>
+          <div class="flex min-w-0 flex-col gap-5 nav:gap-6">
+            <span class="eyebrow text-or-clair">{{ d.eyebrow }}</span>
             @if (premier) {
               <h1
-                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[50px] nav:leading-[1.12]"
+                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[36px] nav:leading-[1.12] xl:text-[48px]"
               >
                 {{ d.titre }}
               </h1>
             } @else {
               <h2
-                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[46px] nav:leading-[1.14]"
+                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[34px] nav:leading-[1.14] xl:text-[44px]"
               >
                 {{ d.titre }}
               </h2>
             }
             @if (d.texteMobile) {
-              <p class="m-0 text-base leading-[1.6] text-brume nav:hidden">{{ d.texteMobile }}</p>
-              <p class="m-0 hidden max-w-[560px] text-lg leading-[1.6] text-brume nav:block">
+              <p class="m-0 text-base leading-[1.6] text-brume xl:hidden">{{ d.texteMobile }}</p>
+              <p class="m-0 hidden max-w-[560px] text-lg leading-[1.6] text-brume xl:block">
                 {{ d.texte }}
               </p>
             } @else {
-              <p class="m-0 max-w-[560px] text-base leading-[1.6] text-brume nav:text-lg">
+              <p class="m-0 max-w-[560px] text-base leading-[1.6] text-brume lg:text-lg">
                 {{ d.texte }}
               </p>
             }
-            <div class="mt-1 flex flex-col gap-2.5 nav:mt-2 nav:flex-row nav:flex-wrap nav:gap-3">
-              @for (action of d.actions; track action.label) {
+            <div
+              class="mt-1 flex flex-col gap-3 nav:mt-2 nav:flex-row nav:flex-wrap nav:items-center nav:gap-x-6 nav:gap-y-3"
+            >
+              <div class="grid grid-cols-2 gap-2.5 nav:flex nav:flex-wrap nav:gap-3">
+                @for (action of boutons(d); track action.label; let seul = $count) {
+                  <a
+                    [routerLink]="action.route"
+                    [fragment]="action.fragment"
+                    class="btn-or min-h-[52px] px-3 nav:px-6"
+                    [class.col-span-2]="seul === 1"
+                  >
+                    @if (action.labelCourt) {
+                      <span class="nav:hidden">{{ action.labelCourt }}</span>
+                      <span class="hidden nav:inline">{{ action.label }}</span>
+                    } @else {
+                      {{ action.label }}
+                    }
+                  </a>
+                }
+              </div>
+              @for (action of liens(d); track action.label) {
                 <a
                   [routerLink]="action.route"
                   [fragment]="action.fragment"
-                  [class]="action.style === 'or' ? 'btn-or' : 'btn-contour-clair'"
-                  >{{ action.label }}</a
+                  class="hero-link group inline-flex min-h-11 items-center justify-center gap-2 self-center font-display text-[15px] font-semibold text-white nav:self-auto"
                 >
+                  <span class="hero-link-texte">{{ action.label }}</span>
+                  <span
+                    class="text-or transition-[translate] duration-500 ease-doux group-hover:translate-x-1"
+                    aria-hidden="true"
+                    >→</span
+                  >
+                </a>
               }
             </div>
           </div>
           <div
-            class="relative h-[220px] min-w-0 overflow-hidden rounded-xl bg-illustration nav:h-[400px] nav:flex-[1_1_380px] nav:rounded-[14px]"
+            class="relative h-[180px] min-w-0 overflow-hidden rounded-xl bg-illustration nav:h-[300px] nav:rounded-[14px] xl:h-[380px]"
           >
             <img [ngSrc]="d.image" [alt]="d.alt" fill [priority]="premier" class="object-cover" />
           </div>
@@ -55,7 +80,7 @@
       </div>
     }
   </div>
-  <div class="hero-dots flex justify-center gap-2 pb-8" aria-hidden="true">
+  <div class="hero-dots flex justify-center gap-2 pb-6 nav:pb-7" aria-hidden="true">
     @for (d of diapositives; track d.titre) {
       <span></span>
     }

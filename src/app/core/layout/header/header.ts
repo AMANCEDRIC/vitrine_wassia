@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  afterNextRender,
   inject,
   signal,
   viewChild,
@@ -30,6 +31,8 @@ const DELAI_FERMETURE_MS = 250;
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'sticky top-0 z-30 block',
+    // Menu mobile ouvert : l'en-tête (qui le contient) passe au-dessus du bouton flottant.
+    '[style.z-index]': 'menuOpen() ? 55 : null',
     '(document:click)': 'clicDocument($event)',
     '(document:keydown.escape)': 'fermerActivites(true)',
   },
@@ -50,11 +53,14 @@ export class Header {
   };
 
   protected readonly menuOpen = signal(false);
+  /** En-tête compacté une fois la page défilée (surtout utile sur mobile). */
+  protected readonly compact = signal(false);
   /** Panneau « Nos activités » ouvert. */
   protected readonly activitesOuvert = signal(false);
 
   private readonly menuActivites = viewChild<ElementRef<HTMLElement>>('menuActivites');
   private readonly declencheur = viewChild<ElementRef<HTMLButtonElement>>('declencheur');
+  private readonly boutonMenu = viewChild<ElementRef<HTMLButtonElement>>('boutonMenu');
   private minuteur?: ReturnType<typeof setTimeout>;
   private ouvertParSurvol = false;
 
@@ -62,10 +68,27 @@ export class Header {
     const abonnement = inject(Router)
       .events.pipe(filter((event) => event instanceof NavigationStart))
       .subscribe(() => this.fermerActivites());
-    inject(DestroyRef).onDestroy(() => {
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(() => {
       abonnement.unsubscribe();
       clearTimeout(this.minuteur);
     });
+
+    afterNextRender(() => {
+      const mesurer = (): void => this.compact.set(window.scrollY > 40);
+      mesurer();
+      window.addEventListener('scroll', mesurer, { passive: true });
+      destroyRef.onDestroy(() => window.removeEventListener('scroll', mesurer));
+    });
+  }
+
+  /** Ferme le menu mobile et rend le focus au bouton qui l'a ouvert. */
+  protected fermerMenu(): void {
+    if (!this.menuOpen()) {
+      return;
+    }
+    this.menuOpen.set(false);
+    this.boutonMenu()?.nativeElement.focus({ preventScroll: true });
   }
 
   protected survolActivites(entree: boolean): void {
