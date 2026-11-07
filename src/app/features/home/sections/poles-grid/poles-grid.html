@@ -1,0 +1,76 @@
+<!-- Engagements -->
+<section class="border-b border-trait bg-white" aria-label="Nos engagements">
+  <div class="container-site flex flex-wrap gap-8 py-11">
+    @for (e of engagements; track e.titre) {
+      <div class="flex min-w-0 flex-[1_1_220px] flex-col gap-2">
+        <span class="font-display text-xl font-bold text-sapin">{{ e.titre }}</span>
+        <span class="text-[15px] leading-[1.55] text-ardoise">{{ e.texte }}</span>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Les 5 pôles -->
+<section id="poles">
+  <div class="container-site flex flex-col gap-6 py-12 nav:gap-10 nav:py-20">
+    <div class="flex max-w-[720px] flex-col gap-2.5 nav:gap-3">
+      <span class="eyebrow text-[11px] text-sapin nav:text-xs">Nos activités</span>
+      <h2 class="section-title">Cinq pôles, un seul groupe</h2>
+      <p class="section-lead hidden nav:block">
+        Chaque pôle a sa page, son interlocuteur et son formulaire de demande.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-6 nav:flex-row nav:flex-wrap">
+      @for (pole of poles; track pole.id) {
+        <a
+          [routerLink]="pole.route"
+          [fragment]="pole.fragment"
+          class="card flex min-w-0 items-center gap-3.5 p-[18px] ease-doux nav:flex-[1_1_340px] nav:flex-col nav:items-stretch nav:p-7 nav:transition-[translate,transform,box-shadow] nav:duration-500 nav:hover:-translate-y-1 nav:hover:shadow-[0_14px_30px_rgba(10,42,94,.12)]"
+        >
+          <span
+            class="flex size-12 flex-none items-center justify-center rounded-[10px]"
+            [class]="pole.pastille"
+          >
+            <app-icon [name]="pole.icone" [color]="pole.traitIcone" />
+          </span>
+          <span class="flex min-w-0 flex-1 flex-col gap-1 nav:gap-3.5">
+            <span class="font-display text-base leading-[1.3] font-bold text-marine nav:hidden">{{
+              pole.titreCourt
+            }}</span>
+            <h3
+              class="m-0 hidden font-display text-[19px] leading-[1.3] font-bold text-marine nav:block"
+            >
+              {{ pole.titre }}
+            </h3>
+            <span class="text-sm leading-normal text-ardoise nav:hidden">{{
+              pole.resumeCourt
+            }}</span>
+            <span class="hidden text-[15px] leading-[1.55] text-ardoise nav:block">{{
+              pole.resume
+            }}</span>
+          </span>
+          <app-icon name="chevron" [size]="20" color="var(--color-ardoise)" class="nav:hidden" />
+          <span class="mt-auto hidden font-sans text-[15px] font-semibold text-sapin nav:block"
+            >Voir le pôle →</span
+          >
+        </a>
+      }
+
+      <div
+        class="hidden min-w-0 flex-[1_1_340px] flex-col justify-center gap-3.5 rounded-xl bg-marine p-7 text-white nav:flex"
+      >
+        <h3 class="m-0 font-display text-[19px] leading-[1.3] font-bold">
+          Vous ne savez pas par où commencer ?
+        </h3>
+        <p class="m-0 text-[15px] leading-[1.55] text-brume">
+          Dites-nous qui vous êtes : bailleur, propriétaire de véhicule, commerçant, voyageur ou
+          partenaire.
+        </p>
+        <a routerLink="/" fragment="contact" class="btn-or mt-1.5 self-start px-5 py-[13px] text-sm"
+          >Nous écrire</a
+        >
+      </div>
+    </div>
+  </div>
+</section>

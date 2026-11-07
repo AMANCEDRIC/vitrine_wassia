@@ -1,0 +1,53 @@
+<div class="flex items-center justify-between border-b border-trait bg-white px-4 py-3">
+  <img
+    src="images/logo.png"
+    width="479"
+    height="202"
+    [alt]="site.nomLogo"
+    class="block h-[60px] w-auto"
+  />
+  <button
+    type="button"
+    class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white"
+    aria-label="Fermer le menu"
+    (click)="close()"
+  >
+    <app-icon name="fermer" color="var(--color-marine)" />
+  </button>
+</div>
+
+<nav aria-label="Menu principal" class="flex flex-col bg-white">
+  @for (link of links; track link.label) {
+    <a
+      [routerLink]="link.route"
+      [fragment]="link.fragment"
+      (click)="close()"
+      class="flex min-h-[52px] items-center border-b border-illustration px-4 font-display text-[17px] font-bold text-marine"
+      >{{ link.label }}</a
+    >
+    @if (link.poles) {
+      @for (pole of poles; track pole.id) {
+        <a
+          [routerLink]="pole.route"
+          [fragment]="pole.fragment"
+          (click)="close()"
+          class="flex min-h-[52px] items-center border-b border-illustration px-8 font-sans text-[15px] font-semibold text-ardoise"
+          >{{ pole.titreCourt }}</a
+        >
+      }
+    }
+  }
+</nav>
+
+<div class="flex flex-col gap-2.5 px-4 py-5">
+  @if (espaceAgents.url; as url) {
+    <a [href]="url" class="btn-contour-marine py-[15px] text-[15px] font-bold">Espace agents</a>
+  }
+  <a
+    [routerLink]="devenirMembre.route"
+    [fragment]="devenirMembre.fragment"
+    (click)="close()"
+    class="btn-sapin py-4 text-[15px] font-bold"
+    >Devenir membre</a
+  >
+</div>

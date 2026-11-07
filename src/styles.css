@@ -1,0 +1,535 @@
+@import 'tailwindcss';
+
+/*
+ * Identité visuelle : charte graphique GROUPE WASSIA v1.0 + valeurs de la maquette.
+ * Chaque couleur génère ses classes (bg-marine, text-or, border-trait…).
+ */
+@theme {
+  /* Couleurs de la charte */
+  --color-marine: #0a2a5e;
+  --color-roi: #001a3d;
+  --color-nuit: #000d1f;
+  --color-or: #d4af37;
+  --color-or-clair: #f5d76e;
+  --color-emeraude: #00a86b;
+  --color-sapin: #007a4d;
+  --color-vert-fonce: #004d30;
+
+  /* Couleurs d'interface de la maquette */
+  --color-encre: #0b1b33; /* texte principal */
+  --color-ardoise: #4a5878; /* texte secondaire */
+  --color-brume: #c9d4ea; /* texte secondaire sur fond sombre */
+  --color-fond: #f4f6fa;
+  --color-trait: #dce2ec; /* bordures */
+  --color-champ: #b8c2d6; /* bordures des champs */
+  --color-onglet: #eef2f9;
+  --color-illustration: #e4e9f2;
+  --color-bleu-vif: #1c4c99;
+  --color-ligne-sombre: #1c4079;
+  --color-puce: #5e7bb0;
+  --color-encre-douce: #1f2f4d; /* paragraphes longs */
+  --color-or-fonce: #8a6d00; /* or lisible sur fond blanc */
+  --color-succes: #00573a;
+  --color-succes-fond: #e3f5ec;
+  --color-avant: #c9d1e0;
+  --color-avant-texte: #2e3b57;
+
+  /* Polices */
+  --font-sans: 'Open Sans', system-ui, sans-serif;
+  --font-display: 'Poppins', sans-serif;
+
+  /* Largeur du contenu et point de rupture ordinateur / mobile de la maquette */
+  --container-site: 1200px;
+  --breakpoint-nav: 53.75rem; /* 860px */
+  --breakpoint-xs: 32.5rem; /* 520px */
+
+  /* Animations : courbe douce et durée par défaut des transitions */
+  --ease-doux: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 450ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-fond font-sans text-encre;
+    margin: 0;
+  }
+
+  [id] {
+    scroll-margin-top: 96px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-or);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn {
+  @apply inline-flex cursor-pointer items-center justify-center rounded-lg text-center font-display transition-[translate,transform,box-shadow,background-color,color] duration-500 ease-doux;
+}
+
+@layer components {
+  /* Conteneur de 1200px avec les marges latérales de la maquette (40 / 20 / 16 px) */
+  .container-site {
+    @apply mx-auto w-full max-w-site px-4 xs:px-5 nav:px-10;
+  }
+
+  /* Petit titre au-dessus des titres de section */
+  .eyebrow {
+    @apply font-sans text-xs leading-none font-semibold tracking-[.14em] uppercase;
+  }
+
+  .section-title {
+    @apply m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-4xl;
+  }
+
+  .section-lead {
+    @apply m-0 text-[17px] leading-[1.6] text-ardoise;
+  }
+
+  /* Boutons (base « btn » définie plus bas avec @utility) */
+  .btn-or {
+    @apply btn bg-or px-6 py-4 text-[15px] font-bold text-marine hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(0,0,0,.22)];
+  }
+  .btn-sapin {
+    @apply btn bg-sapin px-[18px] py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(0,0,0,.22)];
+  }
+  .btn-contour-clair {
+    @apply btn border-[1.5px] border-white px-[22px] py-[15px] text-[15px] font-semibold text-white;
+  }
+  .btn-contour-marine {
+    @apply btn border-[1.5px] border-marine px-[18px] py-[11px] text-sm font-semibold text-marine;
+  }
+
+  /* Champs de formulaire */
+  .field-label {
+    @apply font-sans text-sm font-semibold;
+  }
+  .field-input {
+    @apply min-h-12 w-full min-w-0 rounded-lg border border-champ bg-white px-3 py-[13px] font-sans text-base text-encre nav:min-h-0 nav:text-[15px];
+  }
+  .field-input[aria-invalid='true'] {
+    @apply border-red-700;
+  }
+  .field-error {
+    @apply text-[13px] text-red-700;
+  }
+
+  /* Flèches du carrousel des étapes */
+  .carousel-arrow {
+    @apply absolute bottom-[26px] size-11 cursor-pointer rounded-full bg-white/16 text-center font-display text-xl leading-11 font-bold text-white transition-colors hover:bg-or hover:text-marine;
+  }
+
+  /* Flèches du carrousel des actualités */
+  .news-arrow {
+    @apply flex size-11 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-marine bg-white font-display text-xl leading-none font-bold text-marine transition-colors hover:bg-marine hover:text-white;
+  }
+
+  /* Carte blanche bordée (pôles, services, actualités) */
+  .card {
+    @apply rounded-xl border border-trait bg-white;
+  }
+  .card-hover {
+    @apply transition-[translate,transform,box-shadow] duration-500 ease-doux hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(10,42,94,.12)];
+  }
+}
+
+/* ---------- Animations de la maquette ---------- */
+
+/* Apparition progressive au défilement (classes posées par RevealService) */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-init.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Écran de chargement */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 50% 40%,
+    var(--color-bleu-vif),
+    var(--color-marine) 45%,
+    var(--color-nuit)
+  );
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+.page-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Secours si JavaScript ne se charge pas : masqué après 4 s */
+.page-loader.is-first:not(.is-hidden) {
+  animation: loader-secours 0.5s ease 4s forwards;
+}
+@keyframes loader-secours {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.loader-ring {
+  animation: loader-tourne 1.1s linear infinite;
+}
+@keyframes loader-tourne {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader-logo img {
+  animation: loader-pulse 1.6s ease-in-out infinite;
+}
+@keyframes loader-pulse {
+  50% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+}
+.loader-bar span {
+  animation: loader-barre 1.2s ease-in-out infinite;
+}
+@keyframes loader-barre {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+/* Bannière d'accueil : 3 diapositives, 7 s chacune, pause au survol */
+.hero-slides {
+  display: grid;
+  overflow: hidden;
+}
+.hero-slides > .hero-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  animation: hero-slide 21s infinite;
+}
+.hero-slides > .hero-slide:nth-child(2) {
+  animation-delay: 7s;
+}
+.hero-slides > .hero-slide:nth-child(3) {
+  animation-delay: 14s;
+}
+@keyframes hero-slide {
+  0% {
+    opacity: 0;
+    visibility: visible;
+    transform: translateX(28px);
+  }
+  4% {
+    opacity: 1;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  34% {
+    opacity: 0;
+    visibility: visible;
+    transform: translateX(-28px);
+  }
+  35%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.hero-dots span {
+  height: 8px;
+  width: 10px;
+  border-radius: 4px;
+  background: var(--color-puce);
+  animation: hero-dot 21s infinite;
+}
+.hero-dots span:nth-child(2) {
+  animation-delay: 7s;
+}
+.hero-dots span:nth-child(3) {
+  animation-delay: 14s;
+}
+@keyframes hero-dot {
+  0%,
+  33% {
+    background: var(--color-or);
+    width: 30px;
+  }
+  34%,
+  100% {
+    background: var(--color-puce);
+    width: 10px;
+  }
+}
+.hero:hover .hero-slide,
+.hero:hover .hero-dots span,
+.hero:focus-within .hero-slide,
+.hero:focus-within .hero-dots span {
+  animation-play-state: paused;
+}
+
+/* Liens du menu principal : soulignement doré qui se déploie au survol */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.45s var(--ease-doux);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -2px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-or);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-doux);
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-sapin);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Panneau « Nos activités » : les pôles apparaissent l'un après l'autre */
+#panneau-activites .mega-item {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.5s var(--ease-doux),
+    transform 0.5s var(--ease-doux);
+  transition-delay: var(--mega-delay, 0ms);
+}
+#panneau-activites.is-open .mega-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* Liens du pied de page : léger glissement au survol */
+footer a {
+  transition:
+    color 0.4s var(--ease-doux),
+    translate 0.5s var(--ease-doux);
+}
+footer nav a:hover {
+  translate: 4px 0;
+}
+
+/* Carrousel « La carte membre à QR code » */
+.step-progress {
+  width: 0;
+  animation: step-progress 6s linear forwards;
+}
+.steps-carousel.is-paused .step-progress {
+  animation-play-state: paused;
+}
+@keyframes step-progress {
+  to {
+    width: 100%;
+  }
+}
+.step-slide .step-anim,
+.step-slide .step-icon {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.4s var(--ease-doux),
+    transform 0.4s var(--ease-doux);
+}
+.step-slide.is-active .step-anim {
+  animation: step-in 0.8s var(--ease-doux) both;
+  animation-delay: calc(250ms + var(--i, 0) * 110ms);
+}
+.step-slide.is-active .step-icon {
+  animation: step-icon 0.9s var(--ease-doux) 0.15s both;
+}
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes step-icon {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Les traits de l'icône se dessinent */
+.step-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.step-slide.is-active .step-draw {
+  animation: step-draw 1.3s var(--ease-doux) 0.35s forwards;
+}
+@keyframes step-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.step-deco {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.step-deco-a {
+  width: 280px;
+  height: 280px;
+  top: -100px;
+  right: -90px;
+  background: radial-gradient(circle, rgba(245, 215, 110, 0.18), transparent 70%);
+  animation: step-float 9s ease-in-out infinite;
+}
+.step-deco-b {
+  width: 220px;
+  height: 220px;
+  bottom: -130px;
+  left: 40%;
+  background: radial-gradient(circle, rgba(0, 168, 107, 0.22), transparent 70%);
+  animation: step-float 11s ease-in-out infinite reverse;
+}
+@keyframes step-float {
+  50% {
+    transform: translate(-20px, 18px) scale(1.08);
+  }
+}
+
+/* Carte membre : retournement en 3D */
+.member-flip {
+  transform-style: preserve-3d;
+  transition: transform 1.1s var(--ease-doux);
+}
+.member-flip.is-verso {
+  transform: rotateY(180deg);
+}
+.member-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.member-face-verso {
+  transform: rotateY(180deg);
+}
+
+/* Carrousel des actualités : léger zoom de l'image au survol */
+.news-image {
+  transition: transform 0.9s var(--ease-doux);
+}
+.news-card:hover .news-image {
+  transform: scale(1.04);
+}
+
+/* Bandeau défilant de la barre utilitaire */
+.ticker {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 40px,
+    #000 calc(100% - 40px),
+    transparent
+  );
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 22s linear infinite;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-slides > .hero-slide,
+  .hero-dots span,
+  .loader-ring,
+  .loader-logo img,
+  .loader-bar span {
+    animation: none !important;
+  }
+  .step-progress,
+  .step-slide.is-active .step-anim,
+  .step-slide.is-active .step-icon,
+  .step-slide.is-active .step-draw,
+  .step-deco {
+    animation: none !important;
+  }
+  .step-draw {
+    stroke-dashoffset: 0;
+  }
+  .reveal-init,
+  .step-slide .step-anim,
+  .step-slide .step-icon,
+  #panneau-activites .mega-item {
+    opacity: 1;
+    transform: none;
+  }
+  .hero-slides > .hero-slide:first-child {
+    opacity: 1;
+    visibility: visible;
+  }
+  * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,100 @@
+<app-page-hero
+  eyebrow="À propos"
+  titre="Bâtir un avenir solide, sécurisé et inclusif"
+  [intro]="'L’histoire, la vision et la gouvernance du ' + site.nom + '.'"
+  [large]="true"
+/>
+
+<!-- Mot du Directeur Général (texte à faire valider par son signataire) -->
+<section>
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:gap-14 nav:py-20">
+    <div
+      class="relative h-[300px] min-w-0 flex-[1_1_320px] overflow-hidden rounded-[14px] bg-illustration nav:h-[420px]"
+    >
+      <img
+        ngSrc="images/illustrations/portrait-dg.svg"
+        alt="Illustration : portrait du Directeur général"
+        fill
+        class="object-cover"
+      />
+    </div>
+    <div class="flex min-w-0 flex-[1.4_1_460px] flex-col gap-5">
+      <span class="eyebrow text-sapin">Le mot du Directeur Général</span>
+      <blockquote
+        class="m-0 font-display text-[22px] leading-[1.35] font-semibold text-marine nav:text-[26px]"
+      >
+        Nous portons la gestion, vous récoltez la sérénité.
+      </blockquote>
+      <p class="m-0 text-[17px] leading-[1.7] text-encre-douce">
+        En créant le {{ site.nom }}, nous avons voulu bâtir un modèle économique fondé sur la
+        confiance et la garantie. Qu’il s’agisse de permettre à un propriétaire d’encaisser ses
+        loyers chaque mois, d’assurer à un investisseur automobile une recette journalière fixe
+        malgré les pannes, ou d’accompagner les citoyens dans leurs projets d’épargne et de mobilité
+        internationale, WASSIA se veut un bouclier et un accélérateur de réussite.
+      </p>
+      <span class="font-sans text-[15px] font-semibold text-ardoise"
+        >La Direction Générale, {{ site.nom }}</span
+      >
+    </div>
+  </div>
+</section>
+
+<!-- Trois engagements -->
+<section class="border-y border-trait bg-white">
+  <div class="container-site flex flex-col gap-10 py-12 nav:py-20">
+    <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
+      Nos trois engagements
+    </h2>
+    <div class="flex flex-wrap gap-6">
+      @for (e of engagements; track e.titre) {
+        <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-3 rounded-xl bg-fond p-7">
+          <h3 class="m-0 font-display text-xl font-bold text-sapin">{{ e.titre }}</h3>
+          <p class="m-0 text-[15px] leading-[1.65] text-encre-douce">{{ e.texte }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Gouvernance -->
+<section>
+  <div class="container-site flex flex-col gap-9 py-12 nav:py-20">
+    <div class="flex max-w-[760px] flex-col gap-3">
+      <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
+        Gouvernance : une holding animatrice
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Le groupe assure la direction stratégique, le contrôle de conformité juridique et la gestion
+        financière centralisée de ses pôles d’activités.
+      </p>
+    </div>
+    <div class="flex flex-col items-stretch gap-5">
+      <div class="rounded-xl bg-marine px-7 py-6 text-center text-white">
+        <div class="font-display text-xl font-bold">{{ site.nom }}</div>
+        <div class="mt-1.5 text-[15px] text-brume">
+          Direction stratégique · conformité juridique · gestion financière centralisée
+        </div>
+      </div>
+      <ul class="m-0 flex list-none flex-wrap gap-3.5 p-0">
+        @for (pole of poles; track pole.id) {
+          <li
+            class="min-w-0 flex-[1_1_180px] rounded-[10px] p-[18px] text-center font-display text-[15px] leading-[1.35] font-bold"
+            [class]="pole.couleur"
+          >
+            {{ pole.titre }}
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Appel à l'action -->
+<section class="bg-marine text-white">
+  <div class="container-site flex flex-wrap items-center justify-between gap-6 py-12 nav:py-16">
+    <h2 class="m-0 max-w-[640px] font-display text-[26px] leading-[1.25] font-bold nav:text-[30px]">
+      Parlons de votre projet avec le pôle qui vous correspond.
+    </h2>
+    <a routerLink="/" fragment="contact" class="btn-or px-[26px] text-base">Nous contacter</a>
+  </div>
+</section>

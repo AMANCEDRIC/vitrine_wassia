@@ -1,0 +1,169 @@
+<header class="border-b border-trait bg-white">
+  <div
+    class="relative mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-4 py-3 nav:px-10 nav:py-4"
+  >
+    <a routerLink="/" class="block" [attr.aria-label]="site.nomLogo + ' — accueil'">
+      <img
+        src="images/logo.png"
+        width="479"
+        height="202"
+        [alt]="site.nomLogo"
+        class="block h-[60px] w-auto transition-transform duration-500 ease-doux hover:scale-[1.02] nav:h-16"
+      />
+    </a>
+
+    <!-- Menu ordinateur -->
+    <nav
+      aria-label="Menu principal"
+      class="hidden flex-wrap items-center gap-x-[30px] gap-y-1.5 font-sans text-[15px] font-semibold text-marine nav:flex"
+    >
+      @for (link of links; track link.label) {
+        @if (link.poles) {
+          <div
+            #menuActivites
+            (mouseenter)="survolActivites(true)"
+            (mouseleave)="survolActivites(false)"
+            (focusout)="focusSortant($event)"
+          >
+            <button
+              #declencheur
+              type="button"
+              class="nav-link flex cursor-pointer items-center gap-1.5"
+              [class.is-active]="activitesOuvert()"
+              aria-controls="panneau-activites"
+              [attr.aria-expanded]="activitesOuvert()"
+              (click)="basculerActivites()"
+            >
+              {{ link.label }}
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                class="transition-transform duration-500 ease-doux"
+                [class.rotate-180]="activitesOuvert()"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+
+            <!-- Panneau des pôles, centré sous l'en-tête. Le pt-3 garde le survol actif entre le lien et le panneau. -->
+            <div
+              id="panneau-activites"
+              class="absolute top-full left-1/2 z-40 w-[min(820px,calc(100vw-48px))] -translate-x-1/2 pt-3 transition-[opacity,translate,visibility] duration-500 ease-doux ease-out"
+              [class]="
+                activitesOuvert()
+                  ? 'is-open visible translate-y-0 opacity-100'
+                  : 'pointer-events-none invisible -translate-y-2 opacity-0'
+              "
+            >
+              <div
+                class="grid grid-cols-[1fr_250px] overflow-hidden rounded-2xl border border-trait bg-white shadow-[0_24px_48px_rgba(10,42,94,.18)]"
+              >
+                <ul class="m-0 grid list-none grid-cols-2 gap-1 p-3">
+                  @for (pole of poles; track pole.id; let i = $index) {
+                    <li class="mega-item" [style.--mega-delay]="i * 40 + 'ms'">
+                      <a
+                        [routerLink]="pole.route"
+                        [fragment]="pole.fragment"
+                        class="group/pole flex items-start gap-3.5 rounded-xl p-3 transition-colors duration-500 ease-doux hover:bg-fond"
+                      >
+                        <span
+                          class="flex size-11 flex-none items-center justify-center rounded-[10px] transition-transform duration-500 ease-doux group-hover/pole:scale-105 group-hover/pole:-rotate-3"
+                          [class]="pole.pastille"
+                        >
+                          <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
+                        </span>
+                        <span class="flex min-w-0 flex-col gap-1">
+                          <span
+                            class="flex items-center gap-1.5 font-display text-[15px] leading-tight font-bold text-marine"
+                          >
+                            {{ pole.titreCourt }}
+                            <span
+                              class="text-sapin opacity-0 transition-[opacity,translate] duration-500 ease-doux group-hover/pole:translate-x-1 group-hover/pole:opacity-100"
+                              aria-hidden="true"
+                              >→</span
+                            >
+                          </span>
+                          <span class="text-[13px] leading-snug font-normal text-ardoise">{{
+                            pole.resumeCourt
+                          }}</span>
+                        </span>
+                      </a>
+                    </li>
+                  }
+                </ul>
+
+                <div
+                  class="flex flex-col justify-between gap-5 bg-linear-160 from-marine to-roi p-6 text-white"
+                >
+                  <div class="flex flex-col gap-2.5">
+                    <span class="eyebrow text-or-clair">Nos activités</span>
+                    <p class="m-0 font-display text-lg leading-snug font-bold">
+                      Cinq pôles, un seul groupe.
+                    </p>
+                    <p class="m-0 text-[13px] leading-relaxed font-normal text-brume">
+                      Vous ne savez pas par où commencer ? Dites-nous qui vous êtes, nous vous
+                      orientons vers le bon pôle.
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <a routerLink="/" fragment="poles" class="btn-or px-4 py-3 text-sm"
+                      >Voir tous les pôles</a
+                    >
+                    <a
+                      routerLink="/"
+                      fragment="contact"
+                      class="btn-contour-clair px-4 py-[11px] text-sm transition-colors hover:bg-white hover:text-marine"
+                      >Nous écrire</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <a
+            [routerLink]="link.route"
+            [fragment]="link.fragment"
+            [routerLinkActive]="link.fragment ? '' : 'is-active'"
+            [routerLinkActiveOptions]="exactPath"
+            [ariaCurrentWhenActive]="link.fragment ? undefined : 'page'"
+            class="nav-link"
+            >{{ link.label }}</a
+          >
+        }
+      }
+    </nav>
+
+    <div class="hidden flex-wrap gap-2.5 nav:flex">
+      @if (espaceAgents.url; as url) {
+        <a [href]="url" class="btn-contour-marine">Espace agents</a>
+      }
+      <a [routerLink]="devenirMembre.route" [fragment]="devenirMembre.fragment" class="btn-sapin"
+        >Devenir membre</a
+      >
+    </div>
+
+    <!-- Bouton du menu mobile -->
+    <button
+      type="button"
+      class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white transition-colors hover:bg-fond nav:hidden"
+      aria-label="Ouvrir le menu"
+      aria-controls="menu-mobile"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="menuOpen.set(true)"
+    >
+      <app-icon name="menu" color="var(--color-marine)" />
+    </button>
+  </div>
+</header>
+
+@if (menuOpen()) {
+  <app-mobile-menu (closed)="menuOpen.set(false)" />
+}

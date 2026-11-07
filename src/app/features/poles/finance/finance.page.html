@@ -1,0 +1,167 @@
+<app-page-hero
+  eyebrow="Nos activités · Pôle 1"
+  titre="L’inclusion financière au cœur de votre croissance"
+  intro="Intermédiation bancaire sécurisée, épargne communautaire numérisée et solidarité mutualisée."
+>
+  <a routerLink="." fragment="contact" class="btn-or px-5 py-[13px] text-sm">Devenir membre</a>
+  <a routerLink="." fragment="carte" class="btn-contour-clair px-[19px] py-3 text-sm"
+    >Comment fonctionne la carte</a
+  >
+</app-page-hero>
+
+<app-pole-quote>
+  Sécurisez votre épargne, accédez à des solutions de financement structurées et participez à une
+  économie solidaire et collaborative.
+</app-pole-quote>
+
+<!-- Trois piliers. Consigne client : aucun nom de banque tant que les accords ne sont pas signés. -->
+<section class="bg-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Trois piliers</span>
+      <h2 class="section-title nav:text-[32px]">Ce que WASSIA vous apporte</h2>
+    </div>
+    <div class="flex flex-wrap gap-6">
+      <app-service-card titre="Intermédiation en opérations de banque (IOB)">
+        <p class="m-0 text-[15px] leading-[1.65] text-ardoise">
+          En tant qu’intermédiaire en opérations de banque, WASSIA vous accompagne et vous oriente
+          vers des établissements bancaires agréés pour faciliter votre accès au crédit, à l’épargne
+          et aux services bancaires.
+        </p>
+        <p class="m-0 mt-3 text-[15px] leading-[1.65] text-ardoise">
+          <b class="text-marine">Transparence :</b> chaque versement est enregistré, tracé et
+          confirmé par SMS.
+        </p>
+      </app-service-card>
+      <app-service-card titre="Tontines numérisées et épargne communautaire">
+        <p class="m-0 text-[15px] leading-[1.65] text-ardoise">
+          La tontine traditionnelle modernisée : des programmes structurés, une carte
+          d’identification à QR code pour les commerçants, artisans et entrepreneurs.
+        </p>
+      </app-service-card>
+      <app-service-card titre="Solidarité et assistance sociale">
+        <p class="m-0 text-[15px] leading-[1.65] text-ardoise">
+          Programmes d’entraide adossés aux réseaux d’épargne : prise en charge santé et famille,
+          distribution de kits scolaires.
+        </p>
+      </app-service-card>
+    </div>
+  </div>
+</section>
+
+<!-- Statut IOB et partenaires bancaires -->
+<section id="statut">
+  <div class="container-site py-12 nav:py-[72px]">
+    <div
+      class="grid overflow-hidden rounded-2xl border border-trait bg-white shadow-[0_14px_30px_rgba(10,42,94,.08)] nav:grid-cols-[1.3fr_1fr]"
+    >
+      <div class="flex flex-col gap-4 p-7 nav:p-10">
+        <span
+          class="inline-flex items-center gap-2 self-start rounded-full bg-succes-fond px-3.5 py-1.5 font-sans text-xs font-semibold tracking-[.08em] text-succes uppercase"
+        >
+          <app-icon name="check" [size]="14" color="var(--color-succes)" />
+          Notre statut
+        </span>
+        <h2 class="section-title nav:text-[30px]">Intermédiaire en opérations de banque (IOB)</h2>
+        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+          WASSIA exerce une activité d’intermédiation en opérations de banque au service de
+          l’inclusion financière : épargne communautaire par carte membre, accompagnement des
+          commerçants, artisans et entrepreneurs vers le crédit et les services bancaires.
+        </p>
+        <p class="m-0 text-[13px] leading-[1.6] text-ardoise">{{ site.mentionIob }}</p>
+      </div>
+
+      <div class="flex flex-col gap-4 bg-fond p-7 nav:border-l nav:border-trait nav:p-10">
+        <span class="eyebrow text-sapin">Partenaires bancaires</span>
+        <p class="m-0 font-display text-lg leading-snug font-bold text-marine">
+          {{ partenariat }}
+        </p>
+        @if (partenaire.nom; as nom) {
+          <div class="rounded-xl border border-trait bg-white p-5">
+            <div class="font-display text-base font-bold text-marine">{{ nom }}</div>
+            @if (partenaire.convention; as convention) {
+              <div class="mt-1 text-sm text-ardoise">Convention n° {{ convention }}</div>
+            }
+          </div>
+        } @else {
+          <!-- Emplacement réservé au partenaire : nom et numéro de convention ajoutés après signature -->
+          <div
+            class="min-h-[96px] rounded-xl border-2 border-dashed border-champ"
+            aria-hidden="true"
+          ></div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- La carte membre -->
+<section id="carte">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">La carte membre</span>
+      <h2 class="section-title nav:text-[32px]">
+        Épargner avec une carte et un agent près de chez vous
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Pas besoin de compte bancaire ni de savoir écrire : l’agent et la carte font le travail.
+      </p>
+    </div>
+    <ol class="m-0 flex list-none flex-wrap gap-8 p-0">
+      @for (etape of etapes; track etape.titre) {
+        <li class="flex min-w-0 flex-[1_1_280px] items-start gap-4">
+          <span
+            class="size-11 flex-none rounded-full bg-sapin text-center font-display text-lg leading-11 font-bold text-white"
+            >{{ $index + 1 }}</span
+          >
+          <div>
+            <h3 class="m-0 mb-1.5 font-display text-lg font-bold text-marine">{{ etape.titre }}</h3>
+            <p class="m-0 text-[15px] leading-[1.6] text-ardoise">{{ etape.texte }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- Crédit (montants et durées à confirmer par le client) -->
+<section class="bg-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+    <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-3.5">
+      <div class="flex max-w-[820px] flex-col gap-3">
+        <span class="eyebrow text-sapin">Crédit</span>
+        <h2 class="section-title nav:text-[32px]">Un crédit qui part de votre épargne</h2>
+        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+          Des prêts de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois. Une épargne préalable est
+          nécessaire. Les conditions détaillées vous sont données par votre agent avant toute
+          demande.
+        </p>
+      </div>
+      <p class="m-0 text-[13px] leading-[1.6] text-ardoise">{{ site.mentionIob }}</p>
+    </div>
+    <div
+      class="relative h-[300px] min-w-0 flex-[1_1_420px] overflow-hidden rounded-[14px] bg-illustration"
+    >
+      <img
+        ngSrc="images/illustrations/carte-membre.svg"
+        alt="Illustration : commerçante avec sa carte membre à QR code"
+        fill
+        class="object-cover"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Formulaire -->
+<section id="contact" class="bg-marine text-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+    <h2
+      class="m-0 flex-[1_1_380px] font-display text-[26px] leading-[1.2] font-bold nav:text-[32px]"
+    >
+      Devenez membre : un agent vous contacte
+    </h2>
+    <div class="min-w-0 flex-[1_1_460px]">
+      <app-contact-form [config]="formulaire" idPrefix="membre" />
+    </div>
+  </div>
+</section>

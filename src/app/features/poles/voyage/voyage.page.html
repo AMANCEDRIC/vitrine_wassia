@@ -1,0 +1,74 @@
+<app-page-hero
+  eyebrow="Nos activités · Pôle 4"
+  titre="Ouvrez le monde avec le Groupe WASSIA"
+  intro="Billetterie toutes destinations, assistance consulaire sur mesure et conseil en mobilité internationale."
+>
+  <a routerLink="." fragment="contact" class="btn-or px-5 py-[13px] text-sm">Demander un devis</a>
+  <a routerLink="." fragment="services" class="btn-contour-clair px-[19px] py-3 text-sm"
+    >Voir nos services</a
+  >
+</app-page-hero>
+
+<app-pole-quote>
+  De l’obtention de votre visa à votre billet d’avion, nous simplifions chaque étape de votre
+  mobilité, pour vos voyages d’affaires ou de loisirs.
+</app-pole-quote>
+
+<section id="services" class="bg-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-or-fonce">Quatre services</span>
+      <h2 class="section-title nav:text-[32px]">Tout pour voyager sans stress</h2>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      @for (s of services; track s.titre) {
+        <app-service-card [titre]="s.titre" accent="var(--color-or)">
+          <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ s.texte }}</p>
+        </app-service-card>
+      }
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-or-fonce">Visas et e-visas</span>
+      <h2 class="section-title nav:text-[32px]">Destinations où nous vous accompagnons</h2>
+    </div>
+    <ul class="m-0 flex list-none flex-wrap gap-2.5 p-0">
+      @for (pays of destinations; track pays) {
+        <li
+          class="rounded-[20px] border border-champ bg-white px-4 py-[9px] font-sans text-sm font-semibold text-marine"
+        >
+          {{ pays }}
+        </li>
+      }
+    </ul>
+    <p class="m-0 text-sm text-ardoise">
+      Et d’autres pays africains à réglementation particulière. Chaque dossier est étudié avant
+      dépôt.
+    </p>
+    <div class="relative h-[240px] overflow-hidden rounded-[14px] bg-illustration">
+      <img
+        ngSrc="images/illustrations/voyage.svg"
+        alt="Illustration : avion, valises et passeport"
+        fill
+        class="object-cover"
+      />
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="bg-marine text-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+    <h2
+      class="m-0 flex-[1_1_380px] font-display text-[26px] leading-[1.2] font-bold nav:text-[32px]"
+    >
+      Parlez-nous de votre voyage
+    </h2>
+    <div class="min-w-0 flex-[1_1_460px]">
+      <app-contact-form [config]="formulaire" idPrefix="voyage" />
+    </div>
+  </div>
+</section>

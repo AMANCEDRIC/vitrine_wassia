@@ -1,0 +1,51 @@
+<app-page-hero eyebrow="Informations légales" [titre]="page().titre" [intro]="page().intro" />
+
+<section class="bg-white">
+  <div class="container-site flex max-w-[880px] flex-col gap-10 py-12 nav:py-[72px]">
+    @for (bloc of page().blocs; track bloc.titre) {
+      <article class="flex flex-col gap-3">
+        <h2 class="m-0 font-display text-xl font-bold text-marine nav:text-2xl">
+          {{ bloc.titre }}
+        </h2>
+        @for (p of bloc.paragraphes; track $index) {
+          <p class="m-0 text-base leading-[1.7] text-encre-douce">{{ p }}</p>
+        }
+        @if (bloc.liste) {
+          <ul
+            class="m-0 flex list-disc flex-col gap-1.5 pl-5 text-base leading-[1.6] text-encre-douce"
+          >
+            @for (item of bloc.liste; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        }
+        @if (bloc.tableau; as tableau) {
+          <div class="overflow-x-auto rounded-xl border border-trait" tabindex="0">
+            <table class="w-full min-w-[560px] border-collapse text-[15px]">
+              <thead>
+                <tr class="bg-marine text-left text-white">
+                  @for (entete of tableau.entetes; track entete) {
+                    <th scope="col" class="px-4 py-3 font-display text-sm font-bold">
+                      {{ entete }}
+                    </th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                @for (ligne of tableau.lignes; track $index) {
+                  <tr class="border-b border-trait last:border-b-0">
+                    @for (cellule of ligne; track $index; let premiere = $first) {
+                      <td class="px-4 py-3 align-top" [class.font-semibold]="premiere">
+                        {{ cellule }}
+                      </td>
+                    }
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </article>
+    }
+  </div>
+</section>

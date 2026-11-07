@@ -1,0 +1,172 @@
+<section id="carte" class="border-y border-trait bg-white">
+  <div
+    class="container-site flex flex-col gap-6 py-12 nav:flex-row nav:flex-wrap nav:gap-14 nav:py-20"
+  >
+    <div class="flex min-w-0 flex-col gap-2.5 nav:flex-[1_1_360px] nav:gap-4">
+      <span class="eyebrow text-[11px] text-sapin nav:text-xs">Épargne communautaire</span>
+      <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
+        La carte membre à QR code<span class="hidden nav:inline">, pour les commerçants</span>
+      </h2>
+      <p class="m-0 text-base leading-[1.6] text-ardoise nav:hidden">
+        Chaque versement est enregistré par un agent WASSIA et confirmé par SMS.
+      </p>
+      <p class="section-lead hidden nav:block">
+        La tontine traditionnelle, modernisée : chaque versement est enregistré par un agent WASSIA,
+        tracé dans le système et confirmé par SMS.
+      </p>
+    </div>
+
+    <!-- Mobile : liste -->
+    <ol class="m-0 flex list-none flex-col gap-[18px] p-0 nav:hidden">
+      @for (etape of etapesMobile; track etape.titre) {
+        <li class="flex items-start gap-3.5">
+          <span
+            class="size-9 flex-none rounded-full bg-marine text-center font-display text-base leading-9 font-bold text-or-clair"
+            >{{ $index + 1 }}</span
+          >
+          <div>
+            <div class="font-display text-base font-bold text-marine">{{ etape.titre }}</div>
+            <div class="mt-[3px] text-sm leading-[1.55] text-ardoise">{{ etape.texteMobile }}</div>
+          </div>
+        </li>
+      }
+    </ol>
+
+    <!-- Ordinateur : carrousel automatique -->
+    <div
+      class="steps-carousel relative hidden min-w-0 flex-[1_1_460px] flex-col nav:flex"
+      [class.is-paused]="enPause()"
+      role="region"
+      aria-roledescription="carrousel"
+      aria-label="Étapes de la carte membre"
+      (mouseenter)="enPause.set(true)"
+      (mouseleave)="enPause.set(false)"
+      (focusin)="focusEntrant($event)"
+      (focusout)="enPause.set(false)"
+    >
+      <div class="relative overflow-hidden rounded-[18px] shadow-[0_20px_40px_rgba(10,42,94,.18)]">
+        <div
+          class="flex w-[400%] transition-transform duration-[900ms] ease-doux"
+          [style.transform]="decalage()"
+        >
+          @for (etape of etapes; track etape.titre; let i = $index) {
+            <div
+              class="step-slide relative flex min-h-80 w-1/4 flex-col gap-3.5 overflow-hidden bg-linear-135 from-marine to-bleu-vif p-8 pb-24 text-white"
+              [class.is-active]="i === courante()"
+              role="group"
+              aria-roledescription="étape"
+              [attr.aria-label]="'Étape ' + (i + 1) + ' sur ' + etapes.length"
+              [attr.aria-hidden]="i !== courante()"
+              [attr.inert]="i !== courante() ? '' : null"
+            >
+              <!-- Décor : halos qui flottent lentement -->
+              <span class="step-deco step-deco-a" aria-hidden="true"></span>
+              <span class="step-deco step-deco-b" aria-hidden="true"></span>
+
+              <div
+                class="step-icon relative flex size-[88px] items-center justify-center rounded-2xl bg-white/8 ring-1 ring-white/15"
+              >
+                <svg
+                  width="56"
+                  height="56"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  stroke="var(--color-or-clair)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  @for (forme of etape.dessin; track $index) {
+                    @switch (forme.type) {
+                      @case ('circle') {
+                        <circle
+                          class="step-draw"
+                          pathLength="1"
+                          [attr.cx]="forme.cx"
+                          [attr.cy]="forme.cy"
+                          [attr.r]="forme.r"
+                        />
+                      }
+                      @case ('rect') {
+                        <rect
+                          class="step-draw"
+                          pathLength="1"
+                          [attr.x]="forme.x"
+                          [attr.y]="forme.y"
+                          [attr.width]="forme.width"
+                          [attr.height]="forme.height"
+                          [attr.rx]="forme.rx ?? null"
+                        />
+                      }
+                      @default {
+                        <path class="step-draw" pathLength="1" [attr.d]="forme.d" />
+                      }
+                    }
+                  }
+                </svg>
+              </div>
+              <div
+                class="step-anim relative font-sans text-[13px] leading-none font-bold tracking-[.14em] text-or-clair uppercase"
+                style="--i: 1"
+              >
+                Étape {{ i + 1 }} sur {{ etapes.length }}
+              </div>
+              <h3
+                class="step-anim relative m-0 font-display text-2xl leading-[1.25] font-bold"
+                style="--i: 2"
+              >
+                {{ etape.titre }}
+              </h3>
+              <p
+                class="step-anim relative m-0 max-w-[420px] text-base leading-[1.6] text-brume"
+                style="--i: 3"
+              >
+                {{ etape.texte }}
+              </p>
+            </div>
+          }
+        </div>
+
+        <!-- Flèches (en boucle) -->
+        <button
+          type="button"
+          class="carousel-arrow left-[22px]"
+          aria-label="Étape précédente"
+          (click)="precedent()"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          class="carousel-arrow right-[22px]"
+          aria-label="Étape suivante"
+          (click)="suivant()"
+        >
+          ›
+        </button>
+      </div>
+
+      <!-- Points : celui de l'étape en cours se remplit pendant l'avance automatique -->
+      <div class="mt-[18px] flex items-center justify-center gap-2.5">
+        @for (etape of etapes; track etape.titre; let i = $index) {
+          <button
+            type="button"
+            class="relative h-2.5 cursor-pointer overflow-hidden rounded-[5px] transition-all duration-500 ease-doux"
+            [class]="i === courante() ? 'w-12 bg-champ' : 'w-2.5 bg-champ hover:bg-puce'"
+            [attr.aria-label]="'Étape ' + (i + 1)"
+            [attr.aria-current]="i === courante() ? 'step' : null"
+            (click)="aller(i)"
+          >
+            @if (i === courante()) {
+              <span
+                class="step-progress absolute inset-y-0 left-0 bg-or"
+                (animationend)="suivant()"
+              ></span>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>

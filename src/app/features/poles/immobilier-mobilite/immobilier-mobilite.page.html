@@ -1,0 +1,180 @@
+<app-page-hero
+  eyebrow="Nos activités · Pôles 2 et 3"
+  titre="Patrimoine et mobilité : confiez-nous vos biens et vos véhicules"
+>
+  <a routerLink="." fragment="immobilier" class="btn-or px-5 py-[13px] text-sm"
+    >Immobilier à loyer garanti</a
+  >
+  <a routerLink="." fragment="flottes" class="btn-contour-clair px-[19px] py-3 text-sm"
+    >Flottes, recette garantie et GPS</a
+  >
+</app-page-hero>
+
+<!-- Immobilier -->
+<section id="immobilier">
+  <div class="container-site flex flex-col gap-9 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Immobilier et patrimoine</span>
+      <h2 class="section-title nav:text-[32px]">
+        Propriétaires bailleurs : percevez vos loyers chaque mois
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Même si votre logement est vide ou si le locataire ne paie pas, WASSIA vous verse votre
+        loyer à date fixe. Nous gérons les locataires, la paperasse et les relances.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-stretch gap-10">
+      <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-[18px]">
+        @for (s of servicesImmobilier; track s.titre) {
+          <div class="card p-6">
+            <h3 class="m-0 mb-2 font-display text-lg font-bold text-marine">{{ s.titre }}</h3>
+            <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ s.texte }}</p>
+          </div>
+        }
+      </div>
+      <!-- Visuel avant / après à fournir par le client -->
+      <div
+        class="flex min-w-0 flex-[1_1_420px] flex-col overflow-hidden rounded-[14px] border border-trait"
+      >
+        <div class="flex min-h-[220px] flex-1 gap-0.5">
+          <div
+            class="flex flex-1 items-center justify-center bg-avant font-sans text-[13px] font-semibold text-avant-texte"
+          >
+            Avant
+          </div>
+          <div
+            class="flex flex-1 items-center justify-center bg-illustration font-sans text-[13px] font-semibold text-avant-texte"
+          >
+            Après
+          </div>
+        </div>
+        <div class="bg-sapin px-[18px] py-3.5 font-sans text-sm font-semibold text-white">
+          Loyer garanti par WASSIA
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Flottes -->
+<section id="flottes" class="border-y border-trait bg-white">
+  <div class="container-site flex flex-col gap-9 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-marine">Mobilité, transport et technologie GPS</span>
+      <h2 class="section-title nav:text-[32px]">
+        Mettez votre véhicule ou votre moto en gestion chez WASSIA
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Une recette quotidienne convenue, des pannes prises en charge et un suivi GPS en temps réel.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-6">
+      @for (s of servicesFlottes; track s.titre) {
+        <div class="min-w-0 flex-[1_1_300px] rounded-xl bg-fond p-[26px]">
+          <h3 class="m-0 mb-2 font-display text-lg font-bold text-marine">{{ s.titre }}</h3>
+          <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ s.texte }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Comparatif en deux colonnes (garanties à confirmer par écrit par le client) -->
+<section>
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[760px] flex-col gap-3">
+      <span class="eyebrow text-sapin">La différence WASSIA</span>
+      <h2 class="section-title nav:text-[32px]">Pourquoi choisir l’offre garantie WASSIA ?</h2>
+    </div>
+
+    <div class="grid items-stretch gap-6 nav:grid-cols-2">
+      <!-- Gestion traditionnelle -->
+      <div class="flex flex-col gap-6 rounded-2xl border border-trait bg-white p-7 nav:p-9">
+        <div class="flex flex-col gap-1.5">
+          <span class="eyebrow text-ardoise">Sans garantie</span>
+          <h3 class="m-0 font-display text-[22px] font-bold text-ardoise">
+            Gestion traditionnelle
+          </h3>
+        </div>
+        <ul class="m-0 flex list-none flex-col gap-5 p-0">
+          @for (ligne of comparatif; track ligne.service) {
+            <li class="flex items-start gap-3.5">
+              <span
+                class="flex size-8 flex-none items-center justify-center rounded-full bg-red-50 text-red-700"
+              >
+                <app-icon name="fermer" [size]="16" />
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-semibold text-encre">{{ ligne.service }}</span>
+                <span class="text-[15px] leading-snug text-ardoise">{{ ligne.traditionnel }}</span>
+              </span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Offre garantie WASSIA -->
+      <div
+        class="relative flex flex-col gap-6 overflow-hidden rounded-2xl bg-linear-150 from-marine to-bleu-vif p-7 text-white shadow-[0_20px_40px_rgba(10,42,94,.25)] nav:p-9"
+      >
+        <span class="step-deco step-deco-a" aria-hidden="true"></span>
+        <div class="relative flex flex-wrap items-start justify-between gap-3">
+          <div class="flex flex-col gap-1.5">
+            <span class="eyebrow text-or-clair">Avec WASSIA</span>
+            <h3 class="m-0 font-display text-[22px] font-bold">Offre garantie GROUPE WASSIA</h3>
+          </div>
+          <span
+            class="rounded-full bg-or px-3 py-1 font-sans text-xs font-bold tracking-[.06em] text-marine uppercase"
+            >Recommandé</span
+          >
+        </div>
+        <ul class="relative m-0 flex list-none flex-col gap-5 p-0">
+          @for (ligne of comparatif; track ligne.service) {
+            <li class="flex items-start gap-3.5">
+              <span
+                class="flex size-8 flex-none items-center justify-center rounded-full bg-or text-marine"
+              >
+                <app-icon name="check" [size]="16" />
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-semibold text-or-clair">{{ ligne.service }}</span>
+                <span class="text-[15px] leading-snug font-semibold">{{ ligne.wassia }}</span>
+              </span>
+            </li>
+          }
+        </ul>
+        <a
+          routerLink="."
+          fragment="contact"
+          class="btn-or relative mt-auto self-start px-5 py-[13px] text-sm"
+          >Confier mes biens à WASSIA</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Deux formulaires -->
+<section id="contact" class="bg-marine text-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <h2 class="m-0 max-w-[760px] font-display text-[26px] leading-[1.2] font-bold nav:text-[32px]">
+      Confiez-nous la gestion de vos biens ou de vos véhicules dès aujourd’hui
+    </h2>
+    <div class="flex flex-wrap gap-6">
+      <div class="min-w-0 flex-[1_1_460px]">
+        <app-contact-form
+          [config]="formulaireBien"
+          idPrefix="bien"
+          titre="Faire estimer mon bien immobilier"
+        />
+      </div>
+      <div class="min-w-0 flex-[1_1_460px]">
+        <app-contact-form
+          [config]="formulaireVehicule"
+          idPrefix="vehicule"
+          titre="Placer mon véhicule sous gestion WASSIA"
+        />
+      </div>
+    </div>
+  </div>
+</section>

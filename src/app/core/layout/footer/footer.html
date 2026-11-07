@@ -1,0 +1,79 @@
+<footer class="bg-roi text-sm text-brume">
+  <!-- Ordinateur -->
+  <div class="mx-auto hidden max-w-site flex-col gap-9 px-10 pt-14 pb-8 nav:flex">
+    <div class="flex flex-wrap justify-between gap-10">
+      <div class="flex max-w-[360px] min-w-0 flex-[1_1_280px] flex-col gap-3.5">
+        <img
+          src="images/logo-blanc.png"
+          width="479"
+          height="202"
+          [alt]="site.nomLogo"
+          class="block h-[60px] w-auto self-start"
+          loading="lazy"
+        />
+        <span class="leading-[1.6]">{{ site.nom }} · {{ site.baseline }}</span>
+      </div>
+
+      <nav aria-label="Activités" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
+        <span class="font-display font-bold text-white">Activités</span>
+        @for (pole of poles; track pole.id) {
+          <a [routerLink]="pole.route" [fragment]="pole.fragment" class="hover:text-white">{{
+            pole.libelleFooter
+          }}</a>
+        }
+      </nav>
+
+      <nav aria-label="Le groupe" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
+        <span class="font-display font-bold text-white">Le groupe</span>
+        <a routerLink="/a-propos" class="hover:text-white">À propos</a>
+        <a routerLink="/" fragment="actualites" class="hover:text-white">Actualités</a>
+        <a routerLink="/" fragment="contact" class="hover:text-white">Contact</a>
+        @if (espaceAgents.url; as url) {
+          <a [href]="url" class="hover:text-white">Espace agents</a>
+        }
+      </nav>
+
+      <nav aria-label="Informations légales" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
+        <span class="font-display font-bold text-white">Informations légales</span>
+        @for (item of legal; track item.route) {
+          <a [routerLink]="item.route" class="hover:text-white">{{ item.label }}</a>
+        }
+      </nav>
+    </div>
+
+    <div class="flex flex-col gap-2 border-t border-ligne-sombre pt-5 text-[13px] leading-[1.6]">
+      <span>{{ site.mentionIob }} {{ partenariat }}</span>
+      <span>© {{ site.annee }} {{ site.nom }}. Tous droits réservés.</span>
+    </div>
+  </div>
+
+  <!-- Mobile -->
+  <div class="flex flex-col gap-6 px-4 pt-9 pb-7 nav:hidden">
+    <img
+      src="images/logo-blanc.png"
+      width="479"
+      height="202"
+      [alt]="site.nomLogo"
+      class="block h-[60px] w-auto self-start"
+      loading="lazy"
+    />
+    <nav aria-label="Le groupe" class="flex flex-wrap gap-x-7 gap-y-3">
+      <a routerLink="/" fragment="poles">Activités</a>
+      <a routerLink="/a-propos">À propos</a>
+      <a routerLink="/" fragment="actualites">Actualités</a>
+      <a routerLink="/" fragment="contact">Contact</a>
+      @if (espaceAgents.url; as url) {
+        <a [href]="url">Espace agents</a>
+      }
+    </nav>
+    <nav aria-label="Informations légales" class="flex flex-wrap gap-x-7 gap-y-3">
+      @for (item of legal; track item.route) {
+        <a [routerLink]="item.route">{{ item.court }}</a>
+      }
+    </nav>
+    <div class="flex flex-col gap-2 border-t border-ligne-sombre pt-[18px] text-xs leading-[1.6]">
+      <span>{{ site.mentionIob }} {{ partenariat }}</span>
+      <span>© {{ site.annee }} {{ site.nom }}</span>
+    </div>
+  </div>
+</footer>

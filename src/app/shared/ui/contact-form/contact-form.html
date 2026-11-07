@@ -1,0 +1,102 @@
+<form
+  [formGroup]="form()"
+  (ngSubmit)="envoyer()"
+  novalidate
+  class="relative flex min-w-0 flex-col gap-3.5 rounded-[14px] bg-white p-5 text-encre nav:p-7"
+>
+  @if (titre(); as titre) {
+    <h3 class="m-0 font-display text-xl font-bold text-marine">{{ titre }}</h3>
+  }
+
+  <div class="flex flex-wrap gap-x-4 gap-y-3.5">
+    @for (champ of config().champs; track champ.name) {
+      <div
+        class="flex min-w-0 flex-col gap-1.5"
+        [class]="[
+          champ.half ? 'flex-[1_1_180px]' : 'basis-full',
+          champ.masqueMobile ? 'hidden nav:flex' : '',
+        ]"
+      >
+        <label [for]="id(champ)" class="field-label">
+          {{ champ.label }}
+        </label>
+
+        @switch (champ.type) {
+          @case ('select') {
+            <select
+              [id]="id(champ)"
+              [formControlName]="champ.name"
+              class="field-input"
+              [attr.aria-invalid]="erreur(champ) ? 'true' : null"
+              [attr.aria-describedby]="erreur(champ) ? id(champ) + '-erreur' : null"
+            >
+              @for (option of champ.options; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          }
+          @case ('textarea') {
+            <textarea
+              [id]="id(champ)"
+              [formControlName]="champ.name"
+              rows="4"
+              class="field-input resize-y"
+              [attr.aria-invalid]="erreur(champ) ? 'true' : null"
+              [attr.aria-describedby]="erreur(champ) ? id(champ) + '-erreur' : null"
+            ></textarea>
+          }
+          @default {
+            <input
+              [id]="id(champ)"
+              [type]="champ.type"
+              [formControlName]="champ.name"
+              [attr.autocomplete]="champ.autocomplete ?? null"
+              [attr.inputmode]="champ.type === 'number' ? 'numeric' : null"
+              [attr.min]="champ.type === 'number' ? 1 : null"
+              [attr.aria-required]="champ.required ? 'true' : null"
+              class="field-input"
+              [attr.aria-invalid]="erreur(champ) ? 'true' : null"
+              [attr.aria-describedby]="erreur(champ) ? id(champ) + '-erreur' : null"
+            />
+          }
+        }
+
+        @if (erreur(champ); as message) {
+          <span [id]="id(champ) + '-erreur'" class="field-error">{{ message }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Champ piège anti-robots : invisible et ignoré des lecteurs d'écran -->
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label [for]="idPrefix() + '-website'">Site web</label>
+    <input
+      [id]="idPrefix() + '-website'"
+      type="text"
+      [formControl]="website"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="btn min-h-[52px] w-full bg-sapin p-4 text-[15px] font-bold text-white disabled:cursor-wait disabled:opacity-70 nav:min-h-0"
+    [disabled]="statut() === 'envoi'"
+  >
+    {{ statut() === 'envoi' ? 'Envoi en cours…' : config().bouton }}
+  </button>
+
+  @if (statut() === 'erreur') {
+    <p role="alert" class="m-0 rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-800">
+      L’envoi n’a pas abouti. Réessayez dans un instant ou appelez-nous.
+    </p>
+  }
+
+  <span class="text-xs leading-normal text-ardoise">
+    En envoyant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre
+    demande, selon notre
+    <a routerLink="/confidentialite" class="underline">politique de confidentialité</a>.
+  </span>
+</form>

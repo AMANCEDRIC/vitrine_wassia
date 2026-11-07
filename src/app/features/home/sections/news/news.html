@@ -1,0 +1,90 @@
+<section id="actualites">
+  <div
+    class="container-site flex flex-col gap-9 py-12 nav:py-20"
+    role="region"
+    aria-roledescription="carrousel"
+    aria-label="Actualités et projets"
+    (mouseenter)="pause(true)"
+    (mouseleave)="pause(false)"
+    (focusin)="focusEntrant($event)"
+    (focusout)="pause(false)"
+    (touchstart)="pause(true)"
+    (touchend)="pause(false)"
+  >
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
+        Actualités et projets
+      </h2>
+      <div class="flex gap-2.5">
+        <button
+          type="button"
+          class="news-arrow"
+          aria-label="Actualité précédente"
+          (click)="precedent()"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          class="news-arrow"
+          aria-label="Actualité suivante"
+          (click)="suivant()"
+        >
+          ›
+        </button>
+      </div>
+    </div>
+
+    <ul
+      #piste
+      class="m-0 flex snap-x snap-mandatory [scrollbar-width:none] list-none gap-6 overflow-x-auto px-0.5 pt-1 pb-2 [&::-webkit-scrollbar]:hidden"
+    >
+      @for (article of actualites; track article.titre; let i = $index) {
+        <li
+          class="card card-hover news-card flex-[0_0_min(360px,84%)] snap-start overflow-hidden"
+          [attr.aria-label]="i + 1 + ' sur ' + actualites.length"
+        >
+          <article>
+            <div class="relative h-[180px] overflow-hidden bg-illustration">
+              <img
+                [ngSrc]="article.image"
+                [alt]="article.alt"
+                fill
+                class="news-image object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold tracking-[.08em] text-sapin uppercase backdrop-blur"
+                >{{ article.categorie }}</span
+              >
+            </div>
+            <div class="flex flex-col gap-2.5 p-[22px]">
+              <h3 class="m-0 font-display text-lg leading-[1.35] font-bold text-marine">
+                {{ article.titre }}
+              </h3>
+              <span class="text-[13px] text-ardoise">
+                @if (article.date) {
+                  <time [attr.datetime]="article.date">{{ article.date }}</time>
+                } @else {
+                  Article à paraître
+                }
+              </span>
+            </div>
+          </article>
+        </li>
+      }
+    </ul>
+
+    <div class="-mt-3 flex items-center justify-center gap-2.5">
+      @for (p of positions(); track p) {
+        <button
+          type="button"
+          class="h-2.5 cursor-pointer rounded-[5px] transition-all duration-500 ease-doux"
+          [class]="p === courante() ? 'w-8 bg-or' : 'w-2.5 bg-champ hover:bg-puce'"
+          [attr.aria-label]="'Aller à l’actualité ' + (p + 1)"
+          [attr.aria-current]="p === courante() ? 'true' : null"
+          (click)="aller(p)"
+        ></button>
+      }
+    </div>
+  </div>
+</section>

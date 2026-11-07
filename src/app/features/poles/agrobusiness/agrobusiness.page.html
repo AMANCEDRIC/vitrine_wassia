@@ -1,0 +1,65 @@
+<app-page-hero
+  eyebrow="Nos activités · Pôle 5"
+  titre="Construire une économie durable, productive et responsable"
+  intro="Production agricole, transformation, import-export et énergies renouvelables : des projets qui créent de la valeur sur la durée."
+  fond="roi"
+>
+  <a routerLink="." fragment="contact" class="btn-or px-5 py-[13px] text-sm"
+    >Proposer un partenariat</a
+  >
+  <a routerLink="." fragment="domaines" class="btn-contour-clair px-[19px] py-3 text-sm"
+    >Voir nos domaines</a
+  >
+</app-page-hero>
+
+<section id="domaines" class="bg-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-or-fonce">Trois domaines</span>
+      <h2 class="section-title nav:text-[32px]">Du champ à l’énergie propre</h2>
+    </div>
+    <div class="flex flex-wrap gap-6">
+      @for (d of domaines; track d.titre) {
+        <app-service-card [titre]="d.titre" accent="var(--color-roi)">
+          <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ d.texte }}</p>
+        </app-service-card>
+      }
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] min-w-0 flex-[1_1_420px] flex-col gap-3">
+      <span class="eyebrow text-or-fonce">Notre approche</span>
+      <h2 class="section-title nav:text-[32px]">La synergie entre la nature et l’énergie propre</h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Le pôle Agrobusiness s’appuie sur la force du groupe : financement, logistique et suivi par
+        GPS, pour produire, transporter et vendre dans de bonnes conditions.
+      </p>
+    </div>
+    <div
+      class="relative h-[300px] min-w-0 flex-[1_1_420px] overflow-hidden rounded-[14px] bg-illustration"
+    >
+      <img
+        ngSrc="images/illustrations/agrobusiness.svg"
+        alt="Illustration : panneaux solaires et champs cultivés"
+        fill
+        class="object-cover"
+      />
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="bg-roi text-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+    <h2
+      class="m-0 flex-[1_1_380px] font-display text-[26px] leading-[1.2] font-bold nav:text-[32px]"
+    >
+      Vous êtes producteur, acheteur ou investisseur ?
+    </h2>
+    <div class="min-w-0 flex-[1_1_460px]">
+      <app-contact-form [config]="formulaire" idPrefix="agro" />
+    </div>
+  </div>
+</section>
