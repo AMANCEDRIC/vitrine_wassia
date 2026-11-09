@@ -12,6 +12,7 @@
           loading="lazy"
         />
         <span class="leading-[1.6]">{{ site.nom }} · {{ site.baseline }}</span>
+        <span class="leading-[1.6] font-semibold">{{ slogan }}</span>
         @if (reseaux.length) {
           <ul class="m-0 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
             @for (r of reseaux; track r.reseau) {

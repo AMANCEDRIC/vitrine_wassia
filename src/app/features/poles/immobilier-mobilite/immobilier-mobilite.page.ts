@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FORMULAIRES } from '@content/formulaires';
 import { ContactForm } from '@shared/ui/contact-form/contact-form';
@@ -11,7 +12,7 @@ import { PageHero } from '@shared/ui/page-hero/page-hero';
  */
 @Component({
   selector: 'app-immobilier-mobilite-page',
-  imports: [PageHero, ContactForm, RouterLink, Icon],
+  imports: [PageHero, ContactForm, RouterLink, Icon, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './immobilier-mobilite.page.html',
 })
@@ -35,6 +36,12 @@ export class ImmobilierMobilitePage {
       texte:
         'Sécurisation des transactions de terrains et de propriétés, pour le compte de la holding ou de ses investisseurs.',
     },
+  ];
+
+  protected readonly etapesImmobilier = [
+    'Vous nous présentez votre bien : nous l’estimons avec vous.',
+    'Vous signez le contrat de gestion : WASSIA s’occupe des locataires et des relances.',
+    'Vous recevez votre loyer à date fixe, chaque mois.',
   ];
 
   protected readonly servicesFlottes = [

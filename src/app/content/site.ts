@@ -2,8 +2,8 @@
  * Informations générales du groupe, affichées dans l'en-tête, le pied de page et les formulaires.
  *
  * À CONFIRMER PAR LE CLIENT avant la mise en ligne :
- * - le numéro de téléphone (+225 07 07 07 07 07 semble fictif) ;
- * - l'adresse de l'application des agents.
+ * - l'adresse de l'application des agents ;
+ * - le siège : le dossier client indique Akoupé, le site garde Yopougon (consigne du 2026-11-09).
  */
 export const SITE = {
   nom: 'GROUPE WASSIA SARL HOLDING',
@@ -14,10 +14,10 @@ export const SITE = {
   domaine: 'wassia-holding.com',
   siege: 'Yopougon, Abidjan — Côte d’Ivoire',
   siegeCourt: 'Yopougon, Abidjan',
-  telephone: '+225 07 07 07 07 07',
+  telephone: '+225 07 98 01 25 91',
   email: 'contact@wassia-holding.com',
   /** Numéro WhatsApp au format international, sans « + » ni espaces. */
-  whatsapp: '2250707070707',
+  whatsapp: '2250798012591',
   annee: 2026,
   mentionIob:
     'WASSIA intervient comme intermédiaire en opérations de banque (IOB). Elle ne se substitue pas à un établissement de crédit agréé.',
@@ -35,6 +35,9 @@ export const PARTENAIRE_BANCAIRE: { nom: string | null; convention: string | nul
   nom: null,
   convention: null,
 };
+
+/** Slogan officiel (dossier 2026). Défini dans `content/credit.ts`. */
+export { SLOGAN } from './credit';
 
 export const CONVENTIONNEMENT_EN_COURS =
   'En cours de conventionnement avec des établissements bancaires agréés APBEF-CI.';

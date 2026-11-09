@@ -5,6 +5,8 @@
  * Les mentions entre crochets [À COMPLÉTER] doivent être fournies par le client :
  * RCCM, capital social, directeur de la publication, hébergeur.
  */
+import { SITE } from './site';
+
 export type LegalPageId = 'cgu' | 'confidentialite' | 'mentions-legales';
 
 export interface LegalBloc {
@@ -50,7 +52,7 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         titre: '3. Engagements et responsabilité',
         paragraphes: [
           'Le GROUPE WASSIA met en œuvre des protocoles rigoureux pour garantir la continuité des services présentés sur la plateforme. La holding décline toute responsabilité en cas d’interruption technique indépendante de sa volonté ou de mauvaise manipulation de la part de l’utilisateur.',
-          'Les informations et simulations présentées sur le site sont indicatives. Les conditions applicables à chaque service sont précisées lors de la demande.',
+          'Les informations, grilles tarifaires et simulations présentées sur le site sont indicatives. Les conditions applicables à chaque service sont précisées lors de la demande.',
         ],
       },
       {
@@ -123,7 +125,7 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
           'Siège social : Yopougon, Abidjan — Côte d’Ivoire',
           'RCCM : [À COMPLÉTER]',
           'Capital social : [À COMPLÉTER]',
-          'Téléphone : +225 07 07 07 07 07',
+          `Téléphone : ${SITE.telephone}`,
           'E-mail : contact@wassia-holding.com',
           'Directeur de la publication : [À COMPLÉTER]',
         ],

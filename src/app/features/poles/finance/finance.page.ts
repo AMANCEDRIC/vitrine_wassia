@@ -1,7 +1,18 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import {
+  COMPARATIF,
+  DUREES_CREDIT,
+  ETAPES_CREDIT,
+  EXEMPLES_CREDIT,
+  GRILLE_CREDIT,
+  SLOGAN,
+  TAUX_MENSUEL,
+  calculerCredit,
+} from '@content/credit';
 import { FAQ_FINANCE } from '@content/faq';
+import { formaterFrancs } from '../../home/sections/simulator/simulation';
 import { FORMULAIRES } from '@content/formulaires';
 import { PARTENAIRE_BANCAIRE, SITE, textePartenariat } from '@content/site';
 import { ContactForm } from '@shared/ui/contact-form/contact-form';
@@ -22,6 +33,26 @@ export class FinancePage {
   protected readonly partenariat = textePartenariat();
   protected readonly faq = FAQ_FINANCE;
   protected readonly formulaire = FORMULAIRES['devenir-membre'];
+
+  protected readonly tauxMensuel = TAUX_MENSUEL;
+  protected readonly etapesCredit = ETAPES_CREDIT;
+  protected readonly exemples = EXEMPLES_CREDIT;
+  protected readonly comparatif = COMPARATIF;
+  protected readonly slogan = SLOGAN;
+  protected readonly nbDurees = DUREES_CREDIT.length;
+  protected readonly francs = formaterFrancs;
+
+  /** Une ligne par montant et par durée, la première de chaque montant porte le rowspan. */
+  protected readonly grille = GRILLE_CREDIT.flatMap(({ montant, frais }) =>
+    DUREES_CREDIT.map((mois, i) => ({ ...calculerCredit(montant, frais, mois), premiere: i === 0 })),
+  );
+
+  /** Version mobile : une carte par montant, avec ses trois durées. */
+  protected readonly groupes = GRILLE_CREDIT.map(({ montant, frais }) => ({
+    montant,
+    frais,
+    lignes: DUREES_CREDIT.map((mois) => calculerCredit(montant, frais, mois)),
+  }));
 
   protected readonly etapes = [
     {

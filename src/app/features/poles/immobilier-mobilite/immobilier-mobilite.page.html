@@ -32,22 +32,32 @@
           </div>
         }
       </div>
-      <!-- Visuel avant / après à fournir par le client -->
+      <!--
+        Pas encore de réalisations à montrer : illustration et étapes du service.
+        À remplacer par un visuel avant / après quand le client fournira des photos.
+      -->
       <div
-        class="flex min-w-0 flex-[1_1_420px] flex-col overflow-hidden rounded-[14px] border border-trait"
+        class="flex min-w-0 flex-[1_1_420px] flex-col overflow-hidden rounded-[14px] border border-trait bg-white"
       >
-        <div class="flex min-h-[220px] flex-1 gap-0.5">
-          <div
-            class="flex flex-1 items-center justify-center bg-avant font-sans text-[13px] font-semibold text-avant-texte"
-          >
-            Avant
-          </div>
-          <div
-            class="flex flex-1 items-center justify-center bg-illustration font-sans text-[13px] font-semibold text-avant-texte"
-          >
-            Après
-          </div>
+        <div class="relative min-h-[200px] flex-1 bg-illustration">
+          <img
+            ngSrc="images/illustrations/immobilier-mobilite.svg"
+            alt="Illustration : immeubles et véhicules gérés par WASSIA"
+            fill
+            class="object-cover"
+          />
         </div>
+        <ol class="m-0 flex list-none flex-col gap-3 p-5">
+          @for (e of etapesImmobilier; track e) {
+            <li class="flex items-start gap-3 text-[15px] leading-[1.55] text-ardoise">
+              <span
+                class="size-7 flex-none rounded-full bg-sapin text-center font-display text-sm leading-7 font-bold text-white"
+                >{{ $index + 1 }}</span
+              >
+              {{ e }}
+            </li>
+          }
+        </ol>
         <div class="bg-sapin px-[18px] py-3.5 font-sans text-sm font-semibold text-white">
           Loyer garanti par WASSIA
         </div>

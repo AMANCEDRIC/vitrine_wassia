@@ -1,12 +1,13 @@
 /**
  * Questions fréquentes de la page Services financiers.
- * Réponses reprises des textes déjà publiés sur le site (aucun montant ni condition non confirmés).
+ * Réponses reprises des textes du site et du dossier officiel 2026 (chiffres à faire valider
+ * par le client, voir `content/credit.ts`).
  */
 export const FAQ_FINANCE: readonly { question: string; reponse: string }[] = [
   {
     question: 'Comment obtenir ma carte membre ?',
     reponse:
-      'Un agent WASSIA vient à votre étal ou à votre boutique. Il enregistre votre commerce avec votre pièce d’identité, puis vous remet votre carte membre à QR code, activée par un SMS de bienvenue.',
+      'Un agent WASSIA vient à votre étal ou à votre boutique. Il enregistre votre commerce avec votre pièce d’identité. Vous versez 1 000 F en espèces à l’inscription et recevez votre carte PVC à QR code, activée par un SMS de bienvenue. Les 4 000 F restants de l’ouverture de compte sont prélevés sur vos versements des 8 premières semaines.',
   },
   {
     question: 'Faut-il avoir un compte bancaire ?',
@@ -31,6 +32,11 @@ export const FAQ_FINANCE: readonly { question: string; reponse: string }[] = [
   {
     question: 'Puis-je obtenir un crédit ?',
     reponse:
-      'Une épargne régulière facilite l’accès au crédit. Votre agent dépose le dossier et vous donne les conditions détaillées avant toute demande.',
+      'Oui, après au moins 8 semaines d’épargne régulière (2 000 F par semaine minimum). Les prêts vont de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois, à 1 % par mois. La réponse est donnée sous 48 heures, sans bulletin de salaire ni garantie immobilière.',
+  },
+  {
+    question: 'Quels sont les frais ?',
+    reponse:
+      'Le taux est de 1 % par mois (6 % sur 6 mois, 12 % sur 12 mois, 18 % sur 18 mois). Vous réglez en plus des frais de dossier fixes, en espèces, au moment du décaissement. Aucune assurance cachée, aucune commission annexe.',
   },
 ];

@@ -8,9 +8,21 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Curseur, ModeSimulation, SIMULATEUR } from '@content/simulateur';
+import {
+  DUREES_CREDIT,
+  DureeCredit,
+  GRILLE_CREDIT,
+  TAUX_MENSUEL,
+  fraisDuMontant,
+} from '@content/credit';
+import {
+  Curseur,
+  ModeSimulation,
+  PRET_PAR_DEFAUT,
+  SIMULATEUR_EPARGNE,
+} from '@content/simulateur';
 import { MemberCard } from '@shared/ui/member-card/member-card';
-import { borner, formaterDuree, formaterFrancs, simuler } from './simulation';
+import { borner, formaterDuree, formaterFrancs, simulerEpargne, simulerPret } from './simulation';
 
 type Parametre = 'montant' | 'taux' | 'duree';
 
@@ -24,10 +36,10 @@ interface Saisie {
   duree: string;
 }
 
-const saisieParDefaut = (mode: ModeSimulation): Saisie => ({
-  montant: String(SIMULATEUR[mode].montant.defaut),
-  taux: String(SIMULATEUR[mode].taux.defaut),
-  duree: String(SIMULATEUR[mode].duree.defaut),
+const saisieParDefaut = (): Saisie => ({
+  montant: String(SIMULATEUR_EPARGNE.montant.defaut),
+  taux: String(SIMULATEUR_EPARGNE.taux.defaut),
+  duree: String(SIMULATEUR_EPARGNE.duree.defaut),
 });
 
 @Component({
@@ -65,53 +77,65 @@ export class Simulator {
     this.verso.update((v) => !v);
   }
 
-  /** Saisie de chaque mode, conservée quand on change d'onglet. */
-  private readonly saisies = signal<Record<ModeSimulation, Saisie>>({
-    pret: saisieParDefaut('pret'),
-    epargne: saisieParDefaut('epargne'),
-  });
+  /** Saisie du simulateur d'épargne, conservée quand on change d'onglet. */
+  private readonly saisieEpargne = signal<Saisie>(saisieParDefaut());
 
-  protected readonly config = computed(() => SIMULATEUR[this.mode()]);
-  protected readonly saisie = computed(() => this.saisies()[this.mode()]);
+  /** Choix du prêt : un montant et une durée de la grille. */
+  protected readonly montantPret = signal<number>(PRET_PAR_DEFAUT.montant);
+  protected readonly dureePret = signal<DureeCredit>(PRET_PAR_DEFAUT.duree);
+  protected readonly montantsPret = GRILLE_CREDIT.map((l) => l.montant);
+  protected readonly dureesPret = DUREES_CREDIT;
+  protected readonly tauxPret = TAUX_MENSUEL;
+  protected readonly fraisPret = computed(() => fraisDuMontant(this.montantPret()));
 
-  /** Valeurs bornées utilisées pour le calcul et les curseurs. */
+  protected readonly config = SIMULATEUR_EPARGNE;
+  protected readonly saisie = this.saisieEpargne.asReadonly();
+
+  /** Valeurs bornées de l'épargne, utilisées pour le calcul et les curseurs. */
   protected readonly valeurs = computed(() => {
-    const config = this.config();
     const saisie = this.saisie();
     const lire = (p: Parametre): number => {
-      const curseur: Curseur = config[p];
+      const curseur: Curseur = this.config[p];
       const n = parseFloat(saisie[p].replace(',', '.'));
       return Number.isNaN(n) ? curseur.defaut : borner(n, curseur.min, curseur.max);
     };
     return { montant: lire('montant'), taux: lire('taux'), duree: Math.round(lire('duree')) };
   });
 
-  protected readonly resultat = computed(() => {
+  protected readonly pret = computed(() => simulerPret(this.montantPret(), this.dureePret()));
+
+  protected readonly epargne = computed(() => {
     const v = this.valeurs();
-    return simuler(this.mode(), v.montant, v.taux, v.duree);
+    return simulerEpargne(v.montant, v.taux, v.duree);
   });
+
+  /** Résultat affiché, selon l'onglet. */
+  protected readonly resultat = computed(() =>
+    this.mode() === 'pret' ? this.pret() : this.epargne(),
+  );
 
   protected readonly libelles = computed(() => {
     const pret = this.mode() === 'pret';
     const v = this.valeurs();
     const r = this.resultat();
     return {
-      montant: pret ? 'Montant souhaité' : 'Versement mensuel',
-      taux: pret ? 'Taux d’intérêt annuel' : 'Taux d’épargne annuel',
+      montant: 'Versement mensuel',
+      taux: 'Taux d’épargne annuel',
       duree: 'Durée',
       principal: pret ? 'Votre mensualité' : 'Capital à terme',
       suffixe: pret
-        ? `par mois pendant ${formaterDuree(v.duree)}`
+        ? `par mois pendant ${formaterDuree(this.dureePret())}`
         : `après ${formaterDuree(v.duree)}`,
       total: pret ? 'Total à rembourser' : 'Total versé',
-      interets: pret ? 'Coût du crédit (intérêts)' : 'Intérêts gagnés',
-      legendeBase: `${pret ? 'Capital emprunté' : 'Versements'} ${formaterFrancs(pret ? v.montant : r.total)}`,
+      interets: pret ? 'Intérêts (1 % par mois)' : 'Intérêts gagnés',
+      legendeBase: `${pret ? 'Capital emprunté' : 'Versements'} ${formaterFrancs(pret ? this.montantPret() : r.total)}`,
       legendeInterets: `Intérêts ${formaterFrancs(r.interets)}`,
       action: pret ? 'Faire une demande de crédit' : 'Devenir membre',
     };
   });
 
   protected readonly francs = formaterFrancs;
+  protected readonly duree = formaterDuree;
 
   protected readonly onglets: readonly { mode: ModeSimulation; label: string }[] = [
     { mode: 'pret', label: 'Simuler un prêt' },
@@ -126,7 +150,7 @@ export class Simulator {
 
   /** Texte sous les extrémités du curseur. */
   protected borne(parametre: Parametre, cote: 'min' | 'max'): string {
-    const n = this.config()[parametre][cote];
+    const n = this.config[parametre][cote];
     if (parametre === 'montant') return formaterFrancs(n);
     return parametre === 'taux' ? `${n} %` : `${n} mois`;
   }
@@ -141,10 +165,19 @@ export class Simulator {
     this.mode.set(mode);
   }
 
+  protected readonly indexMontant = computed(() => this.montantsPret.indexOf(this.montantPret()));
+  protected readonly indexDuree = computed(() => this.dureesPret.indexOf(this.dureePret()));
+
+  /** Les curseurs du prêt avancent d'un cran de la grille à la fois. */
+  protected choisirMontant(index: number): void {
+    this.montantPret.set(this.montantsPret[borner(index, 0, this.montantsPret.length - 1)]);
+  }
+
+  protected choisirDuree(index: number): void {
+    this.dureePret.set(this.dureesPret[borner(index, 0, this.dureesPret.length - 1)]);
+  }
+
   protected saisir(parametre: Parametre, valeur: string): void {
-    this.saisies.update((s) => ({
-      ...s,
-      [this.mode()]: { ...s[this.mode()], [parametre]: valeur },
-    }));
+    this.saisieEpargne.update((s) => ({ ...s, [parametre]: valeur }));
   }
 }

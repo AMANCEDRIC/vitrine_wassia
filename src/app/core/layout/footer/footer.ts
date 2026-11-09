@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ESPACE_AGENTS, RESEAUX_SOCIAUX, SITE, textePartenariat } from '@content/site';
+import { ESPACE_AGENTS, RESEAUX_SOCIAUX, SITE, SLOGAN, textePartenariat } from '@content/site';
 import { Icon } from '@shared/ui/icon/icon';
 import { POLES } from '@content/poles';
 
@@ -12,6 +12,7 @@ import { POLES } from '@content/poles';
 })
 export class Footer {
   protected readonly site = SITE;
+  protected readonly slogan = SLOGAN;
   protected readonly espaceAgents = ESPACE_AGENTS;
   protected readonly partenariat = textePartenariat();
   protected readonly poles = POLES;

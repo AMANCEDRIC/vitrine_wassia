@@ -4,7 +4,7 @@
       <span class="eyebrow text-sapin">Simulateur</span>
       <h2 class="section-title">Simulez votre prêt ou votre épargne</h2>
       <p class="section-lead">
-        Choisissez un montant, un taux et une durée : le résultat s’affiche tout de suite. Une
+        Choisissez un montant et une durée : le résultat s’affiche tout de suite. Une
         simulation est indicative et n’engage à rien.
       </p>
     </div>
@@ -33,6 +33,66 @@
           }
         </div>
 
+        @if (mode() === 'pret') {
+          <div class="flex flex-col gap-2.5">
+            <div class="flex items-baseline justify-between gap-3">
+              <label for="sim-pret-montant" class="font-sans text-[15px] font-semibold text-encre"
+                >Montant souhaité</label
+              >
+              <output
+                for="sim-pret-montant"
+                class="font-display text-base font-bold text-marine"
+                >{{ francs(montantPret()) }}</output
+              >
+            </div>
+            <input
+              id="sim-pret-montant"
+              type="range"
+              min="0"
+              [max]="montantsPret.length - 1"
+              step="1"
+              [value]="indexMontant()"
+              [attr.aria-valuetext]="francs(montantPret())"
+              (input)="choisirMontant(+$any($event.target).value)"
+              class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
+            />
+            <div class="flex justify-between text-xs text-ardoise">
+              <span>{{ francs(montantsPret[0]) }}</span>
+              <span>{{ francs(montantsPret[montantsPret.length - 1]) }}</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2.5">
+            <div class="flex items-baseline justify-between gap-3">
+              <label for="sim-pret-duree" class="font-sans text-[15px] font-semibold text-encre"
+                >Durée</label
+              >
+              <output for="sim-pret-duree" class="font-display text-base font-bold text-marine"
+                >{{ dureePret() }} mois</output
+              >
+            </div>
+            <input
+              id="sim-pret-duree"
+              type="range"
+              min="0"
+              [max]="dureesPret.length - 1"
+              step="1"
+              [value]="indexDuree()"
+              [attr.aria-valuetext]="dureePret() + ' mois'"
+              (input)="choisirDuree(+$any($event.target).value)"
+              class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
+            />
+            <div class="flex justify-between text-xs text-ardoise">
+              @for (d of dureesPret; track d) {
+                <span>{{ d }} mois</span>
+              }
+            </div>
+          </div>
+          <div class="rounded-xl bg-onglet px-4 py-3 text-sm text-encre">
+            Taux unique de <strong>{{ tauxPret }} % par mois</strong>. Frais de dossier :
+            <strong>{{ francs(fraisPret()) }}</strong
+            >, réglés en espèces au décaissement.
+          </div>
+        } @else {
         @for (p of parametres; track p.cle) {
           <div class="flex flex-col gap-2.5">
             <div class="flex items-baseline justify-between gap-3">
@@ -45,9 +105,9 @@
                 <input
                   [id]="'sim-' + p.cle"
                   type="number"
-                  [min]="config()[p.cle].min"
-                  [max]="config()[p.cle].max"
-                  [step]="config()[p.cle].pas"
+                  [min]="config[p.cle].min"
+                  [max]="config[p.cle].max"
+                  [step]="config[p.cle].pas"
                   [value]="saisie()[p.cle]"
                   (input)="saisir(p.cle, $any($event.target).value)"
                   class="min-h-[42px] rounded-lg border-[1.5px] border-champ bg-white px-2.5 text-right font-display text-base font-bold text-marine"
@@ -59,9 +119,9 @@
             <input
               type="range"
               [attr.aria-label]="libelles()[p.cle]"
-              [min]="config()[p.cle].min"
-              [max]="config()[p.cle].max"
-              [step]="config()[p.cle].pas"
+              [min]="config[p.cle].min"
+              [max]="config[p.cle].max"
+              [step]="config[p.cle].pas"
               [value]="valeurs()[p.cle]"
               (input)="saisir(p.cle, $any($event.target).value)"
               class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
@@ -73,10 +133,16 @@
             </div>
           </div>
         }
+        }
 
         <div class="text-xs leading-normal text-ardoise">
-          Les taux proposés ici sont des exemples. Les conditions réelles sont confirmées par WASSIA
-          lors de votre demande.
+          @if (mode() === 'pret') {
+            Grille indicative du dossier WASSIA 2026. Les conditions réelles sont confirmées par
+            WASSIA lors de votre demande.
+          } @else {
+            Le taux d’épargne est un exemple. Les conditions réelles sont confirmées par WASSIA
+            lors de votre demande.
+          }
         </div>
       </div>
 
@@ -124,6 +190,18 @@
             </div>
           </div>
           @if (mode() === 'pret') {
+            <div class="flex flex-wrap gap-3">
+              <div class="flex-[1_1_160px] rounded-xl bg-white/10 px-4 py-3.5">
+                <div class="text-xs text-brume">Ou par semaine</div>
+                <div class="mt-0.5 font-display text-xl font-bold">
+                  {{ francs(pret().hebdomadaire) }}
+                </div>
+              </div>
+              <div class="flex-[1_1_160px] rounded-xl bg-white/10 px-4 py-3.5">
+                <div class="text-xs text-brume">Frais de dossier (espèces)</div>
+                <div class="mt-0.5 font-display text-xl font-bold">{{ francs(pret().frais) }}</div>
+              </div>
+            </div>
             <a routerLink="/" fragment="contact" class="btn-or">{{ libelles().action }}</a>
           } @else {
             <a routerLink="/services-financiers" fragment="contact" class="btn-or">{{

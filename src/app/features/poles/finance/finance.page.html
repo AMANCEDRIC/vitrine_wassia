@@ -132,9 +132,9 @@
         <span class="eyebrow text-sapin">Crédit</span>
         <h2 class="section-title nav:text-[32px]">Un crédit qui part de votre épargne</h2>
         <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
-          Des prêts de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois. Une épargne préalable est
-          nécessaire. Les conditions détaillées vous sont données par votre agent avant toute
-          demande.
+          Des prêts de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois, à un taux unique de
+          {{ tauxMensuel }} % par mois. Une épargne préalable de 8 semaines minimum est nécessaire,
+          sans bulletin de salaire ni garantie immobilière.
         </p>
       </div>
       <p class="m-0 text-[13px] leading-[1.6] text-ardoise">{{ site.mentionIob }}</p>
@@ -149,6 +149,198 @@
         class="object-cover"
       />
     </div>
+  </div>
+</section>
+
+<!-- Le système pas à pas -->
+<section id="credit-etapes" class="border-t border-trait bg-fond">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Le système WASSIA</span>
+      <h2 class="section-title nav:text-[32px]">Du premier versement au crédit, étape par étape</h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Chez WASSIA, on ne prête pas seulement à ceux qui ont un grand capital : on prête à ceux qui
+        respectent leurs engagements. La régularité et la parole donnée comptent plus que le
+        montant.
+      </p>
+    </div>
+    <ol class="m-0 flex list-none flex-wrap gap-5 p-0">
+      @for (e of etapesCredit; track e.numero) {
+        <li class="card flex min-w-0 flex-[1_1_300px] flex-col gap-2 rounded-2xl p-5">
+          <span class="font-display text-sm font-bold tracking-wide text-sapin uppercase"
+            >Étape {{ e.numero }}</span
+          >
+          <h3 class="m-0 font-display text-lg font-bold text-marine">{{ e.titre }}</h3>
+          <p class="m-0 text-[15px] leading-[1.6] text-ardoise">{{ e.texte }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- Grille tarifaire -->
+<section id="tarifs" class="bg-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Grille tarifaire</span>
+      <h2 class="section-title nav:text-[32px]">
+        {{ tauxMensuel }} % par mois, des échéances connues d’avance
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Les frais de dossier se règlent en espèces au décaissement. Il n’y a aucune assurance cachée
+        ni commission annexe.
+      </p>
+    </div>
+    <!-- Mobile : une carte par montant -->
+    <div class="flex flex-col gap-4 nav:hidden">
+      @for (g of groupes; track g.montant) {
+        <article class="card overflow-hidden rounded-2xl">
+          <header class="flex items-baseline justify-between gap-3 bg-marine px-4 py-3 text-white">
+            <h3 class="m-0 font-display text-lg font-bold">{{ francs(g.montant) }}</h3>
+            <span class="text-[13px] text-brume">Frais de dossier : {{ francs(g.frais) }}</span>
+          </header>
+          <ul class="m-0 list-none p-0">
+            @for (l of g.lignes; track l.mois) {
+              <li class="flex flex-col gap-2 border-t border-trait px-4 py-3 first:border-t-0">
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="font-display text-base font-bold text-marine">{{ l.mois }} mois</span>
+                  <span class="text-sm font-semibold text-sapin"
+                    >Intérêts {{ francs(l.interets) }}</span
+                  >
+                </div>
+                <dl class="m-0 grid grid-cols-3 gap-2 text-[13px]">
+                  <div>
+                    <dt class="text-ardoise">Total</dt>
+                    <dd class="m-0 font-semibold text-encre">{{ francs(l.total) }}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-ardoise">Par mois</dt>
+                    <dd class="m-0 font-semibold text-encre">{{ francs(l.mensualite) }}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-ardoise">Par semaine</dt>
+                    <dd class="m-0 font-semibold text-marine">{{ francs(l.hebdomadaire) }}</dd>
+                  </div>
+                </dl>
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+    <!-- Ordinateur : tableau -->
+    <div class="hidden overflow-x-auto rounded-2xl border border-trait nav:block">
+      <table class="w-full min-w-[720px] border-collapse text-left text-[15px]">
+        <caption class="sr-only">
+          Grille tarifaire des prêts : intérêts, total remboursé, mensualité et échéance
+          hebdomadaire selon le montant et la durée
+        </caption>
+        <thead class="bg-marine text-white">
+          <tr>
+            <th scope="col" class="px-3.5 py-3 font-display">Montant</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Frais de dossier</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Durée</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Intérêts</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Total</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Par mois</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Par semaine</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ligne of grille; track ligne.montant + '-' + ligne.mois) {
+            <tr class="border-t border-trait">
+              @if (ligne.premiere) {
+                <th
+                  scope="rowgroup"
+                  [attr.rowspan]="nbDurees"
+                  class="bg-fond px-3.5 py-3 align-top font-display font-bold text-marine"
+                >
+                  {{ francs(ligne.montant) }}
+                </th>
+                <td [attr.rowspan]="nbDurees" class="bg-fond px-3.5 py-3 align-top text-ardoise">
+                  {{ francs(ligne.frais) }}
+                </td>
+              }
+              <td class="px-3.5 py-3 text-ardoise">{{ ligne.mois }} mois</td>
+              <td class="px-3.5 py-3 font-semibold text-sapin">{{ francs(ligne.interets) }}</td>
+              <td class="px-3.5 py-3 text-ardoise">{{ francs(ligne.total) }}</td>
+              <td class="px-3.5 py-3 text-ardoise">{{ francs(ligne.mensualite) }}</td>
+              <td class="px-3.5 py-3 font-semibold text-marine">
+                {{ francs(ligne.hebdomadaire) }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="m-0 text-[13px] leading-[1.6] text-ardoise">
+      Grille indicative. Les conditions réelles sont confirmées par votre agent avant toute demande.
+    </p>
+  </div>
+</section>
+
+<!-- Exemples concrets -->
+<section id="exemples" class="border-t border-trait bg-fond">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Exemples concrets</span>
+      <h2 class="section-title nav:text-[32px]">Comment ça se passe sur le terrain</h2>
+    </div>
+    <div class="flex flex-wrap gap-5">
+      @for (ex of exemples; track ex.nom) {
+        <article class="card flex min-w-0 flex-[1_1_380px] flex-col gap-3 rounded-2xl p-6">
+          <h3 class="m-0 font-display text-lg font-bold text-marine">{{ ex.nom }}</h3>
+          <p class="m-0 text-sm font-semibold text-sapin">{{ ex.profil }}</p>
+          <ul class="m-0 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-[1.6] text-ardoise">
+            @for (ligne of ex.lignes; track ligne) {
+              <li>{{ ligne }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Comparatif -->
+<section id="comparatif" class="bg-white">
+  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
+    <div class="flex max-w-[820px] flex-col gap-3">
+      <span class="eyebrow text-sapin">Pourquoi WASSIA</span>
+      <h2 class="section-title nav:text-[32px]">Un partenaire pensé pour le secteur informel</h2>
+      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        Plus de 80 % de l’économie repose sur des commerçants, artisans, chauffeurs, couturiers et
+        cuisiniers sans fiche de paie. WASSIA leur offre un taux unique et lisible.
+      </p>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-trait">
+      <table class="w-full min-w-[620px] border-collapse text-left text-[15px]">
+        <caption class="sr-only">
+          Comparaison de WASSIA avec les prêteurs informels, les microfinances et les banques
+        </caption>
+        <thead class="bg-marine text-white">
+          <tr>
+            <th scope="col" class="px-3.5 py-3 font-display">Acteur</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Taux appliqué</th>
+            <th scope="col" class="px-3.5 py-3 font-display">Exigences et frais</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of comparatif; track c.acteur) {
+            <tr class="border-t border-trait" [class]="c.wassia ? 'bg-sapin/10 font-semibold' : ''">
+              <th scope="row" class="px-3.5 py-3 font-display text-marine">{{ c.acteur }}</th>
+              <td class="px-3.5 py-3 text-ardoise">{{ c.taux }}</td>
+              <td class="px-3.5 py-3 text-ardoise">{{ c.exigences }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <blockquote
+      class="m-0 border-l-4 border-or pl-5 font-display text-xl leading-snug font-semibold text-marine"
+    >
+      {{ slogan }}
+    </blockquote>
   </div>
 </section>
 

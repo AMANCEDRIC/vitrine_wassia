@@ -1,4 +1,4 @@
-import { ModeSimulation } from '@content/simulateur';
+import { DureeCredit, calculerCredit, fraisDuMontant } from '@content/credit';
 
 export interface ResultatSimulation {
   /** Mensualité (prêt) ou capital à terme (épargne). */
@@ -11,28 +11,32 @@ export interface ResultatSimulation {
   partBase: number;
 }
 
-/**
- * Même calcul que la maquette :
- * - prêt : mensualité constante M = C·r / (1 − (1 + r)^−n), avec r le taux mensuel ;
- * - épargne : versements mensuels capitalisés, VF = V·((1 + r)^n − 1) / r.
- */
-export function simuler(
-  mode: ModeSimulation,
+export interface ResultatPret extends ResultatSimulation {
+  hebdomadaire: number;
+  /** Frais de dossier, réglés en espèces au décaissement (en plus du total à rembourser). */
+  frais: number;
+}
+
+/** Prêt WASSIA : taux unique de 1 % par mois, échéances de la grille du dossier officiel. */
+export function simulerPret(montant: number, mois: DureeCredit): ResultatPret {
+  const ligne = calculerCredit(montant, fraisDuMontant(montant), mois);
+  return {
+    principal: ligne.mensualite,
+    total: ligne.total,
+    interets: ligne.interets,
+    partBase: (montant / ligne.total) * 100,
+    hebdomadaire: ligne.hebdomadaire,
+    frais: ligne.frais,
+  };
+}
+
+/** Épargne : versements mensuels capitalisés, VF = V·((1 + r)^n − 1) / r (r = taux mensuel). */
+export function simulerEpargne(
   montant: number,
   tauxAnnuel: number,
   mois: number,
 ): ResultatSimulation {
   const r = tauxAnnuel / 1200;
-  if (mode === 'pret') {
-    const mensualite = r ? (montant * r) / (1 - Math.pow(1 + r, -mois)) : montant / mois;
-    const total = mensualite * mois;
-    return {
-      principal: mensualite,
-      total,
-      interets: total - montant,
-      partBase: total ? (montant / total) * 100 : 100,
-    };
-  }
   const capital = r ? (montant * (Math.pow(1 + r, mois) - 1)) / r : montant * mois;
   const verse = montant * mois;
   return {

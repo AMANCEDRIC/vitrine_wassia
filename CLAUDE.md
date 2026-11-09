@@ -53,7 +53,7 @@ src/server/contact.ts   POST /api/contact, monté dans src/server.ts avant le re
 
 ## Contenus à faire valider par le client
 
-Les textes viennent des documents client et de la maquette. Ne pas les présenter comme définitifs : garanties chiffrées (loyer, recette, pannes), montants et taux de crédit du simulateur et de la page Finance, statut IOB, téléphone `+225 07 07 07 07 07` (probablement fictif), mentions légales marquées `[À COMPLÉTER]` dans `content/legal.ts`, couleurs des pôles Voyage et Agrobusiness. Logos et illustrations dans `public/images/` : extraits provisoirement de la maquette, à remplacer par les fichiers officiels.
+Les textes viennent des documents client et de la maquette. Ne pas les présenter comme définitifs : garanties chiffrées (loyer, recette, pannes), grille de crédit, frais de dossier, exemples et comparatif du « Dossier officiel 2026 » (tout est dans `content/credit.ts`, qui alimente la page Finance et le simulateur de prêt : taux 1 %/mois, hebdomadaire = total / (mois × 4)), statut IOB (le dossier parle de crédit direct, le site garde la mention IOB), siège (le dossier dit Akoupé, le site garde Yopougon), téléphone `+225 07 98 01 25 91`, mentions légales marquées `[À COMPLÉTER]` dans `content/legal.ts`, couleurs des pôles Voyage et Agrobusiness. Logos et illustrations dans `public/images/` : extraits provisoirement de la maquette, à remplacer par les fichiers officiels.
 
 Éléments prêts mais masqués tant que le client n'a pas fourni les données (ne jamais inventer de valeurs) :
 - `CHIFFRES_CLES` (`content/accueil.ts`) : bandeau de compteurs animés sous la bannière, affiché seulement quand toutes les valeurs sont renseignées.

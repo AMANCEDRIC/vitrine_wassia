@@ -22,7 +22,7 @@ export const routes: Routes = [
     title: 'Services financiers et inclusion' + SUFFIXE,
     data: {
       description:
-        'Intermédiation en opérations de banque, épargne communautaire par carte membre à QR code et solidarité mutualisée.',
+        'Intermédiation en opérations de banque, épargne par carte membre à QR code, crédit à 1 % par mois et solidarité mutualisée.',
     },
     loadComponent: () => import('@features/poles/finance/finance.page').then((m) => m.FinancePage),
   },

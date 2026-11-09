@@ -1,6 +1,9 @@
 /**
- * Bornes et valeurs par défaut du simulateur (reprises de la maquette).
- * Les taux sont des EXEMPLES : le client doit confirmer les conditions réelles avant la mise en ligne.
+ * Bornes et valeurs par défaut du simulateur d'épargne (reprises de la maquette).
+ * Le taux d'épargne est un EXEMPLE : le client doit confirmer les conditions réelles.
+ *
+ * Le simulateur de prêt n'a pas de curseurs : il suit la grille du dossier officiel
+ * (`content/credit.ts`, taux de 1 % par mois, durées de 6, 12 ou 18 mois).
  */
 export type ModeSimulation = 'pret' | 'epargne';
 
@@ -17,15 +20,11 @@ export interface ConfigSimulation {
   duree: Curseur;
 }
 
-export const SIMULATEUR: Record<ModeSimulation, ConfigSimulation> = {
-  pret: {
-    montant: { min: 50_000, max: 10_000_000, pas: 10_000, defaut: 500_000 },
-    taux: { min: 0, max: 36, pas: 0.5, defaut: 12 },
-    duree: { min: 3, max: 60, pas: 1, defaut: 12 },
-  },
-  epargne: {
-    montant: { min: 5_000, max: 1_000_000, pas: 5_000, defaut: 25_000 },
-    taux: { min: 0, max: 15, pas: 0.5, defaut: 3 },
-    duree: { min: 1, max: 60, pas: 1, defaut: 12 },
-  },
+export const SIMULATEUR_EPARGNE: ConfigSimulation = {
+  montant: { min: 5_000, max: 1_000_000, pas: 5_000, defaut: 25_000 },
+  taux: { min: 0, max: 15, pas: 0.5, defaut: 3 },
+  duree: { min: 1, max: 60, pas: 1, defaut: 12 },
 };
+
+/** Montant et durée proposés par défaut pour le prêt (valeurs de la grille). */
+export const PRET_PAR_DEFAUT = { montant: 500_000, duree: 12 } as const;

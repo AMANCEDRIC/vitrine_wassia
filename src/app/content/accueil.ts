@@ -123,8 +123,9 @@ export const ETAPES_CARTE: readonly EtapeCarte[] = [
   },
   {
     titre: 'Recevez votre carte à QR code',
-    texte: 'Une carte prépayée à votre nom, activée par un SMS de bienvenue.',
-    texteMobile: 'Une carte PVC à votre nom, activée par SMS.',
+    texte:
+      'Pour 1 000 F versés en espèces à l’inscription, une carte PVC à QR code à votre nom, activée par un SMS de bienvenue.',
+    texteMobile: '1 000 F à l’inscription : une carte PVC à votre nom.',
     dessin: [
       { type: 'rect', x: 6, y: 14, width: 52, height: 36, rx: 6 },
       { type: 'path', d: 'M6 26h52' },
@@ -133,10 +134,10 @@ export const ETAPES_CARTE: readonly EtapeCarte[] = [
     ],
   },
   {
-    titre: 'Épargnez et suivez vos versements',
+    titre: 'Épargnez pendant 8 semaines',
     texte:
-      'À chaque passage de l’agent, un reçu et un SMS indiquent le montant versé et votre nouveau solde.',
-    texteMobile: 'Un reçu et un SMS à chaque passage de l’agent.',
+      'Au moins 2 000 F par semaine. À chaque passage de l’agent, un reçu et un SMS indiquent le montant versé et votre nouveau solde.',
+    texteMobile: '8 semaines minimum, un SMS à chaque versement.',
     dessin: [
       { type: 'rect', x: 18, y: 6, width: 28, height: 52, rx: 6 },
       { type: 'path', d: 'M26 14h12' },
@@ -146,8 +147,8 @@ export const ETAPES_CARTE: readonly EtapeCarte[] = [
   {
     titre: 'Demandez un crédit adapté',
     texte:
-      'Votre épargne régulière facilite l’accès au crédit. Votre agent dépose le dossier, un chef l’approuve selon le montant.',
-    texteMobile: '',
+      'Votre épargne régulière ouvre l’accès au crédit à 1 % par mois. Réponse sous 48 h, sans bulletin de salaire ni garantie immobilière.',
+    texteMobile: 'Crédit à 1 % par mois, réponse sous 48 h.',
     dessin: [
       { type: 'circle', cx: 32, cy: 32, r: 24 },
       { type: 'path', d: 'M32 18v28M24 26c0-4 4-6 8-6s8 2 8 6-4 5-8 6-8 2-8 6 4 6 8 6 8-2 8-6' },
