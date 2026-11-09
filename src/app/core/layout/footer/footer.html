@@ -44,8 +44,8 @@
       <nav aria-label="Le groupe" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
         <span class="font-display font-bold text-white">Le groupe</span>
         <a routerLink="/a-propos" class="hover:text-white">À propos</a>
-        <a routerLink="/" fragment="actualites" class="hover:text-white">Actualités</a>
-        <a routerLink="/" fragment="contact" class="hover:text-white">Contact</a>
+        <a routerLink="/actualites" class="hover:text-white">Actualités</a>
+        <a routerLink="/contact" class="hover:text-white">Contact</a>
         @if (espaceAgents.url; as url) {
           <a [href]="url" class="hover:text-white">Espace agents</a>
         }
@@ -95,8 +95,8 @@
     <nav aria-label="Le groupe" class="flex flex-wrap gap-x-7 gap-y-3">
       <a routerLink="/" fragment="poles">Activités</a>
       <a routerLink="/a-propos">À propos</a>
-      <a routerLink="/" fragment="actualites">Actualités</a>
-      <a routerLink="/" fragment="contact">Contact</a>
+      <a routerLink="/actualites">Actualités</a>
+      <a routerLink="/contact">Contact</a>
       @if (espaceAgents.url; as url) {
         <a [href]="url">Espace agents</a>
       }

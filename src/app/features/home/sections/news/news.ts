@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ACTUALITES } from '@content/accueil';
 
 const DELAI_AUTO_MS = 5000;
@@ -21,7 +22,7 @@ const DELAI_AUTO_MS = 5000;
  */
 @Component({
   selector: 'app-news',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './news.html',
 })

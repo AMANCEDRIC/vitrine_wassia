@@ -8,6 +8,8 @@ const PAGES = [
   'immobilier-mobilite',
   'voyage',
   'agrobusiness',
+  'actualites',
+  'contact',
   'merci',
   'cgu',
   'confidentialite',

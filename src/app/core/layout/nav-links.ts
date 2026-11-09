@@ -11,9 +11,9 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: 'Accueil', route: '/' },
   { label: 'À propos', route: '/a-propos' },
   { label: 'Nos activités', route: '/', fragment: 'poles', poles: true },
-  { label: 'Actualités', route: '/', fragment: 'actualites' },
+  { label: 'Actualités', route: '/actualites' },
   { label: 'Simulateur', route: '/', fragment: 'simulateur' },
-  { label: 'Contact', route: '/', fragment: 'contact' },
+  { label: 'Contact', route: '/contact' },
 ];
 
 /** Destination du bouton « Devenir membre » : le formulaire du pôle Services financiers. */

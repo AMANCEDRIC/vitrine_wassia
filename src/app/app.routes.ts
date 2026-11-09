@@ -58,6 +58,24 @@ export const routes: Routes = [
       import('@features/poles/agrobusiness/agrobusiness.page').then((m) => m.AgrobusinessPage),
   },
   {
+    path: 'actualites',
+    title: 'Actualités et projets' + SUFFIXE,
+    data: {
+      description: 'Les actualités et les projets du GROUPE WASSIA dans ses cinq pôles d’activités.',
+    },
+    loadComponent: () =>
+      import('@features/actualites/actualites.page').then((m) => m.ActualitesPage),
+  },
+  {
+    path: 'contact',
+    title: 'Contact' + SUFFIXE,
+    data: {
+      description:
+        'Contactez le GROUPE WASSIA : adresse du siège, téléphone, WhatsApp, e-mail et formulaire de demande.',
+    },
+    loadComponent: () => import('@features/contact/contact.page').then((m) => m.ContactPage),
+  },
+  {
     path: 'merci',
     title: 'Demande envoyée' + SUFFIXE,
     loadComponent: () => import('@features/merci/merci.page').then((m) => m.MerciPage),

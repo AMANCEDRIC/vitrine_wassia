@@ -27,7 +27,7 @@ src/app/
   core/services/    seo.service : meta description depuis route.data.description (le titre vient de route.title)
   shared/ui/        icon, page-hero, contact-form (générique), member-card (carte membre recto/verso)
   shared/data/      modèle des demandes de contact, validation partagée navigateur/serveur, appel HTTP
-  features/         une page par dossier, chargée à la demande (home et ses sections, about, poles/*, merci, legal, not-found)
+  features/         une page par dossier, chargée à la demande (home et ses sections, about, actualites, contact, poles/*, merci, legal, not-found). Actualités (`/actualites`) et Contact (`/contact`) ont leur propre page ; l'accueil garde le carrousel et le formulaire en aperçu, et tous les boutons « Nous contacter » mènent à `/contact`
   content/          TOUS les textes et données (pôles, accueil, formulaires, simulateur, pages légales, coordonnées)
 src/server/contact.ts   POST /api/contact, monté dans src/server.ts avant le rendu Angular
 ```

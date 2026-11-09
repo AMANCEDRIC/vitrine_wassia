@@ -21,7 +21,7 @@ import { RouterLink } from '@angular/router';
           }
         </div>
         <div class="flex flex-wrap gap-3">
-          <a routerLink="/" fragment="contact" class="btn-or px-[26px] text-base">Nous contacter</a>
+          <a routerLink="/contact" class="btn-or px-[26px] text-base">Nous contacter</a>
           <a routerLink="/" fragment="poles" class="btn-contour-clair px-[22px] text-base"
             >Nos activités</a
           >

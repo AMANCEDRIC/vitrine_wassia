@@ -22,7 +22,7 @@ import { ATOUTS } from '@content/accueil';
               Six raisons de nous confier vos biens, votre mobilité et votre épargne.
             </p>
           </div>
-          <a routerLink="/" fragment="contact" class="btn-or px-5 py-[13px] text-sm">Parlons-en</a>
+          <a routerLink="/contact" class="btn-or px-5 py-[13px] text-sm">Parlons-en</a>
         </div>
 
         <ul class="m-0 grid list-none gap-5 p-0 md:grid-cols-2 nav:grid-cols-3">

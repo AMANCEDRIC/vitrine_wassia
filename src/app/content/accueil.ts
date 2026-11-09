@@ -67,7 +67,7 @@ export const DIAPOSITIVES: readonly Diapositive[] = [
       'Accompagnement des dossiers de visa, réservations et organisation de séjours pour les particuliers et les professionnels.',
     actions: [
       { label: 'Découvrir le pôle Voyage', route: '/voyage', style: 'or' },
-      { label: 'Nous contacter', route: '/', fragment: 'contact', style: 'lien' },
+      { label: 'Nous contacter', route: '/contact', style: 'lien' },
     ],
     image: 'images/illustrations/voyage.svg',
     alt: 'Illustration : avion, valises et passeport',
