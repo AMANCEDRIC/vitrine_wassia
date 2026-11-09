@@ -313,29 +313,51 @@
         cuisiniers sans fiche de paie. WASSIA leur offre un taux unique et lisible.
       </p>
     </div>
-    <div class="overflow-x-auto rounded-2xl border border-trait">
-      <table class="w-full min-w-[620px] border-collapse text-left text-[15px]">
-        <caption class="sr-only">
-          Comparaison de WASSIA avec les prêteurs informels, les microfinances et les banques
-        </caption>
-        <thead class="bg-marine text-white">
-          <tr>
-            <th scope="col" class="px-3.5 py-3 font-display">Acteur</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Taux appliqué</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Exigences et frais</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (c of comparatif; track c.acteur) {
-            <tr class="border-t border-trait" [class]="c.wassia ? 'bg-sapin/10 font-semibold' : ''">
-              <th scope="row" class="px-3.5 py-3 font-display text-marine">{{ c.acteur }}</th>
-              <td class="px-3.5 py-3 text-ardoise">{{ c.taux }}</td>
-              <td class="px-3.5 py-3 text-ardoise">{{ c.exigences }}</td>
-            </tr>
+    <ul class="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch">
+      @for (c of comparatif; track c.acteur) {
+        <li
+          class="relative flex flex-col gap-4 rounded-2xl p-6"
+          [class]="
+            c.wassia
+              ? 'bg-linear-135 from-marine to-bleu-vif text-white shadow-lg ring-2 ring-or sm:col-span-2 lg:col-span-1 lg:-my-3 lg:py-9'
+              : 'card'
+          "
+        >
+          @if (c.wassia) {
+            <span
+              class="absolute -top-3 left-6 rounded-full bg-or px-3 py-1 font-sans text-[11px] font-bold tracking-[.12em] text-nuit uppercase"
+              >Notre offre</span
+            >
           }
-        </tbody>
-      </table>
-    </div>
+          <h3
+            class="m-0 font-display text-base font-bold"
+            [class]="c.wassia ? 'text-white' : 'text-marine'"
+          >
+            {{ c.acteur }}
+          </h3>
+          <div>
+            <div
+              class="text-xs font-semibold tracking-[.1em] uppercase"
+              [class]="c.wassia ? 'text-or-clair' : 'text-ardoise'"
+            >
+              Taux appliqué
+            </div>
+            <div
+              class="mt-1 font-display leading-tight font-bold"
+              [class]="c.wassia ? 'text-[28px] text-white' : 'text-xl text-marine'"
+            >
+              {{ c.taux }}
+            </div>
+          </div>
+          <div
+            class="mt-auto border-t pt-4 text-[15px] leading-[1.55]"
+            [class]="c.wassia ? 'border-white/20 text-brume' : 'border-trait text-ardoise'"
+          >
+            {{ c.exigences }}
+          </div>
+        </li>
+      }
+    </ul>
     <blockquote
       class="m-0 border-l-4 border-or pl-5 font-display text-xl leading-snug font-semibold text-marine"
     >
@@ -347,15 +369,36 @@
 <!-- Questions fréquentes -->
 <section id="faq">
   <div class="container-site grid gap-8 py-12 nav:grid-cols-[1fr_1.6fr] nav:gap-14 nav:py-[72px]">
-    <div class="flex flex-col gap-3">
-      <span class="eyebrow text-sapin">Questions fréquentes</span>
-      <h2 class="section-title nav:text-[32px]">Tout savoir sur la carte membre</h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
-        Une autre question ? Votre agent WASSIA vous répond, ou écrivez-nous.
-      </p>
-      <a routerLink="." fragment="contact" class="btn-sapin mt-2 self-start px-5 py-[13px]"
-        >Être contacté par un agent</a
-      >
+    <div class="flex flex-col gap-6 nav:sticky nav:top-28 nav:self-start">
+      <div class="flex flex-col gap-3">
+        <span class="eyebrow text-sapin">Questions fréquentes</span>
+        <h2 class="section-title nav:text-[32px]">Carte, épargne et crédit : vos questions</h2>
+        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+          Les réponses aux questions les plus posées avant de devenir membre.
+        </p>
+      </div>
+
+      <!-- L'essentiel en trois chiffres -->
+      <dl class="m-0 grid grid-cols-3 gap-3">
+        @for (c of chiffres; track c.libelle) {
+          <div class="card flex flex-col rounded-xl px-3 py-3.5 text-center">
+            <dt class="order-2 mt-1 text-xs leading-snug text-ardoise">{{ c.libelle }}</dt>
+            <dd class="m-0 font-display text-xl font-bold text-marine">{{ c.valeur }}</dd>
+          </div>
+        }
+      </dl>
+
+      <div class="flex flex-col items-start gap-3">
+        <p class="m-0 text-[15px] leading-[1.6] text-ardoise">Une autre question ?</p>
+        <a
+          routerLink="."
+          fragment="contact"
+          class="btn-sapin inline-flex items-center gap-2 px-5 py-[13px]"
+        >
+          Écrivez-nous
+          <app-icon name="chevron" [size]="16" class="inline-flex rotate-90" />
+        </a>
+      </div>
     </div>
     <app-faq [questions]="faq" nom="faq-finance" />
   </div>

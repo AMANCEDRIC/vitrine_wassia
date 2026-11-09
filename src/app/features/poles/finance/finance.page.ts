@@ -34,6 +34,12 @@ export class FinancePage {
   protected readonly faq = FAQ_FINANCE;
   protected readonly formulaire = FORMULAIRES['devenir-membre'];
 
+  protected readonly chiffres = [
+    { valeur: '1 000 F', libelle: 'pour ouvrir votre compte' },
+    { valeur: '8 sem.', libelle: 'd’épargne avant le prêt' },
+    { valeur: '48 h', libelle: 'pour la réponse' },
+  ];
+
   protected readonly tauxMensuel = TAUX_MENSUEL;
   protected readonly etapesCredit = ETAPES_CREDIT;
   protected readonly exemples = EXEMPLES_CREDIT;

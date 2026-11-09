@@ -41,7 +41,7 @@ export class ImmobilierMobilitePage {
   protected readonly etapesImmobilier = [
     'Vous nous présentez votre bien : nous l’estimons avec vous.',
     'Vous signez le contrat de gestion : WASSIA s’occupe des locataires et des relances.',
-    'Vous recevez votre loyer à date fixe, chaque mois.',
+    'Vous suivez votre bien sans vous soucier des démarches du quotidien.',
   ];
 
   protected readonly servicesFlottes = [
