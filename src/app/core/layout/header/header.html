@@ -1,5 +1,5 @@
 <header
-  class="bg-nuit shadow-[0_1px_0_rgba(255,255,255,.08)] transition-shadow duration-500 ease-doux"
+  class="border-b border-trait bg-white transition-shadow duration-500 ease-doux"
   [class.is-compact]="compact()"
 >
   <div
@@ -8,7 +8,7 @@
   >
     <a routerLink="/" class="block" [attr.aria-label]="site.nomLogo + ' — accueil'">
       <img
-        src="images/logo-blanc.png"
+        src="images/logo.png"
         width="479"
         height="202"
         [alt]="site.nomLogo"
@@ -20,7 +20,7 @@
     <!-- Menu ordinateur -->
     <nav
       aria-label="Menu principal"
-      class="hidden flex-wrap items-center gap-x-7 gap-y-1.5 font-display text-[15px] font-medium text-brume-clair lg:ml-auto lg:flex"
+      class="hidden flex-wrap items-center gap-x-7 gap-y-1.5 font-display text-[15px] font-semibold text-nuit lg:ml-auto lg:flex"
     >
       @for (link of links; track link.label) {
         @if (link.poles) {
@@ -143,7 +143,9 @@
 
     <div class="hidden flex-wrap gap-2.5 md:ml-auto md:flex lg:ml-0">
       @if (espaceAgents.url; as url) {
-        <a [href]="url" class="btn-contour-clair min-h-12 px-5 py-2.5 text-[15px]">Espace agents</a>
+        <a [href]="url" class="btn-contour-marine min-h-12 px-5 py-2.5 text-[15px]"
+          >Espace agents</a
+        >
       }
       <a
         [routerLink]="devenirMembre.route"
@@ -167,14 +169,14 @@
     <button
       type="button"
       #boutonMenu
-      class="flex min-h-12 cursor-pointer items-center gap-2.5 rounded-[2px] border border-white/40 bg-transparent px-4 font-display text-[13px] font-semibold tracking-[.1em] text-white uppercase transition-colors active:bg-white/10 lg:hidden"
+      class="flex min-h-12 cursor-pointer items-center gap-2.5 rounded-[2px] border-[1.5px] border-nuit bg-white px-4 font-display text-[13px] font-semibold tracking-[.1em] text-nuit uppercase transition-colors active:bg-fond lg:hidden"
       aria-label="Ouvrir le menu"
       aria-controls="menu-mobile"
       [attr.aria-expanded]="menuOpen()"
       (click)="menuOpen.set(true)"
     >
       <span aria-hidden="true">Menu</span>
-      <app-icon name="menu" color="#fff" [size]="18" />
+      <app-icon name="menu" color="var(--color-nuit)" [size]="18" />
     </button>
   </div>
 </header>

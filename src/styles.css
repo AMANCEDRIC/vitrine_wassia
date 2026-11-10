@@ -388,11 +388,11 @@
 }
 .nav-link:focus-visible,
 .nav-link.is-active {
-  color: #fff;
+  color: var(--color-sapin);
 }
 @media (hover: hover) {
   .nav-link:hover {
-    color: #fff;
+    color: var(--color-sapin);
   }
   .nav-link:hover::after {
     transform: scaleX(1);
