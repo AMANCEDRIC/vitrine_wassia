@@ -3,10 +3,10 @@
   titre="L’inclusion financière au cœur de votre croissance"
   intro="Intermédiation bancaire sécurisée, épargne communautaire numérisée et solidarité mutualisée."
 >
-  <a routerLink="." fragment="contact" class="btn-or px-5 py-[13px] text-sm">Devenir membre</a>
-  <a routerLink="." fragment="carte" class="btn-contour-clair px-[19px] py-3 text-sm"
-    >Comment fonctionne la carte</a
-  >
+  <a routerLink="." fragment="contact" class="btn-or"
+    >Devenir membre <app-icon name="fleche" [size]="20" class="btn-fleche"
+  /></a>
+  <a routerLink="." fragment="carte" class="btn-contour-clair">Comment fonctionne la carte</a>
 </app-page-hero>
 
 <app-pole-quote>
@@ -16,12 +16,12 @@
 
 <!-- Trois piliers. Consigne client : aucun nom de banque tant que les accords ne sont pas signés. -->
 <section class="bg-white">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">Trois piliers</span>
-      <h2 class="section-title nav:text-[32px]">Ce que WASSIA vous apporte</h2>
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">Trois piliers</span>
+      <h2 class="section-title">Ce que WASSIA vous apporte</h2>
     </div>
-    <div class="flex flex-wrap gap-6">
+    <div class="flex flex-wrap gap-12">
       <app-service-card titre="Intermédiation en opérations de banque (IOB)">
         <p class="m-0 text-[15px] leading-[1.65] text-ardoise">
           En tant qu’intermédiaire en opérations de banque, WASSIA vous accompagne et vous oriente
@@ -29,7 +29,7 @@
           et aux services bancaires.
         </p>
         <p class="m-0 mt-3 text-[15px] leading-[1.65] text-ardoise">
-          <b class="text-marine">Transparence :</b> chaque versement est enregistré, tracé et
+          <b class="text-sapin">Transparence :</b> chaque versement est enregistré, tracé et
           confirmé par SMS.
         </p>
       </app-service-card>
@@ -50,60 +50,54 @@
 </section>
 
 <!-- Statut IOB et partenaires bancaires -->
-<section id="statut">
-  <div class="container-site py-12 nav:py-[72px]">
-    <div
-      class="grid overflow-hidden rounded-2xl border border-trait bg-white shadow-[0_14px_30px_rgba(10,42,94,.08)] nav:grid-cols-[1.3fr_1fr]"
-    >
-      <div class="flex flex-col gap-4 p-7 nav:p-10">
-        <span
-          class="inline-flex items-center gap-2 self-start rounded-full bg-succes-fond px-3.5 py-1.5 font-sans text-xs font-semibold tracking-[.08em] text-succes uppercase"
-        >
-          <app-icon name="check" [size]="14" color="var(--color-succes)" />
-          Notre statut
-        </span>
-        <h2 class="section-title nav:text-[30px]">Intermédiaire en opérations de banque (IOB)</h2>
-        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
-          WASSIA exerce une activité d’intermédiation en opérations de banque au service de
-          l’inclusion financière : épargne communautaire par carte membre, accompagnement des
-          commerçants, artisans et entrepreneurs vers le crédit et les services bancaires.
-        </p>
-        <p class="m-0 text-[13px] leading-[1.6] text-ardoise">{{ site.mentionIob }}</p>
-      </div>
+<section id="statut" class="bg-nuit text-brume">
+  <div class="container-site flex flex-wrap items-start gap-x-20 gap-y-12 py-14 nav:py-[120px]">
+    <div class="flex min-w-0 flex-[1.2_1_520px] flex-col gap-6">
+      <span class="eyebrow eyebrow-or text-brume">Notre statut</span>
+      <h2 class="section-title text-white nav:text-[clamp(2rem,3.8vw,3.3rem)] nav:leading-[1.06]">
+        Intermédiaire en opérations de banque (IOB)
+      </h2>
+      <p class="m-0 text-[17px] leading-[1.65] nav:text-[1.12rem]">
+        WASSIA exerce une activité d’intermédiation en opérations de banque au service de
+        l’inclusion financière : épargne communautaire par carte membre, accompagnement des
+        commerçants, artisans et entrepreneurs vers le crédit et les services bancaires.
+      </p>
+      <p class="m-0 border border-white/20 px-[22px] py-[18px] text-[15px] text-brume-clair">
+        {{ site.mentionIob }}
+      </p>
+    </div>
 
-      <div class="flex flex-col gap-4 bg-fond p-7 nav:border-l nav:border-trait nav:p-10">
-        <span class="eyebrow text-sapin">Partenaires bancaires</span>
-        <p class="m-0 font-display text-lg leading-snug font-bold text-marine">
-          {{ partenariat }}
-        </p>
-        @if (partenaire.nom; as nom) {
-          <div class="rounded-xl border border-trait bg-white p-5">
-            <div class="font-display text-base font-bold text-marine">{{ nom }}</div>
-            @if (partenaire.convention; as convention) {
-              <div class="mt-1 text-sm text-ardoise">Convention n° {{ convention }}</div>
-            }
-          </div>
-        } @else {
-          <!-- Emplacement réservé au partenaire : nom et numéro de convention ajoutés après signature -->
-          <div
-            class="min-h-[96px] rounded-xl border-2 border-dashed border-champ"
-            aria-hidden="true"
-          ></div>
-        }
-      </div>
+    <div
+      class="flex min-w-0 flex-[.8_1_340px] flex-col gap-4 border-t-[6px] border-or bg-marine p-7 nav:p-9"
+    >
+      <span class="eyebrow eyebrow-nue text-xs text-or-clair">Partenaires bancaires</span>
+      <p
+        class="m-0 font-display text-[1.3rem] leading-[1.3] font-bold tracking-[-.02em] text-white nav:text-[1.4rem]"
+      >
+        {{ partenariat }}
+      </p>
+      @if (partenaire.nom; as nom) {
+        <div class="border border-white/20 bg-roi p-5">
+          <div class="font-display text-base font-bold text-white">{{ nom }}</div>
+          @if (partenaire.convention; as convention) {
+            <div class="mt-1 text-sm text-brume">Convention n° {{ convention }}</div>
+          }
+        </div>
+      } @else {
+        <!-- Emplacement réservé au partenaire : nom et numéro de convention ajoutés après signature -->
+        <div class="min-h-[96px] border-2 border-dashed border-white/25" aria-hidden="true"></div>
+      }
     </div>
   </div>
 </section>
 
 <!-- La carte membre -->
 <section id="carte">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">La carte membre</span>
-      <h2 class="section-title nav:text-[32px]">
-        Épargner avec une carte et un agent près de chez vous
-      </h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">La carte membre</span>
+      <h2 class="section-title">Épargner avec une carte et un agent près de chez vous</h2>
+      <p class="section-lead">
         Pas besoin de compte bancaire ni de savoir écrire : l’agent et la carte font le travail.
       </p>
     </div>
@@ -111,11 +105,11 @@
       @for (etape of etapes; track etape.titre) {
         <li class="flex min-w-0 flex-[1_1_280px] items-start gap-4">
           <span
-            class="size-11 flex-none rounded-full bg-sapin text-center font-display text-lg leading-11 font-bold text-white"
+            class="size-11 flex-none bg-sapin text-center font-display text-lg leading-11 font-bold text-white"
             >{{ $index + 1 }}</span
           >
           <div>
-            <h3 class="m-0 mb-1.5 font-display text-lg font-bold text-marine">{{ etape.titre }}</h3>
+            <h3 class="m-0 mb-1.5 font-display text-lg font-bold text-nuit">{{ etape.titre }}</h3>
             <p class="m-0 text-[15px] leading-[1.6] text-ardoise">{{ etape.texte }}</p>
           </div>
         </li>
@@ -126,12 +120,12 @@
 
 <!-- Crédit (montants et durées à confirmer par le client) -->
 <section class="bg-white">
-  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
+  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-[120px]">
     <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-3.5">
-      <div class="flex max-w-[820px] flex-col gap-3">
-        <span class="eyebrow text-sapin">Crédit</span>
-        <h2 class="section-title nav:text-[32px]">Un crédit qui part de votre épargne</h2>
-        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+      <div class="flex max-w-[820px] flex-col gap-5">
+        <span class="eyebrow text-ardoise">Crédit</span>
+        <h2 class="section-title">Un crédit qui part de votre épargne</h2>
+        <p class="section-lead">
           Des prêts de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois, à un taux unique de
           {{ tauxMensuel }} % par mois. Une épargne préalable de 8 semaines minimum est nécessaire,
           sans bulletin de salaire ni garantie immobilière.
@@ -139,9 +133,7 @@
       </div>
       <p class="m-0 text-[13px] leading-[1.6] text-ardoise">{{ site.mentionIob }}</p>
     </div>
-    <div
-      class="relative h-[300px] min-w-0 flex-[1_1_420px] overflow-hidden rounded-[14px] bg-illustration"
-    >
+    <div class="relative h-[300px] min-w-0 flex-[1_1_420px] overflow-hidden bg-illustration">
       <img
         ngSrc="images/illustrations/carte-membre.svg"
         alt="Illustration : commerçante avec sa carte membre à QR code"
@@ -153,25 +145,29 @@
 </section>
 
 <!-- Le système pas à pas -->
-<section id="credit-etapes" class="border-t border-trait bg-fond">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">Le système WASSIA</span>
-      <h2 class="section-title nav:text-[32px]">Du premier versement au crédit, étape par étape</h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+<section id="credit-etapes" class="bg-nuit text-brume">
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow eyebrow-or text-brume">Le système WASSIA</span>
+      <h2 class="section-title text-white">Du premier versement au crédit, étape par étape</h2>
+      <p class="section-lead text-brume">
         Chez WASSIA, on ne prête pas seulement à ceux qui ont un grand capital : on prête à ceux qui
         respectent leurs engagements. La régularité et la parole donnée comptent plus que le
         montant.
       </p>
     </div>
-    <ol class="m-0 flex list-none flex-wrap gap-5 p-0">
+    <ol class="m-0 grid list-none gap-x-8 gap-y-10 p-0 md:grid-cols-2 lg:grid-cols-3">
       @for (e of etapesCredit; track e.numero) {
-        <li class="card flex min-w-0 flex-[1_1_300px] flex-col gap-2 rounded-2xl p-5">
-          <span class="font-display text-sm font-bold tracking-wide text-sapin uppercase"
+        <li class="flex min-w-0 flex-col gap-3 border-t border-white/18 pt-7">
+          <span class="font-display text-[13px] font-semibold tracking-[.12em] text-or uppercase"
             >Étape {{ e.numero }}</span
           >
-          <h3 class="m-0 font-display text-lg font-bold text-marine">{{ e.titre }}</h3>
-          <p class="m-0 text-[15px] leading-[1.6] text-ardoise">{{ e.texte }}</p>
+          <h3
+            class="m-0 font-display text-[1.35rem] leading-[1.2] font-bold tracking-[-.02em] text-white"
+          >
+            {{ e.titre }}
+          </h3>
+          <p class="m-0 text-base leading-[1.6] text-brume">{{ e.texte }}</p>
         </li>
       }
     </ol>
@@ -180,13 +176,11 @@
 
 <!-- Grille tarifaire -->
 <section id="tarifs" class="bg-white">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">Grille tarifaire</span>
-      <h2 class="section-title nav:text-[32px]">
-        {{ tauxMensuel }} % par mois, des échéances connues d’avance
-      </h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">Grille tarifaire</span>
+      <h2 class="section-title">{{ tauxMensuel }} % par mois, des échéances connues d’avance</h2>
+      <p class="section-lead">
         Les frais de dossier se règlent en espèces au décaissement. Il n’y a aucune assurance cachée
         ni commission annexe.
       </p>
@@ -194,7 +188,7 @@
     <!-- Mobile : une carte par montant -->
     <div class="flex flex-col gap-4 nav:hidden">
       @for (g of groupes; track g.montant) {
-        <article class="card overflow-hidden rounded-2xl">
+        <article class="card overflow-hidden">
           <header class="flex items-baseline justify-between gap-3 bg-marine px-4 py-3 text-white">
             <h3 class="m-0 font-display text-lg font-bold">{{ francs(g.montant) }}</h3>
             <span class="text-[13px] text-brume">Frais de dossier : {{ francs(g.frais) }}</span>
@@ -203,7 +197,7 @@
             @for (l of g.lignes; track l.mois) {
               <li class="flex flex-col gap-2 border-t border-trait px-4 py-3 first:border-t-0">
                 <div class="flex items-baseline justify-between gap-3">
-                  <span class="font-display text-base font-bold text-marine">{{ l.mois }} mois</span>
+                  <span class="font-display text-base font-bold text-nuit">{{ l.mois }} mois</span>
                   <span class="text-sm font-semibold text-sapin"
                     >Intérêts {{ francs(l.interets) }}</span
                   >
@@ -219,7 +213,7 @@
                   </div>
                   <div>
                     <dt class="text-ardoise">Par semaine</dt>
-                    <dd class="m-0 font-semibold text-marine">{{ francs(l.hebdomadaire) }}</dd>
+                    <dd class="m-0 font-semibold text-nuit">{{ francs(l.hebdomadaire) }}</dd>
                   </div>
                 </dl>
               </li>
@@ -229,21 +223,56 @@
       }
     </div>
     <!-- Ordinateur : tableau -->
-    <div class="hidden overflow-x-auto rounded-2xl border border-trait nav:block">
+    <div class="hidden overflow-x-auto border-t-2 border-nuit nav:block">
       <table class="w-full min-w-[720px] border-collapse text-left text-[15px]">
         <caption class="sr-only">
           Grille tarifaire des prêts : intérêts, total remboursé, mensualité et échéance
           hebdomadaire selon le montant et la durée
         </caption>
-        <thead class="bg-marine text-white">
+        <thead class="border-b border-trait text-nuit">
           <tr>
-            <th scope="col" class="px-3.5 py-3 font-display">Montant</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Frais de dossier</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Durée</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Intérêts</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Total</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Par mois</th>
-            <th scope="col" class="px-3.5 py-3 font-display">Par semaine</th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Montant
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Frais de dossier
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Durée
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Intérêts
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Total
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Par mois
+            </th>
+            <th
+              scope="col"
+              class="px-3.5 py-4 font-display text-[13px] font-semibold tracking-[.08em] uppercase"
+            >
+              Par semaine
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -253,7 +282,7 @@
                 <th
                   scope="rowgroup"
                   [attr.rowspan]="nbDurees"
-                  class="bg-fond px-3.5 py-3 align-top font-display font-bold text-marine"
+                  class="bg-fond px-3.5 py-3 align-top font-display font-bold text-nuit"
                 >
                   {{ francs(ligne.montant) }}
                 </th>
@@ -265,7 +294,7 @@
               <td class="px-3.5 py-3 font-semibold text-sapin">{{ francs(ligne.interets) }}</td>
               <td class="px-3.5 py-3 text-ardoise">{{ francs(ligne.total) }}</td>
               <td class="px-3.5 py-3 text-ardoise">{{ francs(ligne.mensualite) }}</td>
-              <td class="px-3.5 py-3 font-semibold text-marine">
+              <td class="px-3.5 py-3 font-semibold text-nuit">
                 {{ francs(ligne.hebdomadaire) }}
               </td>
             </tr>
@@ -280,16 +309,20 @@
 </section>
 
 <!-- Exemples concrets -->
-<section id="exemples" class="border-t border-trait bg-fond">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">Exemples concrets</span>
-      <h2 class="section-title nav:text-[32px]">Comment ça se passe sur le terrain</h2>
+<section id="exemples" class="bg-fond">
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">Exemples concrets</span>
+      <h2 class="section-title">Comment ça se passe sur le terrain</h2>
     </div>
     <div class="flex flex-wrap gap-5">
       @for (ex of exemples; track ex.nom) {
-        <article class="card flex min-w-0 flex-[1_1_380px] flex-col gap-3 rounded-2xl p-6">
-          <h3 class="m-0 font-display text-lg font-bold text-marine">{{ ex.nom }}</h3>
+        <article
+          class="flex min-w-0 flex-[1_1_380px] flex-col gap-3 border-t-2 border-nuit bg-white p-6 nav:p-8"
+        >
+          <h3 class="m-0 font-display text-[1.35rem] font-bold tracking-[-.02em] text-nuit">
+            {{ ex.nom }}
+          </h3>
           <p class="m-0 text-sm font-semibold text-sapin">{{ ex.profil }}</p>
           <ul class="m-0 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-[1.6] text-ardoise">
             @for (ligne of ex.lignes; track ligne) {
@@ -303,12 +336,12 @@
 </section>
 
 <!-- Comparatif -->
-<section id="comparatif" class="bg-white">
-  <div class="container-site flex flex-col gap-8 py-12 nav:py-[72px]">
-    <div class="flex max-w-[820px] flex-col gap-3">
-      <span class="eyebrow text-sapin">Pourquoi WASSIA</span>
-      <h2 class="section-title nav:text-[32px]">Un partenaire pensé pour le secteur informel</h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+<section id="comparatif" class="bg-nuit text-brume">
+  <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow eyebrow-or text-brume">Pourquoi WASSIA</span>
+      <h2 class="section-title text-white">Un partenaire pensé pour le secteur informel</h2>
+      <p class="section-lead text-brume">
         Plus de 80 % de l’économie repose sur des commerçants, artisans, chauffeurs, couturiers et
         cuisiniers sans fiche de paie. WASSIA leur offre un taux unique et lisible.
       </p>
@@ -319,39 +352,39 @@
           class="relative flex flex-col gap-4 rounded-2xl p-6"
           [class]="
             c.wassia
-              ? 'bg-linear-135 from-marine to-bleu-vif text-white shadow-lg ring-2 ring-or sm:col-span-2 lg:col-span-1 lg:-my-3 lg:py-9'
-              : 'card'
+              ? 'border-t-[6px] border-or bg-marine text-white sm:col-span-2 lg:col-span-1 lg:-my-3 lg:py-9'
+              : 'border border-white/15 bg-white/5'
           "
         >
           @if (c.wassia) {
             <span
-              class="absolute -top-3 left-6 rounded-full bg-or px-3 py-1 font-sans text-[11px] font-bold tracking-[.12em] text-nuit uppercase"
+              class="absolute -top-[15px] left-6 bg-or px-3 py-1 font-display text-[11px] font-bold tracking-[.12em] text-nuit uppercase"
               >Notre offre</span
             >
           }
           <h3
             class="m-0 font-display text-base font-bold"
-            [class]="c.wassia ? 'text-white' : 'text-marine'"
+            [class]="c.wassia ? 'text-white' : 'text-white'"
           >
             {{ c.acteur }}
           </h3>
           <div>
             <div
               class="text-xs font-semibold tracking-[.1em] uppercase"
-              [class]="c.wassia ? 'text-or-clair' : 'text-ardoise'"
+              [class]="c.wassia ? 'text-or-clair' : 'text-brume'"
             >
               Taux appliqué
             </div>
             <div
               class="mt-1 font-display leading-tight font-bold"
-              [class]="c.wassia ? 'text-[28px] text-white' : 'text-xl text-marine'"
+              [class]="c.wassia ? 'text-[28px] text-white' : 'text-xl text-white'"
             >
               {{ c.taux }}
             </div>
           </div>
           <div
             class="mt-auto border-t pt-4 text-[15px] leading-[1.55]"
-            [class]="c.wassia ? 'border-white/20 text-brume' : 'border-trait text-ardoise'"
+            [class]="c.wassia ? 'border-white/20 text-brume-clair' : 'border-white/15 text-brume'"
           >
             {{ c.exigences }}
           </div>
@@ -359,7 +392,7 @@
       }
     </ul>
     <blockquote
-      class="m-0 border-l-4 border-or pl-5 font-display text-xl leading-snug font-semibold text-marine"
+      class="m-0 border-l-[6px] border-or pl-5 font-display text-xl leading-snug font-bold tracking-[-.02em] text-or-clair nav:text-2xl"
     >
       {{ slogan }}
     </blockquote>
@@ -371,32 +404,30 @@
   <div class="container-site grid gap-8 py-12 nav:grid-cols-[1fr_1.6fr] nav:gap-14 nav:py-[72px]">
     <div class="flex flex-col gap-6 nav:sticky nav:top-28 nav:self-start">
       <div class="flex flex-col gap-3">
-        <span class="eyebrow text-sapin">Questions fréquentes</span>
-        <h2 class="section-title nav:text-[32px]">Carte, épargne et crédit : vos questions</h2>
-        <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+        <span class="eyebrow text-ardoise">Questions fréquentes</span>
+        <h2 class="section-title">Carte, épargne et crédit : vos questions</h2>
+        <p class="section-lead">
           Les réponses aux questions les plus posées avant de devenir membre.
         </p>
       </div>
 
       <!-- L'essentiel en trois chiffres -->
-      <dl class="m-0 grid grid-cols-3 gap-3">
+      <dl class="m-0 grid grid-cols-3 border-t-2 border-nuit">
         @for (c of chiffres; track c.libelle) {
-          <div class="card flex flex-col rounded-xl px-3 py-3.5 text-center">
-            <dt class="order-2 mt-1 text-xs leading-snug text-ardoise">{{ c.libelle }}</dt>
-            <dd class="m-0 font-display text-xl font-bold text-marine">{{ c.valeur }}</dd>
+          <div class="flex flex-col pt-[18px] pr-3">
+            <dt class="order-2 mt-1 text-[13.5px] leading-snug text-ardoise">{{ c.libelle }}</dt>
+            <dd class="m-0 font-display text-[1.7rem] font-extrabold tracking-[-.03em] text-nuit">
+              {{ c.valeur }}
+            </dd>
           </div>
         }
       </dl>
 
       <div class="flex flex-col items-start gap-3">
         <p class="m-0 text-[15px] leading-[1.6] text-ardoise">Une autre question ?</p>
-        <a
-          routerLink="."
-          fragment="contact"
-          class="btn-sapin inline-flex items-center gap-2 px-5 py-[13px]"
-        >
+        <a routerLink="." fragment="contact" class="btn-sapin">
           Écrivez-nous
-          <app-icon name="chevron" [size]="16" class="inline-flex rotate-90" />
+          <app-icon name="fleche" [size]="20" class="btn-fleche" />
         </a>
       </div>
     </div>
@@ -406,10 +437,8 @@
 
 <!-- Formulaire -->
 <section id="contact" class="bg-marine text-white">
-  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:py-[72px]">
-    <h2
-      class="m-0 flex-[1_1_380px] font-display text-[26px] leading-[1.2] font-bold nav:text-[32px]"
-    >
+  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-[120px]">
+    <h2 class="section-title flex-[1_1_380px] text-white">
       Devenez membre : un agent vous contacte
     </h2>
     <div class="min-w-0 flex-[1_1_460px]">

@@ -22,14 +22,21 @@ interface Info {
   host: { class: 'block border-b border-white/8 bg-nuit text-[13.5px] text-brume' },
   template: `
     <ul
-      class="mx-auto m-0 hidden max-w-site list-none flex-wrap items-center gap-x-7 gap-y-2 px-8 py-2.5 lg:flex"
+      class="m-0 mx-auto hidden max-w-site list-none flex-wrap items-center gap-x-7 gap-y-2 px-8 py-2.5 lg:flex"
       aria-label="Informations pratiques"
     >
       @for (info of infos; track info.texte; let dernier = $last) {
         <li [class.ml-auto]="dernier">
           @if (info.lien) {
-            <a [href]="info.lien" class="inline-flex items-center gap-2 hover:text-white hover:underline">
-              <app-icon [name]="info.icone" [size]="14" [color]="dernier ? 'var(--color-emeraude)' : 'var(--color-or)'" />
+            <a
+              [href]="info.lien"
+              class="inline-flex items-center gap-2 hover:text-white hover:underline"
+            >
+              <app-icon
+                [name]="info.icone"
+                [size]="14"
+                [color]="dernier ? 'var(--color-emeraude)' : 'var(--color-or)'"
+              />
               {{ info.texte }}
             </a>
           } @else {

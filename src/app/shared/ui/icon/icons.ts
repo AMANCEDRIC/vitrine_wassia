@@ -24,7 +24,8 @@ export const ICONS = {
   fleche: 'M5 12h14M13 6l6 6-6 6',
   'fleche-gauche': 'M19 12H5M11 6l-6 6 6 6',
   'fleche-externe': 'M7 17 17 7M9 7h8v8',
-  telephone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2',
+  telephone:
+    'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2',
   email: 'M3 5h18v14H3zM3 7l9 6 9-6',
   whatsapp: 'M4 20l1.3-4A8 8 0 1 1 8 18.7z',
 } as const;

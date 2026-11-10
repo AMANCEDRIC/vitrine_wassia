@@ -25,7 +25,9 @@ import { Icon } from '@shared/ui/icon/icon';
           /></a>
         </div>
 
-        <ul class="m-0 grid list-none gap-x-12 gap-y-10 p-0 md:grid-cols-2 lg:grid-cols-3 nav:gap-y-14">
+        <ul
+          class="m-0 grid list-none gap-x-12 gap-y-10 p-0 md:grid-cols-2 nav:gap-y-14 lg:grid-cols-3"
+        >
           @for (atout of atouts; track atout.titre; let i = $index) {
             <li class="border-t-2 border-nuit pt-[22px]">
               <span

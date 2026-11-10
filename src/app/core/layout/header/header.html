@@ -104,9 +104,7 @@
                   }
                 </ul>
 
-                <div
-                  class="flex flex-col justify-between gap-5 bg-nuit p-6 text-white"
-                >
+                <div class="flex flex-col justify-between gap-5 bg-nuit p-6 text-white">
                   <div class="flex flex-col gap-2.5">
                     <span class="eyebrow eyebrow-or text-or-clair">Nos activités</span>
                     <p class="m-0 font-display text-lg leading-snug font-bold">
@@ -121,9 +119,7 @@
                     <a routerLink="/" fragment="poles" class="btn-or min-h-11 px-4 py-2.5 text-sm"
                       >Voir tous les pôles</a
                     >
-                    <a
-                      routerLink="/contact"
-                      class="btn-contour-clair min-h-11 px-4 py-2.5 text-sm"
+                    <a routerLink="/contact" class="btn-contour-clair min-h-11 px-4 py-2.5 text-sm"
                       >Nous écrire</a
                     >
                   </div>
@@ -149,9 +145,20 @@
       @if (espaceAgents.url; as url) {
         <a [href]="url" class="btn-contour-clair min-h-12 px-5 py-2.5 text-[15px]">Espace agents</a>
       }
-      <a [routerLink]="devenirMembre.route" [fragment]="devenirMembre.fragment" class="btn-or min-h-12 px-[22px] py-2.5 text-[15px]"
+      <a
+        [routerLink]="devenirMembre.route"
+        [fragment]="devenirMembre.fragment"
+        class="btn-or min-h-12 px-[22px] py-2.5 text-[15px]"
         >Devenir membre
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          aria-hidden="true"
+        >
           <path d="M5 12h14M13 6l6 6-6 6" /></svg
       ></a>
     </div>

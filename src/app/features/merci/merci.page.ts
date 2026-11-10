@@ -8,34 +8,33 @@ import { Icon } from '@shared/ui/icon/icon';
   imports: [RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section>
-      <div
-        class="mx-auto flex max-w-[760px] flex-col items-center gap-5 px-4 py-16 text-center nav:px-10 nav:py-24"
-      >
-        <div class="flex size-[84px] items-center justify-center rounded-full bg-succes-fond">
-          <app-icon name="check" [size]="44" color="var(--color-succes)" />
-        </div>
-        <h1 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-4xl">
+    <section class="relative overflow-hidden bg-nuit text-brume">
+      <div class="hero-panel hero-panel-etroit" aria-hidden="true"></div>
+      <div class="hero-filet hero-filet-etroit" aria-hidden="true"></div>
+      <div class="container-site relative flex flex-col gap-6 py-20 nav:py-[120px]">
+        <span class="mb-3 flex size-[72px] items-center justify-center bg-or" aria-hidden="true">
+          <app-icon name="check" [size]="36" color="var(--color-nuit)" />
+        </span>
+        <h1
+          class="m-0 max-w-[820px] font-display text-[2.4rem] leading-[1.04] font-extrabold tracking-[-.04em] text-white nav:text-[clamp(2.4rem,5vw,4.6rem)]"
+        >
           Merci, votre demande est envoyée
         </h1>
-        <p class="m-0 text-base leading-[1.6] text-ardoise nav:text-lg">
+        <p class="m-0 max-w-[600px] text-lg leading-[1.6] nav:text-[1.2rem]">
           Un conseiller WASSIA vous recontacte par téléphone.
           <span class="hidden nav:inline"
             >Vous pouvez aussi nous écrire à
-            <a [href]="'mailto:' + site.email" class="text-sapin underline">{{ site.email }}</a
+            <a [href]="'mailto:' + site.email" class="text-or-clair underline hover:text-white">{{
+              site.email
+            }}</a
             >.</span
           >
         </p>
-        <div
-          class="mt-2 flex w-full flex-col justify-center gap-3 nav:w-auto nav:flex-row nav:flex-wrap"
-        >
-          <a routerLink="/" class="btn bg-sapin px-[22px] py-3.5 text-[15px] font-bold text-white"
-            >Retour à l’accueil</a
-          >
-          <a
-            routerLink="/"
-            fragment="poles"
-            class="btn-contour-marine hidden px-[21px] py-[13px] text-[15px] nav:inline-flex"
+        <div class="mt-4 flex flex-col gap-3.5 xs:flex-row xs:flex-wrap">
+          <a routerLink="/" class="btn-or"
+            >Retour à l’accueil <app-icon name="fleche" [size]="20" class="btn-fleche"
+          /></a>
+          <a routerLink="/" fragment="poles" class="btn-contour-clair hidden nav:inline-flex"
             >Voir nos activités</a
           >
         </div>

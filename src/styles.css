@@ -24,9 +24,7 @@
   --color-trait: #d9dee6; /* bordures */
   --color-champ: #64748b; /* bordures des champs (contraste 3:1) */
   --color-sapin-pale: #eaf6f0; /* option choisie */
-  --color-onglet: #eef2f9;
   --color-illustration: #e4e9f2;
-  --color-bleu-vif: #1c4c99;
   --color-ligne-sombre: #1c4079;
   --color-puce: #5e7bb0;
   --color-encre-douce: #1f2f4d; /* paragraphes longs */
@@ -212,11 +210,6 @@
     @apply text-[13px] text-red-700;
   }
 
-  /* Flèches du carrousel des étapes */
-  .carousel-arrow {
-    @apply absolute bottom-[26px] size-11 cursor-pointer rounded-full bg-white/16 text-center font-display text-xl leading-11 font-bold text-white transition-colors hover:bg-or hover:text-marine;
-  }
-
   /* Flèches du carrousel des actualités */
   .news-arrow {
     @apply flex size-12 cursor-pointer items-center justify-center rounded-[2px] border-[1.5px] border-nuit bg-white text-nuit transition-colors hover:bg-nuit hover:text-white;
@@ -225,9 +218,6 @@
   /* Carte blanche bordée (pôles, services, actualités) */
   .card {
     @apply rounded-xl border border-trait bg-white;
-  }
-  .card-hover {
-    @apply transition-[translate,transform,box-shadow] duration-500 ease-doux hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(10,42,94,.12)];
   }
 }
 
@@ -255,12 +245,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    circle at 50% 40%,
-    var(--color-bleu-vif),
-    var(--color-marine) 45%,
-    var(--color-nuit)
-  );
+  background: var(--color-nuit);
   transition:
     opacity 0.5s ease,
     visibility 0.5s ease;
@@ -446,94 +431,6 @@ footer a {
   }
 }
 
-/* Carrousel « La carte membre à QR code » */
-.step-progress {
-  width: 0;
-  animation: step-progress 6s linear forwards;
-}
-.steps-carousel.is-paused .step-progress {
-  animation-play-state: paused;
-}
-@keyframes step-progress {
-  to {
-    width: 100%;
-  }
-}
-.step-slide .step-anim,
-.step-slide .step-icon {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity 0.4s var(--ease-doux),
-    transform 0.4s var(--ease-doux);
-}
-.step-slide.is-active .step-anim {
-  animation: step-in 0.8s var(--ease-doux) both;
-  animation-delay: calc(250ms + var(--i, 0) * 110ms);
-}
-.step-slide.is-active .step-icon {
-  animation: step-icon 0.9s var(--ease-doux) 0.15s both;
-}
-@keyframes step-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes step-icon {
-  from {
-    opacity: 0;
-    transform: scale(0.7) rotate(-8deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-/* Les traits de l'icône se dessinent */
-.step-draw {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-.step-slide.is-active .step-draw {
-  animation: step-draw 1.3s var(--ease-doux) 0.35s forwards;
-}
-@keyframes step-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-.step-deco {
-  position: absolute;
-  border-radius: 9999px;
-  pointer-events: none;
-}
-.step-deco-a {
-  width: 280px;
-  height: 280px;
-  top: -100px;
-  right: -90px;
-  background: radial-gradient(circle, rgba(245, 215, 110, 0.18), transparent 70%);
-  animation: step-float 9s ease-in-out infinite;
-}
-.step-deco-b {
-  width: 220px;
-  height: 220px;
-  bottom: -130px;
-  left: 40%;
-  background: radial-gradient(circle, rgba(0, 168, 107, 0.22), transparent 70%);
-  animation: step-float 11s ease-in-out infinite reverse;
-}
-@keyframes step-float {
-  50% {
-    transform: translate(-20px, 18px) scale(1.08);
-  }
-}
-
 /* Carte membre : retournement en 3D */
 .member-flip {
   transform-style: preserve-3d;
@@ -675,19 +572,6 @@ header.is-compact {
   }
 }
 
-/* Bannière : lien secondaire souligné en or, le trait se déploie au survol */
-.hero-link-texte {
-  background: linear-gradient(var(--color-or), var(--color-or)) left bottom / 100% 2px no-repeat;
-  padding-bottom: 2px;
-  transition: background-size 0.5s var(--ease-doux);
-}
-@media (hover: hover) {
-  .hero-link:hover .hero-link-texte {
-    background-size: 0 2px;
-    background-position: right bottom;
-  }
-}
-
 /* Carrousel des actualités : léger zoom de l'image au survol */
 .news-image {
   transition: transform 0.9s var(--ease-doux);
@@ -822,7 +706,7 @@ header.is-compact {
 }
 
 /* Étapes de la carte membre en escalier (ordinateur) */
-@media (min-width: 1100px) {
+@media (min-width: 64rem) {
   .escalier > li:nth-child(2) {
     margin-top: 56px;
   }
@@ -851,20 +735,10 @@ header.is-compact {
   .loader-bar span {
     animation: none !important;
   }
-  .faq-item[open] .faq-answer,
-  .step-progress,
-  .step-slide.is-active .step-anim,
-  .step-slide.is-active .step-icon,
-  .step-slide.is-active .step-draw,
-  .step-deco {
+  .faq-item[open] .faq-answer {
     animation: none !important;
   }
-  .step-draw {
-    stroke-dashoffset: 0;
-  }
   .reveal-init,
-  .step-slide .step-anim,
-  .step-slide .step-icon,
   #panneau-activites .mega-item {
     opacity: 1;
     transform: none;

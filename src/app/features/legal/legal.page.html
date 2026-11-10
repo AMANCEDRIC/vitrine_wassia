@@ -1,10 +1,10 @@
 <app-page-hero eyebrow="Informations légales" [titre]="page().titre" [intro]="page().intro" />
 
 <section class="bg-white">
-  <div class="container-site flex max-w-[880px] flex-col gap-10 py-12 nav:py-[72px]">
+  <div class="container-site flex max-w-[880px] flex-col gap-10 py-14 nav:py-[120px]">
     @for (bloc of page().blocs; track bloc.titre) {
       <article class="flex flex-col gap-3">
-        <h2 class="m-0 font-display text-xl font-bold text-marine nav:text-2xl">
+        <h2 class="m-0 font-display text-xl font-bold text-nuit nav:text-2xl">
           {{ bloc.titre }}
         </h2>
         @for (p of bloc.paragraphes; track $index) {

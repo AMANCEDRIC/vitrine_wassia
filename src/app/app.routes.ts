@@ -61,7 +61,8 @@ export const routes: Routes = [
     path: 'actualites',
     title: 'Actualités et projets' + SUFFIXE,
     data: {
-      description: 'Les actualités et les projets du GROUPE WASSIA dans ses cinq pôles d’activités.',
+      description:
+        'Les actualités et les projets du GROUPE WASSIA dans ses cinq pôles d’activités.',
     },
     loadComponent: () =>
       import('@features/actualites/actualites.page').then((m) => m.ActualitesPage),

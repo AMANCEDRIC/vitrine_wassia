@@ -4,8 +4,8 @@
       <span class="eyebrow text-ardoise">Simulateur</span>
       <h2 class="section-title">Simulez votre prêt ou votre épargne</h2>
       <p class="section-lead">
-        Choisissez un montant et une durée : le résultat s’affiche tout de suite. Une
-        simulation est indicative et n’engage à rien.
+        Choisissez un montant et une durée : le résultat s’affiche tout de suite. Une simulation est
+        indicative et n’engage à rien.
       </p>
     </div>
 
@@ -40,14 +40,10 @@
         @if (mode() === 'pret') {
           <div class="flex flex-col gap-2.5">
             <div class="flex items-baseline justify-between gap-3">
-              <label for="sim-pret-montant" class="field-label"
-                >Montant souhaité</label
-              >
-              <output
-                for="sim-pret-montant"
-                class="font-display text-lg font-bold text-nuit"
-                >{{ francs(montantPret()) }}</output
-              >
+              <label for="sim-pret-montant" class="field-label">Montant souhaité</label>
+              <output for="sim-pret-montant" class="font-display text-lg font-bold text-nuit">{{
+                francs(montantPret())
+              }}</output>
             </div>
             <input
               id="sim-pret-montant"
@@ -67,9 +63,7 @@
           </div>
           <div class="flex flex-col gap-2.5">
             <div class="flex items-baseline justify-between gap-3">
-              <label for="sim-pret-duree" class="field-label"
-                >Durée</label
-              >
+              <label for="sim-pret-duree" class="field-label">Durée</label>
               <output for="sim-pret-duree" class="font-display text-lg font-bold text-nuit"
                 >{{ dureePret() }} mois</output
               >
@@ -97,46 +91,42 @@
             >, réglés en espèces au décaissement.
           </div>
         } @else {
-        @for (p of parametres; track p.cle) {
-          <div class="flex flex-col gap-2.5">
-            <div class="flex items-baseline justify-between gap-3">
-              <label
-                [for]="'sim-' + p.cle"
-                class="field-label"
-                >{{ libelles()[p.cle] }}</label
-              >
-              <div class="flex items-center gap-1.5">
-                <input
-                  [id]="'sim-' + p.cle"
-                  type="number"
-                  [min]="config[p.cle].min"
-                  [max]="config[p.cle].max"
-                  [step]="config[p.cle].pas"
-                  [value]="saisie()[p.cle]"
-                  (input)="saisir(p.cle, $any($event.target).value)"
-                  class="min-h-11 rounded-[2px] border-[1.5px] border-champ bg-white px-2.5 text-right font-display text-base font-bold text-nuit"
-                  [class]="p.cle === 'montant' ? 'w-[130px]' : 'w-[90px]'"
-                />
-                <span class="font-sans text-sm font-semibold text-ardoise">{{ p.unite }}</span>
+          @for (p of parametres; track p.cle) {
+            <div class="flex flex-col gap-2.5">
+              <div class="flex items-baseline justify-between gap-3">
+                <label [for]="'sim-' + p.cle" class="field-label">{{ libelles()[p.cle] }}</label>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    [id]="'sim-' + p.cle"
+                    type="number"
+                    [min]="config[p.cle].min"
+                    [max]="config[p.cle].max"
+                    [step]="config[p.cle].pas"
+                    [value]="saisie()[p.cle]"
+                    (input)="saisir(p.cle, $any($event.target).value)"
+                    class="min-h-11 rounded-[2px] border-[1.5px] border-champ bg-white px-2.5 text-right font-display text-base font-bold text-nuit"
+                    [class]="p.cle === 'montant' ? 'w-[130px]' : 'w-[90px]'"
+                  />
+                  <span class="font-sans text-sm font-semibold text-ardoise">{{ p.unite }}</span>
+                </div>
+              </div>
+              <input
+                type="range"
+                [attr.aria-label]="libelles()[p.cle]"
+                [min]="config[p.cle].min"
+                [max]="config[p.cle].max"
+                [step]="config[p.cle].pas"
+                [value]="valeurs()[p.cle]"
+                (input)="saisir(p.cle, $any($event.target).value)"
+                class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
+              />
+              <div class="flex justify-between text-xs text-ardoise">
+                <span>{{ borne(p.cle, 'min') }}</span>
+                <span>{{ indication(p.cle) }}</span>
+                <span>{{ borne(p.cle, 'max') }}</span>
               </div>
             </div>
-            <input
-              type="range"
-              [attr.aria-label]="libelles()[p.cle]"
-              [min]="config[p.cle].min"
-              [max]="config[p.cle].max"
-              [step]="config[p.cle].pas"
-              [value]="valeurs()[p.cle]"
-              (input)="saisir(p.cle, $any($event.target).value)"
-              class="m-0 h-11 w-full cursor-pointer accent-sapin nav:h-7"
-            />
-            <div class="flex justify-between text-xs text-ardoise">
-              <span>{{ borne(p.cle, 'min') }}</span>
-              <span>{{ indication(p.cle) }}</span>
-              <span>{{ borne(p.cle, 'max') }}</span>
-            </div>
-          </div>
-        }
+          }
         }
 
         <div class="text-[13.5px] leading-[1.55] text-ardoise">
@@ -144,22 +134,21 @@
             Grille indicative du dossier WASSIA 2026. Les conditions réelles sont confirmées par
             WASSIA lors de votre demande.
           } @else {
-            Le taux d’épargne est un exemple. Les conditions réelles sont confirmées par WASSIA
-            lors de votre demande.
+            Le taux d’épargne est un exemple. Les conditions réelles sont confirmées par WASSIA lors
+            de votre demande.
           }
         </div>
       </div>
 
       <!-- Résultat et carte membre -->
       <div class="flex min-w-0 flex-[.85_1_400px] flex-col gap-[22px]">
-        <div
-          class="flex flex-col gap-5 bg-nuit p-6 text-white nav:p-[30px]"
-          aria-live="polite"
-        >
+        <div class="flex flex-col gap-5 bg-nuit p-6 text-white nav:p-[30px]" aria-live="polite">
           <div class="font-display text-xs font-semibold tracking-[.14em] text-or uppercase">
             {{ libelles().principal }}
           </div>
-          <div class="font-display text-[clamp(2rem,3.4vw,2.8rem)] leading-[1.05] font-extrabold tracking-[-.03em]">
+          <div
+            class="font-display text-[clamp(2rem,3.4vw,2.8rem)] leading-[1.05] font-extrabold tracking-[-.03em]"
+          >
             {{ francs(resultat().principal) }}
             <span class="mt-1.5 block font-sans text-[15px] font-semibold text-brume">{{
               libelles().suffixe

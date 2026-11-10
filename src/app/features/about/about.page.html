@@ -6,10 +6,10 @@
 />
 
 <!-- Mot du Directeur Général (texte à faire valider par son signataire) -->
-<section>
-  <div class="container-site flex flex-wrap items-center gap-10 py-12 nav:gap-14 nav:py-20">
+<section class="bg-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:gap-14 nav:py-[120px]">
     <div
-      class="relative h-[300px] min-w-0 flex-[1_1_320px] overflow-hidden rounded-[14px] bg-illustration nav:h-[420px]"
+      class="relative h-[300px] min-w-0 flex-[1_1_320px] overflow-hidden border-[12px] border-nuit bg-illustration nav:h-[440px]"
     >
       <img
         ngSrc="images/illustrations/portrait-dg.svg"
@@ -19,9 +19,9 @@
       />
     </div>
     <div class="flex min-w-0 flex-[1.4_1_460px] flex-col gap-5">
-      <span class="eyebrow text-sapin">Le mot du Directeur Général</span>
+      <span class="eyebrow text-ardoise">Le mot du Directeur Général</span>
       <blockquote
-        class="m-0 font-display text-[22px] leading-[1.35] font-semibold text-marine nav:text-[26px]"
+        class="m-0 border-l-[6px] border-emeraude pl-5 font-display text-[1.5rem] leading-[1.25] font-bold tracking-[-.03em] text-nuit nav:pl-8 nav:text-[clamp(1.6rem,2.8vw,2.4rem)]"
       >
         Nous portons la gestion, vous récoltez la sérénité.
       </blockquote>
@@ -40,30 +40,33 @@
 </section>
 
 <!-- Trois engagements -->
-<section class="border-y border-trait bg-white">
-  <div class="container-site flex flex-col gap-10 py-12 nav:py-20">
-    <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
-      Nos trois engagements
-    </h2>
-    <div class="flex flex-wrap gap-6">
-      @for (e of engagements; track e.titre) {
-        <div class="flex min-w-0 flex-[1_1_300px] flex-col gap-3 rounded-xl bg-fond p-7">
-          <h3 class="m-0 font-display text-xl font-bold text-sapin">{{ e.titre }}</h3>
-          <p class="m-0 text-[15px] leading-[1.65] text-encre-douce">{{ e.texte }}</p>
-        </div>
+<section class="bg-fond">
+  <div class="container-site flex flex-col gap-10 py-14 nav:gap-16 nav:py-[120px]">
+    <h2 class="section-title">Nos trois engagements</h2>
+    <ul class="m-0 grid list-none gap-12 p-0 md:grid-cols-3">
+      @for (e of engagements; track e.titre; let i = $index) {
+        <li class="min-w-0 border-t-2 border-nuit pt-[22px]">
+          <span
+            class="mb-3.5 block font-display text-[13px] font-semibold tracking-[.1em] text-sapin"
+            >0{{ i + 1 }}</span
+          >
+          <h3 class="m-0 mb-3 font-display text-[1.5rem] font-bold tracking-[-.02em] text-nuit">
+            {{ e.titre }}
+          </h3>
+          <p class="m-0 text-ardoise">{{ e.texte }}</p>
+        </li>
       }
-    </div>
+    </ul>
   </div>
 </section>
 
 <!-- Gouvernance -->
-<section>
-  <div class="container-site flex flex-col gap-9 py-12 nav:py-20">
-    <div class="flex max-w-[760px] flex-col gap-3">
-      <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
-        Gouvernance : une holding animatrice
-      </h2>
-      <p class="m-0 text-[17px] leading-[1.65] text-ardoise">
+<section class="bg-nuit text-brume">
+  <div class="container-site flex flex-col gap-9 py-14 nav:py-[120px]">
+    <div class="flex max-w-[760px] flex-col gap-5">
+      <span class="eyebrow eyebrow-or text-brume">Gouvernance</span>
+      <h2 class="section-title text-white">Gouvernance : une holding animatrice</h2>
+      <p class="section-lead text-brume">
         Le groupe assure la direction stratégique, le contrôle de conformité juridique et la gestion
         financière centralisée de ses pôles d’activités.
       </p>
@@ -71,16 +74,15 @@
     <!-- Organigramme : la holding, puis ses 5 pôles reliés par des traits -->
     <div class="flex flex-col items-center">
       <div
-        class="relative w-full max-w-[620px] overflow-hidden rounded-2xl bg-linear-150 from-marine to-bleu-vif px-7 py-7 text-center text-white shadow-[0_20px_40px_rgba(10,42,94,.22)]"
+        class="relative w-full max-w-[620px] overflow-hidden border-t-[6px] border-or bg-marine px-7 py-7 text-center text-white"
       >
-        <span class="step-deco step-deco-a" aria-hidden="true"></span>
         <div class="relative flex flex-col items-center gap-3">
           <img src="images/logo-symbole.png" width="150" height="168" alt="" class="h-12 w-auto" />
           <div class="font-display text-xl font-bold nav:text-[22px]">{{ site.nom }}</div>
           <ul class="m-0 flex list-none flex-wrap justify-center gap-2 p-0">
             @for (role of roles; track role) {
               <li
-                class="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[13px] font-semibold text-brume"
+                class="border border-white/20 bg-white/10 px-3.5 py-1.5 text-[13px] font-semibold text-brume-clair"
               >
                 {{ role }}
               </li>
@@ -104,27 +106,24 @@
             <a
               [routerLink]="pole.route"
               [fragment]="pole.fragment"
-              class="group card relative flex h-full flex-col gap-3 overflow-hidden p-5 transition-[translate,box-shadow] duration-500 ease-doux hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(10,42,94,.12)]"
+              class="group relative flex h-full flex-col gap-3 overflow-hidden bg-white p-5 transition-[translate] duration-500 ease-doux hover:-translate-y-1"
             >
               <span
                 class="absolute inset-x-0 top-0 h-1"
                 [class]="pole.pastille"
                 aria-hidden="true"
               ></span>
-              <span
-                class="flex size-11 items-center justify-center rounded-[10px]"
-                [class]="pole.pastille"
-              >
+              <span class="flex size-11 items-center justify-center" [class]="pole.pastille">
                 <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
               </span>
-              <span class="font-display text-[15px] leading-tight font-bold text-marine">{{
+              <span class="font-display text-[15px] leading-tight font-bold text-nuit">{{
                 pole.titre
               }}</span>
               <span class="text-[13px] leading-snug text-ardoise">{{ pole.resume }}</span>
               <span
-                class="mt-auto pt-1 font-sans text-sm font-semibold text-sapin transition-[translate] duration-500 ease-doux group-hover:translate-x-1"
-                >Découvrir →</span
-              >
+                class="mt-auto inline-flex items-center gap-2 pt-1 font-display text-sm font-semibold text-sapin"
+                >Découvrir <app-icon name="fleche" [size]="16" class="btn-fleche"
+              /></span>
             </a>
           </li>
         }
@@ -134,11 +133,17 @@
 </section>
 
 <!-- Appel à l'action -->
-<section class="bg-marine text-white">
-  <div class="container-site flex flex-wrap items-center justify-between gap-6 py-12 nav:py-16">
-    <h2 class="m-0 max-w-[640px] font-display text-[26px] leading-[1.25] font-bold nav:text-[30px]">
+<section class="bg-sapin text-white">
+  <div
+    class="container-site flex flex-wrap items-center justify-between gap-x-12 gap-y-7 py-14 nav:py-20"
+  >
+    <h2
+      class="m-0 max-w-[760px] font-display text-[1.8rem] leading-[1.1] font-extrabold tracking-[-.035em] nav:text-[clamp(1.8rem,3.4vw,2.8rem)]"
+    >
       Parlons de votre projet avec le pôle qui vous correspond.
     </h2>
-    <a routerLink="/contact" class="btn-or px-[26px] text-base">Nous contacter</a>
+    <a routerLink="/contact" class="btn-or"
+      >Nous contacter <app-icon name="fleche" [size]="20" class="btn-fleche"
+    /></a>
   </div>
 </section>

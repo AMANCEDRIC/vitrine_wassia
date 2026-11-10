@@ -1,8 +1,6 @@
 <footer class="bg-nuit pt-14 pb-7 text-[14.5px] text-brume nav:pt-20">
   <div class="container-site">
-    <div
-      class="flex flex-wrap items-end justify-between gap-8 border-b border-white/14 pb-11"
-    >
+    <div class="flex flex-wrap items-end justify-between gap-8 border-b border-white/14 pb-11">
       <div class="flex max-w-[460px] flex-col gap-3">
         <img
           src="images/logo-blanc.png"
@@ -50,9 +48,12 @@
         <ul class="m-0 grid list-none gap-2 p-0">
           @for (pole of poles; track pole.id) {
             <li>
-              <a [routerLink]="pole.route" [fragment]="pole.fragment" class="hover:text-white hover:underline">{{
-                pole.libelleFooter
-              }}</a>
+              <a
+                [routerLink]="pole.route"
+                [fragment]="pole.fragment"
+                class="hover:text-white hover:underline"
+                >{{ pole.libelleFooter }}</a
+              >
             </li>
           }
         </ul>
@@ -62,7 +63,9 @@
         <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Le groupe</p>
         <ul class="m-0 grid list-none gap-2 p-0">
           <li><a routerLink="/a-propos" class="hover:text-white hover:underline">À propos</a></li>
-          <li><a routerLink="/actualites" class="hover:text-white hover:underline">Actualités</a></li>
+          <li>
+            <a routerLink="/actualites" class="hover:text-white hover:underline">Actualités</a>
+          </li>
           <li><a routerLink="/contact" class="hover:text-white hover:underline">Contact</a></li>
           @if (espaceAgents.url; as url) {
             <li><a [href]="url" class="hover:text-white hover:underline">Espace agents</a></li>
@@ -75,7 +78,9 @@
         <ul class="m-0 grid list-none gap-2 p-0">
           @for (item of legal; track item.route) {
             <li>
-              <a [routerLink]="item.route" class="hover:text-white hover:underline">{{ item.label }}</a>
+              <a [routerLink]="item.route" class="hover:text-white hover:underline">{{
+                item.label
+              }}</a>
             </li>
           }
         </ul>
@@ -85,7 +90,8 @@
         <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Contact</p>
         <p class="m-0 leading-[1.8]">
           {{ site.siege }}<br />
-          <a [href]="tel" class="hover:text-white hover:underline">{{ site.telephone }}</a><br />
+          <a [href]="tel" class="hover:text-white hover:underline">{{ site.telephone }}</a
+          ><br />
           <a [href]="'mailto:' + site.email" class="hover:text-white hover:underline">{{
             site.email
           }}</a>

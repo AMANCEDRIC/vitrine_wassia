@@ -50,7 +50,10 @@ export class FinancePage {
 
   /** Une ligne par montant et par durée, la première de chaque montant porte le rowspan. */
   protected readonly grille = GRILLE_CREDIT.flatMap(({ montant, frais }) =>
-    DUREES_CREDIT.map((mois, i) => ({ ...calculerCredit(montant, frais, mois), premiere: i === 0 })),
+    DUREES_CREDIT.map((mois, i) => ({
+      ...calculerCredit(montant, frais, mois),
+      premiere: i === 0,
+    })),
   );
 
   /** Version mobile : une carte par montant, avec ses trois durées. */

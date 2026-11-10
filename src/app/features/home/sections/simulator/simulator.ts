@@ -15,12 +15,7 @@ import {
   TAUX_MENSUEL,
   fraisDuMontant,
 } from '@content/credit';
-import {
-  Curseur,
-  ModeSimulation,
-  PRET_PAR_DEFAUT,
-  SIMULATEUR_EPARGNE,
-} from '@content/simulateur';
+import { Curseur, ModeSimulation, PRET_PAR_DEFAUT, SIMULATEUR_EPARGNE } from '@content/simulateur';
 import { Icon } from '@shared/ui/icon/icon';
 import { MemberCard } from '@shared/ui/member-card/member-card';
 import { borner, formaterDuree, formaterFrancs, simulerEpargne, simulerPret } from './simulation';

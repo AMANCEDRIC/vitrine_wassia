@@ -6,7 +6,7 @@ import { Icon } from '@shared/ui/icon/icon';
 
 /**
  * « La carte membre à QR code » : les 4 étapes, en escalier relié par une ligne pointillée sur
- * ordinateur (≥ 1100px), empilées en dessous. Texte raccourci sur mobile.
+ * ordinateur (≥ 1024px), empilées en dessous. Texte raccourci sur mobile.
  */
 @Component({
   selector: 'app-card-steps',
