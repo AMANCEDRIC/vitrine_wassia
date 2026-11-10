@@ -169,14 +169,13 @@
     <button
       type="button"
       #boutonMenu
-      class="flex min-h-12 cursor-pointer items-center gap-2.5 rounded-[2px] border-[1.5px] border-nuit bg-white px-4 font-display text-[13px] font-semibold tracking-[.1em] text-nuit uppercase transition-colors active:bg-fond lg:hidden"
+      class="flex size-12 cursor-pointer items-center justify-center rounded-[2px] border-[1.5px] border-nuit bg-white transition-colors active:bg-fond lg:hidden"
       aria-label="Ouvrir le menu"
       aria-controls="menu-mobile"
       [attr.aria-expanded]="menuOpen()"
       (click)="menuOpen.set(true)"
     >
-      <span aria-hidden="true">Menu</span>
-      <app-icon name="menu" color="var(--color-nuit)" [size]="18" />
+      <app-icon name="menu" color="var(--color-nuit)" />
     </button>
   </div>
 </header>
