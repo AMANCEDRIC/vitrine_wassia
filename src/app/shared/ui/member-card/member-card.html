@@ -5,9 +5,10 @@
     <!-- Recto -->
     <div
       [attr.aria-hidden]="verso()"
-      class="member-face h-[303px] w-[480px] overflow-hidden rounded-[18px] bg-marine text-white shadow-[0_6px_18px_rgba(0,13,31,.25)]"
+      class="member-face h-[303px] w-[480px] overflow-hidden rounded-[18px] border-2 border-or bg-roi text-white shadow-[0_24px_48px_rgba(0,0,0,.35)]"
     >
-      <div class="absolute inset-x-0 top-0 h-1.5 bg-or"></div>
+      <span class="skew-bar absolute -top-8 -right-16 h-[400px] w-[190px] bg-sapin opacity-55" aria-hidden="true"></span>
+      <span class="skew-bar absolute -top-8 right-[150px] h-[400px] w-2.5 bg-or opacity-80" aria-hidden="true"></span>
       <img
         src="images/logo-symbole.png"
         width="150"
@@ -26,7 +27,7 @@
         {{ numero }}
       </div>
       <div class="absolute bottom-6 left-6 text-xs text-brume">Épargne · Paiements · Crédit</div>
-      <div class="absolute right-6 bottom-6 size-[130px] rounded-[10px] bg-white p-2.5">
+      <div class="absolute right-6 bottom-6 size-[130px] bg-white p-2.5">
         <svg
           width="110"
           height="110"
@@ -65,7 +66,7 @@
     <!-- Verso -->
     <div
       [attr.aria-hidden]="!verso()"
-      class="member-face member-face-verso h-[303px] w-[480px] overflow-hidden rounded-[18px] border border-trait bg-white text-encre shadow-[0_6px_18px_rgba(0,13,31,.12)]"
+      class="member-face member-face-verso h-[303px] w-[480px] overflow-hidden rounded-[18px] border-2 border-or bg-white text-encre shadow-[0_24px_48px_rgba(0,0,0,.35)]"
     >
       <div class="absolute inset-x-0 top-[34px] h-11 bg-marine"></div>
       <div class="absolute inset-x-6 top-[98px] flex flex-col gap-[9px] text-[13px] leading-[1.45]">

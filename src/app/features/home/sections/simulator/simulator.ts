@@ -21,6 +21,7 @@ import {
   PRET_PAR_DEFAUT,
   SIMULATEUR_EPARGNE,
 } from '@content/simulateur';
+import { Icon } from '@shared/ui/icon/icon';
 import { MemberCard } from '@shared/ui/member-card/member-card';
 import { borner, formaterDuree, formaterFrancs, simulerEpargne, simulerPret } from './simulation';
 
@@ -44,7 +45,7 @@ const saisieParDefaut = (): Saisie => ({
 
 @Component({
   selector: 'app-simulator',
-  imports: [RouterLink, MemberCard],
+  imports: [RouterLink, MemberCard, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './simulator.html',
 })

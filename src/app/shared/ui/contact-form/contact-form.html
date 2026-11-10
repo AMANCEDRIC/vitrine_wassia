@@ -2,13 +2,13 @@
   [formGroup]="form()"
   (ngSubmit)="envoyer()"
   novalidate
-  class="relative flex min-w-0 flex-col gap-3.5 rounded-[14px] bg-white p-5 text-encre nav:p-7"
+  class="relative flex min-w-0 flex-col gap-5 bg-white p-6 text-encre shadow-[0_30px_60px_rgba(0,13,31,.35)] nav:p-11"
 >
   @if (titre(); as titre) {
-    <h3 class="m-0 font-display text-xl font-bold text-marine">{{ titre }}</h3>
+    <h3 class="m-0 font-display text-2xl font-bold tracking-[-.02em] text-nuit">{{ titre }}</h3>
   }
 
-  <div class="flex flex-wrap gap-x-4 gap-y-3.5">
+  <div class="flex flex-wrap gap-x-[22px] gap-y-5">
     @for (champ of config().champs; track champ.name) {
       <div
         class="flex min-w-0 flex-col gap-1.5"
@@ -82,14 +82,14 @@
 
   <button
     type="submit"
-    class="btn min-h-[52px] w-full bg-sapin p-4 text-[15px] font-bold text-white disabled:cursor-wait disabled:opacity-70 nav:min-h-0"
+    class="btn-sapin w-full text-base disabled:cursor-wait disabled:opacity-70"
     [disabled]="statut() === 'envoi'"
   >
     {{ statut() === 'envoi' ? 'Envoi en cours…' : config().bouton }}
   </button>
 
   @if (statut() === 'indisponible') {
-    <p role="alert" class="m-0 rounded-lg bg-or-clair/40 px-3 py-2.5 text-sm text-encre">
+    <p role="alert" class="m-0 border-l-4 border-or bg-or-clair/40 px-4 py-3 text-sm text-encre">
       Version de démonstration : l’envoi en ligne n’est pas encore actif. Écrivez-nous à
       <a [href]="'mailto:' + site.email" class="font-semibold underline">{{ site.email }}</a
       >.
@@ -97,12 +97,12 @@
   }
 
   @if (statut() === 'erreur') {
-    <p role="alert" class="m-0 rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-800">
+    <p role="alert" class="m-0 border-l-4 border-red-700 bg-red-50 px-4 py-3 text-sm text-red-800">
       L’envoi n’a pas abouti. Réessayez dans un instant ou appelez-nous.
     </p>
   }
 
-  <span class="text-xs leading-normal text-ardoise">
+  <span class="text-[13.5px] leading-[1.55] text-ardoise">
     En envoyant ce formulaire, vous acceptez que vos données soient utilisées pour répondre à votre
     demande, selon notre
     <a routerLink="/confidentialite" class="underline">politique de confidentialité</a>.

@@ -1,6 +1,6 @@
-<section id="actualites">
+<section id="actualites" class="bg-white">
   <div
-    class="container-site flex flex-col gap-9 py-12 nav:py-20"
+    class="container-site flex flex-col gap-10 py-14 nav:gap-12 nav:py-[120px]"
     role="region"
     aria-roledescription="carrousel"
     aria-label="Actualités et projets"
@@ -11,14 +11,15 @@
     (touchstart)="pause(true)"
     (touchend)="pause(false)"
   >
-    <div class="flex flex-wrap items-end justify-between gap-3">
-      <h2 class="m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-[34px]">
-        Actualités et projets
-      </h2>
+    <div class="flex flex-wrap items-end justify-between gap-x-12 gap-y-5">
+      <div class="flex flex-col gap-5">
+        <span class="eyebrow text-ardoise">Actualités</span>
+        <h2 class="section-title">Actualités et projets</h2>
+      </div>
       <div class="flex items-center gap-2.5">
         <a
           routerLink="/actualites"
-          class="mr-2 font-sans text-sm font-semibold text-sapin underline-offset-4 hover:underline"
+          class="mr-2 font-display text-[13px] font-semibold tracking-[.12em] text-sapin uppercase underline-offset-4 hover:underline"
           >Toutes les actualités</a
         >
         <button
@@ -27,7 +28,7 @@
           aria-label="Actualité précédente"
           (click)="precedent()"
         >
-          ‹
+          <app-icon name="fleche-gauche" [size]="20" />
         </button>
         <button
           type="button"
@@ -35,38 +36,41 @@
           aria-label="Actualité suivante"
           (click)="suivant()"
         >
-          ›
+          <app-icon name="fleche" [size]="20" />
         </button>
       </div>
     </div>
 
     <ul
       #piste
-      class="m-0 flex snap-x snap-mandatory [scrollbar-width:none] list-none gap-6 overflow-x-auto px-0.5 pt-1 pb-2 [&::-webkit-scrollbar]:hidden"
+      class="m-0 flex snap-x snap-mandatory [scrollbar-width:none] list-none gap-7 overflow-x-auto px-0.5 pt-1 pb-2 [&::-webkit-scrollbar]:hidden"
     >
       @for (article of actualites; track article.titre; let i = $index) {
         <li
-          class="card card-hover news-card flex-[0_0_min(360px,84%)] snap-start overflow-hidden"
+          class="group news-card flex-[0_0_min(360px,84%)] snap-start border-t-2 border-nuit pt-[18px]"
           [attr.aria-label]="i + 1 + ' sur ' + actualites.length"
         >
           <article>
-            <div class="relative h-[180px] overflow-hidden bg-illustration">
+            <div class="relative aspect-[8/5] overflow-hidden bg-marine">
               <img
                 [ngSrc]="article.image"
                 [alt]="article.alt"
                 fill
                 class="news-image object-cover"
               />
+              </div>
+            <div class="flex flex-col gap-2.5 pt-5">
               <span
-                class="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold tracking-[.08em] text-sapin uppercase backdrop-blur"
+                class="flex items-center gap-2.5 font-display text-xs font-semibold tracking-[.14em] text-sapin uppercase"
+                ><span class="skew-bar h-[15px] w-[7px] bg-or" aria-hidden="true"></span
                 >{{ article.categorie }}</span
               >
-            </div>
-            <div class="flex flex-col gap-2.5 p-[22px]">
-              <h3 class="m-0 font-display text-lg leading-[1.35] font-bold text-marine">
+              <h3
+                class="m-0 font-display text-[1.3rem] leading-[1.25] font-bold tracking-[-.02em] text-nuit transition-colors duration-300 group-hover:text-sapin"
+              >
                 {{ article.titre }}
               </h3>
-              <span class="text-[13px] text-ardoise">
+              <span class="text-sm text-ardoise">
                 @if (article.date) {
                   <time [attr.datetime]="article.date">{{ article.date }}</time>
                 } @else {
@@ -89,8 +93,8 @@
           (click)="aller(p)"
         >
           <span
-            class="block h-2.5 rounded-[5px] transition-all duration-500 ease-doux"
-            [class]="p === courante() ? 'w-8 bg-or' : 'w-2.5 bg-champ group-hover:bg-puce'"
+            class="skew-bar block h-1.5 transition-all duration-500 ease-doux"
+            [class]="p === courante() ? 'w-[30px] bg-or' : 'w-3 bg-trait group-hover:bg-puce'"
           ></span>
         </button>
       }

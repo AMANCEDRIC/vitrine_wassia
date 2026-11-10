@@ -1,5 +1,11 @@
-<section class="hero bg-marine text-white" aria-roledescription="carrousel" aria-label="À la une">
-  <div class="hero-slides">
+<section
+  class="hero relative overflow-hidden bg-nuit text-brume-clair"
+  aria-roledescription="carrousel"
+  aria-label="À la une"
+>
+  <div class="hero-panel" aria-hidden="true"></div>
+  <div class="hero-filet" aria-hidden="true"></div>
+  <div class="hero-slides relative">
     @for (d of diapositives; track d.titre; let premier = $first) {
       <div
         class="hero-slide"
@@ -8,79 +14,76 @@
         [attr.aria-label]="$index + 1 + ' sur ' + diapositives.length"
       >
         <div
-          class="mx-auto flex max-w-site flex-col gap-5 px-4 pt-8 pb-4 nav:grid nav:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] nav:items-center nav:gap-10 nav:px-10 nav:pt-16 nav:pb-10 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] xl:gap-12 xl:pt-[72px]"
+          class="mx-auto flex max-w-site flex-col gap-8 px-4 pt-10 pb-6 xs:px-5 nav:grid nav:grid-cols-[minmax(0,1.15fr)_minmax(0,.9fr)] nav:items-center nav:gap-14 nav:px-8 nav:pt-[88px] nav:pb-12"
         >
-          <div class="flex min-w-0 flex-col gap-5 nav:gap-6">
-            <span class="eyebrow text-or-clair">{{ d.eyebrow }}</span>
+          <div class="flex min-w-0 flex-col gap-6 nav:gap-7">
+            <span class="eyebrow eyebrow-or text-or">{{ d.eyebrow }}</span>
             @if (premier) {
               <h1
-                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[36px] nav:leading-[1.12] xl:text-[48px]"
+                class="m-0 font-display text-[2.2rem] leading-[1.06] font-extrabold tracking-[-.035em] text-white nav:text-[clamp(2.6rem,4.4vw,4.4rem)] nav:leading-[1.04]"
               >
                 {{ d.titre }}
               </h1>
             } @else {
               <h2
-                class="m-0 font-display text-[30px] leading-[1.16] font-bold nav:text-[34px] nav:leading-[1.14] xl:text-[44px]"
+                class="m-0 font-display text-[2.2rem] leading-[1.06] font-extrabold tracking-[-.035em] text-white nav:text-[clamp(2.6rem,4.4vw,4.4rem)] nav:leading-[1.04]"
               >
                 {{ d.titre }}
               </h2>
             }
             @if (d.texteMobile) {
-              <p class="m-0 text-base leading-[1.6] text-brume xl:hidden">{{ d.texteMobile }}</p>
-              <p class="m-0 hidden max-w-[560px] text-lg leading-[1.6] text-brume xl:block">
+              <p class="m-0 text-base leading-[1.65] text-brume xl:hidden">{{ d.texteMobile }}</p>
+              <p class="m-0 hidden max-w-[580px] text-[1.15rem] leading-[1.65] text-brume xl:block">
                 {{ d.texte }}
               </p>
             } @else {
-              <p class="m-0 max-w-[560px] text-base leading-[1.6] text-brume lg:text-lg">
+              <p class="m-0 max-w-[580px] text-base leading-[1.65] text-brume lg:text-[1.15rem]">
                 {{ d.texte }}
               </p>
             }
-            <div
-              class="mt-1 flex flex-col gap-3 nav:mt-2 nav:flex-row nav:flex-wrap nav:items-center nav:gap-x-6 nav:gap-y-3"
-            >
-              <div class="grid grid-cols-2 gap-2.5 nav:flex nav:flex-wrap nav:gap-3">
-                @for (action of boutons(d); track action.label; let seul = $count) {
-                  <a
-                    [routerLink]="action.route"
-                    [fragment]="action.fragment"
-                    class="btn-or min-h-[52px] px-3 nav:px-6"
-                    [class.col-span-2]="seul === 1"
-                  >
-                    @if (action.labelCourt) {
-                      <span class="nav:hidden">{{ action.labelCourt }}</span>
-                      <span class="hidden nav:inline">{{ action.label }}</span>
-                    } @else {
-                      {{ action.label }}
-                    }
-                  </a>
-                }
-              </div>
-              @for (action of liens(d); track action.label) {
+            <div class="mt-1 grid grid-cols-1 gap-3 xs:flex xs:flex-wrap xs:gap-3.5">
+              @for (action of d.actions; track action.label; let i = $index) {
                 <a
                   [routerLink]="action.route"
                   [fragment]="action.fragment"
-                  class="hero-link group inline-flex min-h-11 items-center justify-center gap-2 self-center font-display text-[15px] font-semibold text-white nav:self-auto"
+                  [class]="action.style === 'or' && i === 0 ? 'btn-or' : 'btn-contour-clair'"
                 >
-                  <span class="hero-link-texte">{{ action.label }}</span>
-                  <span
-                    class="text-or transition-[translate] duration-500 ease-doux group-hover:translate-x-1"
-                    aria-hidden="true"
-                    >→</span
-                  >
+                  @if (action.labelCourt) {
+                    <span class="nav:hidden">{{ action.labelCourt }}</span>
+                    <span class="hidden nav:inline">{{ action.label }}</span>
+                  } @else {
+                    {{ action.label }}
+                  }
+                  @if (i === 0) {
+                    <app-icon name="fleche" [size]="20" class="btn-fleche" />
+                  }
                 </a>
               }
             </div>
           </div>
-          <div
-            class="relative h-[180px] min-w-0 overflow-hidden rounded-xl bg-illustration nav:h-[300px] nav:rounded-[14px] xl:h-[380px]"
-          >
-            <img [ngSrc]="d.image" [alt]="d.alt" fill [priority]="premier" class="object-cover" />
+          <div class="relative min-w-0">
+            <div
+              class="border border-white/35 bg-roi p-2.5 shadow-[0_40px_80px_rgba(0,0,0,.35)] nav:p-3.5"
+            >
+              <div class="relative aspect-[8/5] overflow-hidden bg-illustration">
+                <img [ngSrc]="d.image" [alt]="d.alt" fill [priority]="premier" class="object-cover" />
+              </div>
+              <div
+                class="flex items-center justify-between gap-3 px-1 pt-3.5 pb-0.5 font-display text-xs font-semibold tracking-[.12em] text-brume uppercase"
+              >
+                <span>{{ d.eyebrow }}</span>
+                <span class="text-or">Groupe Wassia</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     }
   </div>
-  <div class="hero-dots flex justify-center gap-2 pb-6 nav:pb-7" aria-hidden="true">
+  <div
+    class="hero-dots relative mx-auto flex max-w-site items-center gap-2 px-4 pb-10 xs:px-5 nav:px-8 nav:pb-16"
+    aria-hidden="true"
+  >
     @for (d of diapositives; track d.titre) {
       <span></span>
     }

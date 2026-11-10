@@ -15,13 +15,15 @@
   --color-sapin: #007a4d;
   --color-vert-fonce: #004d30;
 
-  /* Couleurs d'interface de la maquette */
-  --color-encre: #0b1b33; /* texte principal */
-  --color-ardoise: #4a5878; /* texte secondaire */
-  --color-brume: #c9d4ea; /* texte secondaire sur fond sombre */
-  --color-fond: #f4f6fa;
-  --color-trait: #dce2ec; /* bordures */
-  --color-champ: #b8c2d6; /* bordures des champs */
+  /* Couleurs d'interface de la maquette (version 2 : fonds sombres « nuit », angles droits) */
+  --color-encre: #1a2433; /* texte principal */
+  --color-ardoise: #4a5568; /* texte secondaire */
+  --color-brume: #b8c4d6; /* texte secondaire sur fond sombre */
+  --color-brume-clair: #dce3ee; /* texte courant sur fond sombre */
+  --color-fond: #f6f7f9;
+  --color-trait: #d9dee6; /* bordures */
+  --color-champ: #64748b; /* bordures des champs (contraste 3:1) */
+  --color-sapin-pale: #eaf6f0; /* option choisie */
   --color-onglet: #eef2f9;
   --color-illustration: #e4e9f2;
   --color-bleu-vif: #1c4c99;
@@ -39,9 +41,17 @@
   --font-display: 'Poppins', sans-serif;
 
   /* Largeur du contenu et point de rupture ordinateur / mobile de la maquette */
-  --container-site: 1200px;
+  --container-site: 1320px;
   --breakpoint-nav: 53.75rem; /* 860px */
   --breakpoint-xs: 32.5rem; /* 520px */
+
+  /* Angles droits de la maquette v2 : tous les arrondis utilitaires tombent à 2px */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+  --radius-3xl: 2px;
 
   /* Animations : courbe douce et durée par défaut des transitions */
   --ease-doux: cubic-bezier(0.22, 1, 0.36, 1);
@@ -86,49 +96,114 @@
   }
 }
 
+/*
+ * Boutons v2 : angles droits, bordure de 2px et balayage oblique au survol
+ * (un bandeau penché traverse le bouton, couleur --sw), la flèche éventuelle glisse vers la droite.
+ */
 @utility btn {
-  @apply inline-flex cursor-pointer items-center justify-center rounded-lg text-center font-display transition-[translate,transform,scale,box-shadow,background-color,color] duration-500 ease-doux active:scale-[.97];
+  @apply relative isolate inline-flex min-h-[52px] cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-[2px] border-2 text-center font-display transition-[color,border-color,scale] duration-300 ease-doux active:scale-[.98];
 }
 
 @layer components {
-  /* Conteneur de 1200px avec les marges latérales de la maquette (40 / 20 / 16 px) */
+  /* Conteneur de 1320px avec les marges latérales de la maquette (32 / 20 / 16 px) */
   .container-site {
-    @apply mx-auto w-full max-w-site px-4 xs:px-5 nav:px-10;
+    @apply mx-auto w-full max-w-site px-4 xs:px-5 nav:px-8;
   }
 
-  /* Petit titre au-dessus des titres de section */
+  /* Petit titre au-dessus des titres de section, précédé de la barre penchée (couleur : --eb, vert par défaut) */
   .eyebrow {
-    @apply font-sans text-xs leading-none font-semibold tracking-[.14em] uppercase;
+    @apply inline-flex items-center gap-3 font-display text-[13px] leading-none font-semibold tracking-[.14em] uppercase;
+  }
+  .eyebrow::before {
+    content: '';
+    flex: none;
+    width: 9px;
+    height: 20px;
+    background: var(--eb, var(--color-sapin));
+    transform: skewX(23.7deg);
+  }
+  .eyebrow-or {
+    --eb: var(--color-or);
+  }
+  .eyebrow-nue::before {
+    display: none;
   }
 
   .section-title {
-    @apply m-0 font-display text-[26px] leading-[1.2] font-bold text-marine nav:text-4xl;
+    @apply m-0 font-display text-[2.1rem] leading-[1.06] font-extrabold tracking-[-.035em] text-nuit nav:text-[clamp(2.4rem,4.4vw,3.6rem)] nav:leading-[1.03];
   }
 
   .section-lead {
-    @apply m-0 text-[17px] leading-[1.6] text-ardoise;
+    @apply m-0 text-[17px] leading-[1.65] text-ardoise nav:text-[1.12rem];
   }
 
-  /* Boutons (base « btn » définie plus bas avec @utility) */
+  /* Boutons (base « btn » définie plus haut avec @utility) */
   .btn-or {
-    @apply btn bg-or px-6 py-4 text-[15px] font-bold text-marine hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(0,0,0,.22)];
+    --sw: #fff;
+    @apply btn border-or bg-or px-[26px] py-3.5 text-[15.5px] font-bold text-nuit;
   }
   .btn-sapin {
-    @apply btn bg-sapin px-[18px] py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(0,0,0,.22)];
+    --sw: var(--color-nuit);
+    @apply btn border-sapin bg-sapin px-[26px] py-3.5 text-[15.5px] font-bold text-white hover:border-nuit;
   }
   .btn-contour-clair {
-    @apply btn border-[1.5px] border-white px-[22px] py-[15px] text-[15px] font-semibold text-white;
+    --sw: rgb(255 255 255 / 0.14);
+    @apply btn border-white/55 bg-transparent px-[26px] py-3.5 text-[15.5px] font-semibold text-white hover:border-white;
   }
   .btn-contour-marine {
-    @apply btn border-[1.5px] border-marine px-[18px] py-[11px] text-sm font-semibold text-marine;
+    --sw: var(--color-nuit);
+    @apply btn border-nuit bg-transparent px-[26px] py-3.5 text-[15.5px] font-bold text-nuit hover:text-white;
+  }
+  .btn-or::before,
+  .btn-sapin::before,
+  .btn-contour-clair::before,
+  .btn-contour-marine::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: -30%;
+    width: 160%;
+    background: var(--sw);
+    transform: translateX(-112%) skewX(23.7deg);
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .btn-or > svg,
+  .btn-sapin > svg,
+  .btn-contour-clair > svg,
+  .btn-contour-marine > svg,
+  .btn-fleche {
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @media (hover: hover) {
+    .btn-or:hover::before,
+    .btn-sapin:hover::before,
+    .btn-contour-clair:hover::before,
+    .btn-contour-marine:hover::before {
+      transform: translateX(0) skewX(23.7deg);
+    }
+    .btn-or:hover > svg,
+    .btn-sapin:hover > svg,
+    .btn-contour-clair:hover > svg,
+    .btn-contour-marine:hover > svg,
+    :hover > .btn-fleche {
+      transform: translateX(5px);
+    }
+  }
+
+  /* Barre penchée décorative (puces, séparateurs, soulignements) */
+  .skew-bar {
+    display: inline-block;
+    flex: none;
+    transform: skewX(23.7deg);
   }
 
   /* Champs de formulaire */
   .field-label {
-    @apply font-sans text-sm font-semibold;
+    @apply font-display text-[15px] font-semibold text-nuit;
   }
   .field-input {
-    @apply min-h-12 w-full min-w-0 rounded-lg border border-champ bg-white px-3 py-[13px] font-sans text-base text-encre nav:min-h-0 nav:text-[15px];
+    @apply min-h-12 w-full min-w-0 rounded-[2px] border-[1.5px] border-champ bg-white px-3.5 py-[13px] font-sans text-base text-nuit;
   }
   .field-input[aria-invalid='true'] {
     @apply border-red-700;
@@ -144,7 +219,7 @@
 
   /* Flèches du carrousel des actualités */
   .news-arrow {
-    @apply flex size-11 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-marine bg-white font-display text-xl leading-none font-bold text-marine transition-colors hover:bg-marine hover:text-white;
+    @apply flex size-12 cursor-pointer items-center justify-center rounded-[2px] border-[1.5px] border-nuit bg-white text-nuit transition-colors hover:bg-nuit hover:text-white;
   }
 
   /* Carte blanche bordée (pôles, services, actualités) */
@@ -278,9 +353,9 @@
   }
 }
 .hero-dots span {
-  height: 8px;
-  width: 10px;
-  border-radius: 4px;
+  height: 6px;
+  width: 12px;
+  transform: skewX(23.7deg);
   background: var(--color-puce);
   animation: hero-dot 21s infinite;
 }
@@ -299,7 +374,7 @@
   34%,
   100% {
     background: var(--color-puce);
-    width: 10px;
+    width: 12px;
   }
 }
 .hero:hover .hero-slide,
@@ -320,19 +395,19 @@
   position: absolute;
   inset-inline: 0;
   bottom: -2px;
-  height: 3px;
-  border-radius: 2px;
+  height: 2px;
   background: var(--color-or);
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.6s var(--ease-doux);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.nav-link:focus-visible {
-  color: var(--color-sapin);
+.nav-link:focus-visible,
+.nav-link.is-active {
+  color: #fff;
 }
 @media (hover: hover) {
   .nav-link:hover {
-    color: var(--color-sapin);
+    color: #fff;
   }
   .nav-link:hover::after {
     transform: scaleX(1);
@@ -649,7 +724,120 @@ header.is-compact {
   }
 }
 
+/* ---------- Maquette v2 ---------- */
+
+/* Panneau diagonal vert et filet or des bannières sombres (masqués sous 1100px) */
+.hero-panel {
+  position: absolute;
+  inset: 0;
+  background: var(--color-sapin);
+  clip-path: polygon(60% 0, 100% 0, 100% 100%, calc(60% + 330px) 100%);
+}
+.hero-filet {
+  position: absolute;
+  inset-block: 0;
+  left: calc(60% - 22px);
+  width: 10px;
+  background: var(--color-or);
+  opacity: 0.9;
+  clip-path: polygon(0 0, 100% 0, calc(100% + 330px) 100%, 330px 100%);
+}
+.hero-panel-etroit {
+  clip-path: polygon(70% 0, 100% 0, 100% 100%, calc(70% + 260px) 100%);
+}
+.hero-filet-etroit {
+  left: calc(70% - 22px);
+  clip-path: polygon(0 0, 100% 0, calc(100% + 260px) 100%, 260px 100%);
+}
+@media (max-width: 1099px) {
+  .hero-panel,
+  .hero-filet {
+    display: none;
+  }
+}
+
+/* Bandeau défilant des pôles */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Lignes de pôles et cartes sombres : un bandeau marine penché remplit la ligne au survol */
+.balayage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.balayage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: -30%;
+  width: 160%;
+  background: var(--color-marine);
+  transform: translateX(-112%) skewX(23.7deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.balayage .bl-titre,
+.balayage .bl-texte,
+.balayage .bl-num {
+  transition: color 0.3s;
+}
+.balayage .bl-fleche {
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+@media (hover: hover) {
+  .balayage:hover::before {
+    transform: translateX(0) skewX(23.7deg);
+  }
+  .balayage:hover .bl-titre {
+    color: #fff;
+  }
+  .balayage:hover .bl-texte {
+    color: var(--color-brume-clair);
+  }
+  .balayage:hover .bl-num {
+    color: var(--color-or-clair);
+  }
+  .balayage:hover .bl-fleche {
+    background: var(--color-or);
+    border-color: var(--color-or);
+    color: var(--color-nuit);
+    transform: translateX(-6px);
+  }
+}
+
+/* Étapes de la carte membre en escalier (ordinateur) */
+@media (min-width: 1100px) {
+  .escalier > li:nth-child(2) {
+    margin-top: 56px;
+  }
+  .escalier > li:nth-child(3) {
+    margin-top: 112px;
+  }
+  .escalier > li:nth-child(4) {
+    margin-top: 168px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+  }
   .ticker-track {
     animation: none !important;
   }

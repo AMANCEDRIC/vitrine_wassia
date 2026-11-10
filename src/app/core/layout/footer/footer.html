@@ -1,20 +1,23 @@
-<footer class="bg-roi text-sm text-brume">
-  <!-- Ordinateur -->
-  <div class="mx-auto hidden max-w-site flex-col gap-9 px-10 pt-14 pb-8 nav:flex">
-    <div class="flex flex-wrap justify-between gap-10">
-      <div class="flex max-w-[360px] min-w-0 flex-[1_1_280px] flex-col gap-3.5">
+<footer class="bg-nuit pt-14 pb-7 text-[14.5px] text-brume nav:pt-20">
+  <div class="container-site">
+    <div
+      class="flex flex-wrap items-end justify-between gap-8 border-b border-white/14 pb-11"
+    >
+      <div class="flex max-w-[460px] flex-col gap-3">
         <img
           src="images/logo-blanc.png"
           width="479"
           height="202"
           [alt]="site.nomLogo"
-          class="block h-[60px] w-auto self-start"
+          class="mb-2 block h-16 w-auto self-start"
           loading="lazy"
         />
-        <span class="leading-[1.6]">{{ site.nom }} · {{ site.baseline }}</span>
-        <span class="leading-[1.6] font-semibold">{{ slogan }}</span>
+        <p class="m-0 text-[15.5px] leading-[1.6]">{{ site.nom }} · {{ site.baseline }}</p>
+        <p class="m-0 font-display text-[15px] leading-[1.5] font-semibold text-or-clair">
+          {{ slogan }}
+        </p>
         @if (reseaux.length) {
-          <ul class="m-0 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
+          <ul class="m-0 mt-2 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
             @for (r of reseaux; track r.reseau) {
               <li>
                 <a
@@ -22,7 +25,7 @@
                   target="_blank"
                   rel="noopener"
                   [attr.aria-label]="r.label + ' (nouvel onglet)'"
-                  class="flex size-10 items-center justify-center rounded-full border border-ligne-sombre text-brume transition-colors duration-500 ease-doux hover:border-or hover:bg-or hover:text-marine"
+                  class="flex size-11 items-center justify-center border border-white/20 text-brume transition-colors duration-500 ease-doux hover:border-or hover:bg-or hover:text-nuit"
                 >
                   <app-icon [name]="r.reseau" [size]="18" />
                 </a>
@@ -31,84 +34,68 @@
           </ul>
         }
       </div>
+      <a
+        [routerLink]="devenirMembre.route"
+        [fragment]="devenirMembre.fragment"
+        class="group inline-flex items-center gap-4 font-display text-[clamp(1.6rem,3.4vw,2.8rem)] leading-none font-extrabold tracking-[-.04em] text-white"
+      >
+        <span class="border-b-4 border-or pb-1.5">Devenir membre</span>
+        <app-icon name="fleche" [size]="40" color="var(--color-or)" class="btn-fleche" />
+      </a>
+    </div>
 
-      <nav aria-label="Activités" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
-        <span class="font-display font-bold text-white">Activités</span>
-        @for (pole of poles; track pole.id) {
-          <a [routerLink]="pole.route" [fragment]="pole.fragment" class="hover:text-white">{{
-            pole.libelleFooter
+    <div class="grid grid-cols-1 gap-8 py-11 xs:grid-cols-2 lg:grid-cols-4">
+      <nav aria-label="Activités">
+        <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Activités</p>
+        <ul class="m-0 grid list-none gap-2 p-0">
+          @for (pole of poles; track pole.id) {
+            <li>
+              <a [routerLink]="pole.route" [fragment]="pole.fragment" class="hover:text-white hover:underline">{{
+                pole.libelleFooter
+              }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Le groupe">
+        <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Le groupe</p>
+        <ul class="m-0 grid list-none gap-2 p-0">
+          <li><a routerLink="/a-propos" class="hover:text-white hover:underline">À propos</a></li>
+          <li><a routerLink="/actualites" class="hover:text-white hover:underline">Actualités</a></li>
+          <li><a routerLink="/contact" class="hover:text-white hover:underline">Contact</a></li>
+          @if (espaceAgents.url; as url) {
+            <li><a [href]="url" class="hover:text-white hover:underline">Espace agents</a></li>
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Informations légales">
+        <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Informations légales</p>
+        <ul class="m-0 grid list-none gap-2 p-0">
+          @for (item of legal; track item.route) {
+            <li>
+              <a [routerLink]="item.route" class="hover:text-white hover:underline">{{ item.label }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Contact</p>
+        <p class="m-0 leading-[1.8]">
+          {{ site.siege }}<br />
+          <a [href]="tel" class="hover:text-white hover:underline">{{ site.telephone }}</a><br />
+          <a [href]="'mailto:' + site.email" class="hover:text-white hover:underline">{{
+            site.email
           }}</a>
-        }
-      </nav>
-
-      <nav aria-label="Le groupe" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
-        <span class="font-display font-bold text-white">Le groupe</span>
-        <a routerLink="/a-propos" class="hover:text-white">À propos</a>
-        <a routerLink="/actualites" class="hover:text-white">Actualités</a>
-        <a routerLink="/contact" class="hover:text-white">Contact</a>
-        @if (espaceAgents.url; as url) {
-          <a [href]="url" class="hover:text-white">Espace agents</a>
-        }
-      </nav>
-
-      <nav aria-label="Informations légales" class="flex min-w-0 flex-[1_1_160px] flex-col gap-2.5">
-        <span class="font-display font-bold text-white">Informations légales</span>
-        @for (item of legal; track item.route) {
-          <a [routerLink]="item.route" class="hover:text-white">{{ item.label }}</a>
-        }
-      </nav>
+        </p>
+      </div>
     </div>
 
-    <div class="flex flex-col gap-2 border-t border-ligne-sombre pt-5 text-[13px] leading-[1.6]">
-      <span>{{ site.mentionIob }} {{ partenariat }}</span>
-      <span>© {{ site.annee }} {{ site.nom }}. Tous droits réservés.</span>
-    </div>
-  </div>
-
-  <!-- Mobile -->
-  <div class="flex flex-col gap-6 px-4 pt-9 pb-7 nav:hidden">
-    <img
-      src="images/logo-blanc.png"
-      width="479"
-      height="202"
-      [alt]="site.nomLogo"
-      class="block h-[60px] w-auto self-start"
-      loading="lazy"
-    />
-    @if (reseaux.length) {
-      <ul class="m-0 flex list-none gap-2.5 p-0" aria-label="Réseaux sociaux">
-        @for (r of reseaux; track r.reseau) {
-          <li>
-            <a
-              [href]="r.url"
-              target="_blank"
-              rel="noopener"
-              [attr.aria-label]="r.label + ' (nouvel onglet)'"
-              class="flex size-10 items-center justify-center rounded-full border border-ligne-sombre text-brume transition-colors duration-500 ease-doux hover:border-or hover:bg-or hover:text-marine"
-            >
-              <app-icon [name]="r.reseau" [size]="18" />
-            </a>
-          </li>
-        }
-      </ul>
-    }
-    <nav aria-label="Le groupe" class="flex flex-wrap gap-x-7 gap-y-3">
-      <a routerLink="/" fragment="poles">Activités</a>
-      <a routerLink="/a-propos">À propos</a>
-      <a routerLink="/actualites">Actualités</a>
-      <a routerLink="/contact">Contact</a>
-      @if (espaceAgents.url; as url) {
-        <a [href]="url">Espace agents</a>
-      }
-    </nav>
-    <nav aria-label="Informations légales" class="flex flex-wrap gap-x-7 gap-y-3">
-      @for (item of legal; track item.route) {
-        <a [routerLink]="item.route">{{ item.court }}</a>
-      }
-    </nav>
-    <div class="flex flex-col gap-2 border-t border-ligne-sombre pt-[18px] text-xs leading-[1.6]">
-      <span>{{ site.mentionIob }} {{ partenariat }}</span>
-      <span>© {{ site.annee }} {{ site.nom }}</span>
-    </div>
+    <p class="m-0 border border-white/14 px-6 py-5 text-[13.5px] leading-[1.6]">
+      {{ site.mentionIob }} {{ partenariat }}
+    </p>
+    <p class="m-0 mt-7 text-[13.5px]">© {{ site.annee }} {{ site.nom }}. Tous droits réservés.</p>
   </div>
 </footer>

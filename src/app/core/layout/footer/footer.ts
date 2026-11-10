@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ESPACE_AGENTS, RESEAUX_SOCIAUX, SITE, SLOGAN, textePartenariat } from '@content/site';
+import {
+  ESPACE_AGENTS,
+  RESEAUX_SOCIAUX,
+  SITE,
+  SLOGAN,
+  lienTelephone,
+  textePartenariat,
+} from '@content/site';
+import { DEVENIR_MEMBRE } from '../nav-links';
 import { Icon } from '@shared/ui/icon/icon';
 import { POLES } from '@content/poles';
 
@@ -16,6 +24,8 @@ export class Footer {
   protected readonly espaceAgents = ESPACE_AGENTS;
   protected readonly partenariat = textePartenariat();
   protected readonly poles = POLES;
+  protected readonly devenirMembre = DEVENIR_MEMBRE;
+  protected readonly tel = lienTelephone(SITE.telephone);
   /** Seuls les réseaux dont l'adresse est connue sont affichés. */
   protected readonly reseaux = RESEAUX_SOCIAUX.flatMap((r) =>
     r.url ? [{ ...r, url: r.url }] : [],

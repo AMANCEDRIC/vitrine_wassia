@@ -20,6 +20,13 @@ export const ICONS = {
     'M16 3c.4 2.6 2 4.2 4.5 4.5v3.2c-1.7 0-3.2-.5-4.5-1.4V15a6 6 0 1 1-6-6v3.3a2.7 2.7 0 1 0 2.7 2.7V3z',
   carte:
     'M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+  // Maquette v2
+  fleche: 'M5 12h14M13 6l6 6-6 6',
+  'fleche-gauche': 'M19 12H5M11 6l-6 6 6 6',
+  'fleche-externe': 'M7 17 17 7M9 7h8v8',
+  telephone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2',
+  email: 'M3 5h18v14H3zM3 7l9 6 9-6',
+  whatsapp: 'M4 20l1.3-4A8 8 0 1 1 8 18.7z',
 } as const;
 
 export type IconName = keyof typeof ICONS;

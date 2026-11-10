@@ -1,26 +1,26 @@
 <header
-  class="border-b border-trait bg-white/95 backdrop-blur transition-shadow duration-500 ease-doux"
+  class="bg-nuit shadow-[0_1px_0_rgba(255,255,255,.08)] transition-shadow duration-500 ease-doux"
   [class.is-compact]="compact()"
 >
   <div
-    class="relative mx-auto flex max-w-site flex-wrap items-center justify-between gap-4 px-4 transition-[padding] duration-500 ease-doux nav:px-10 lg:py-4"
+    class="relative mx-auto flex min-h-[72px] max-w-site flex-wrap items-center justify-between gap-4 px-4 transition-[padding] duration-500 ease-doux nav:px-8 lg:min-h-[84px]"
     [class]="compact() ? 'py-2' : 'py-3'"
   >
     <a routerLink="/" class="block" [attr.aria-label]="site.nomLogo + ' — accueil'">
       <img
-        src="images/logo.png"
+        src="images/logo-blanc.png"
         width="479"
         height="202"
         [alt]="site.nomLogo"
-        class="block w-auto transition-[height,scale] duration-500 ease-doux hover:scale-[1.02] lg:h-16"
-        [class]="compact() ? 'h-11' : 'h-[60px]'"
+        class="block w-auto transition-[height,scale] duration-500 ease-doux hover:scale-[1.02] lg:h-[54px]"
+        [class]="compact() ? 'h-11' : 'h-[52px]'"
       />
     </a>
 
     <!-- Menu ordinateur -->
     <nav
       aria-label="Menu principal"
-      class="hidden flex-wrap items-center gap-x-[30px] gap-y-1.5 font-sans text-[15px] font-semibold text-marine lg:flex"
+      class="hidden flex-wrap items-center gap-x-7 gap-y-1.5 font-display text-[15px] font-medium text-brume-clair lg:ml-auto lg:flex"
     >
       @for (link of links; track link.label) {
         @if (link.poles) {
@@ -68,7 +68,7 @@
               "
             >
               <div
-                class="grid grid-cols-[1fr_250px] overflow-hidden rounded-2xl border border-trait bg-white shadow-[0_24px_48px_rgba(10,42,94,.18)]"
+                class="grid grid-cols-[1fr_250px] overflow-hidden border-t-2 border-or bg-white shadow-[0_30px_60px_rgba(0,13,31,.35)]"
               >
                 <ul class="m-0 grid list-none grid-cols-2 gap-1 p-3">
                   @for (pole of poles; track pole.id; let i = $index) {
@@ -76,17 +76,17 @@
                       <a
                         [routerLink]="pole.route"
                         [fragment]="pole.fragment"
-                        class="group/pole flex items-start gap-3.5 rounded-xl p-3 transition-colors duration-500 ease-doux hover:bg-fond"
+                        class="group/pole flex items-start gap-3.5 p-3 transition-colors duration-500 ease-doux hover:bg-fond"
                       >
                         <span
-                          class="flex size-11 flex-none items-center justify-center rounded-[10px] transition-transform duration-500 ease-doux group-hover/pole:scale-105 group-hover/pole:-rotate-3"
+                          class="flex size-11 flex-none items-center justify-center transition-transform duration-500 ease-doux group-hover/pole:scale-105 group-hover/pole:-rotate-3"
                           [class]="pole.pastille"
                         >
                           <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
                         </span>
                         <span class="flex min-w-0 flex-col gap-1">
                           <span
-                            class="flex items-center gap-1.5 font-display text-[15px] leading-tight font-bold text-marine"
+                            class="flex items-center gap-1.5 font-display text-[15px] leading-tight font-bold text-nuit"
                           >
                             {{ pole.titreCourt }}
                             <span
@@ -105,10 +105,10 @@
                 </ul>
 
                 <div
-                  class="flex flex-col justify-between gap-5 bg-linear-160 from-marine to-roi p-6 text-white"
+                  class="flex flex-col justify-between gap-5 bg-nuit p-6 text-white"
                 >
                   <div class="flex flex-col gap-2.5">
-                    <span class="eyebrow text-or-clair">Nos activités</span>
+                    <span class="eyebrow eyebrow-or text-or-clair">Nos activités</span>
                     <p class="m-0 font-display text-lg leading-snug font-bold">
                       Cinq pôles, un seul groupe.
                     </p>
@@ -118,12 +118,12 @@
                     </p>
                   </div>
                   <div class="flex flex-col gap-2">
-                    <a routerLink="/" fragment="poles" class="btn-or px-4 py-3 text-sm"
+                    <a routerLink="/" fragment="poles" class="btn-or min-h-11 px-4 py-2.5 text-sm"
                       >Voir tous les pôles</a
                     >
                     <a
                       routerLink="/contact"
-                      class="btn-contour-clair px-4 py-[11px] text-sm transition-colors hover:bg-white hover:text-marine"
+                      class="btn-contour-clair min-h-11 px-4 py-2.5 text-sm"
                       >Nous écrire</a
                     >
                   </div>
@@ -147,24 +147,27 @@
 
     <div class="hidden flex-wrap gap-2.5 md:ml-auto md:flex lg:ml-0">
       @if (espaceAgents.url; as url) {
-        <a [href]="url" class="btn-contour-marine">Espace agents</a>
+        <a [href]="url" class="btn-contour-clair min-h-12 px-5 py-2.5 text-[15px]">Espace agents</a>
       }
-      <a [routerLink]="devenirMembre.route" [fragment]="devenirMembre.fragment" class="btn-sapin"
-        >Devenir membre</a
-      >
+      <a [routerLink]="devenirMembre.route" [fragment]="devenirMembre.fragment" class="btn-or min-h-12 px-[22px] py-2.5 text-[15px]"
+        >Devenir membre
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" /></svg
+      ></a>
     </div>
 
     <!-- Bouton du menu mobile -->
     <button
       type="button"
       #boutonMenu
-      class="flex size-12 cursor-pointer items-center justify-center rounded-[10px] border-[1.5px] border-marine bg-white transition-colors active:bg-fond lg:hidden"
+      class="flex min-h-12 cursor-pointer items-center gap-2.5 rounded-[2px] border border-white/40 bg-transparent px-4 font-display text-[13px] font-semibold tracking-[.1em] text-white uppercase transition-colors active:bg-white/10 lg:hidden"
       aria-label="Ouvrir le menu"
       aria-controls="menu-mobile"
       [attr.aria-expanded]="menuOpen()"
       (click)="menuOpen.set(true)"
     >
-      <app-icon name="menu" color="var(--color-marine)" />
+      <span aria-hidden="true">Menu</span>
+      <app-icon name="menu" color="#fff" [size]="18" />
     </button>
   </div>
 </header>

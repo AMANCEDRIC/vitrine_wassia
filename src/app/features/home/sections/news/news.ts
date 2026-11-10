@@ -11,6 +11,7 @@ import {
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ACTUALITES } from '@content/accueil';
+import { Icon } from '@shared/ui/icon/icon';
 
 const DELAI_AUTO_MS = 5000;
 
@@ -22,7 +23,7 @@ const DELAI_AUTO_MS = 5000;
  */
 @Component({
   selector: 'app-news',
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, RouterLink, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './news.html',
 })

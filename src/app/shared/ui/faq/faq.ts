@@ -8,19 +8,19 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'app-faq',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex flex-col gap-3">
+    <div class="flex flex-col border-b border-trait">
       @for (item of questions(); track item.question; let premier = $first) {
         <details
-          class="faq-item group rounded-xl border border-trait bg-white transition-[border-color,box-shadow] duration-500 ease-doux open:border-sapin/40 open:shadow-[0_10px_24px_rgba(10,42,94,.08)]"
+          class="faq-item group border-t border-trait bg-transparent"
           [attr.name]="nom()"
           [open]="premier"
         >
           <summary
-            class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-display text-base font-bold text-marine nav:px-6 [&::-webkit-details-marker]:hidden"
+            class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-[1.05rem] font-bold tracking-[-.01em] text-nuit transition-colors hover:text-sapin nav:text-lg [&::-webkit-details-marker]:hidden"
           >
             {{ item.question }}
             <span
-              class="flex size-8 flex-none items-center justify-center rounded-full bg-fond text-sapin transition-[rotate,background-color] duration-500 ease-doux group-open:rotate-45 group-open:bg-sapin group-open:text-white"
+              class="flex size-10 flex-none items-center justify-center border-[1.5px] border-nuit text-nuit transition-[rotate,background-color,border-color,color] duration-500 ease-doux group-open:rotate-45 group-open:border-sapin group-open:bg-sapin group-open:text-white"
               aria-hidden="true"
             >
               <svg
@@ -36,7 +36,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
               </svg>
             </span>
           </summary>
-          <p class="faq-answer m-0 px-5 pb-5 text-[15px] leading-[1.65] text-ardoise nav:px-6">
+          <p class="faq-answer m-0 max-w-[760px] pb-6 text-base leading-[1.65] text-ardoise">
             {{ item.reponse }}
           </p>
         </details>
