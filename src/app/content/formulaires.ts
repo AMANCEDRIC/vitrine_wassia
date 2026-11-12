@@ -1,4 +1,4 @@
-import { ContactSujet, FormConfig, FormField } from '@shared/data/contact.model';
+import { ContactSujet, FormConfig, FormField } from '../shared/data/contact.model';
 
 const telephone: FormField = {
   name: 'telephone',

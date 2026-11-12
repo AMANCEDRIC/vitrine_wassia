@@ -80,6 +80,11 @@
     />
   </div>
 
+  @if (cleTurnstile) {
+    <!-- Vérification anti-robots Cloudflare Turnstile -->
+    <div #widget class="min-h-[65px]"></div>
+  }
+
   <button
     type="submit"
     class="btn-sapin w-full text-base disabled:cursor-wait disabled:opacity-70"
@@ -93,6 +98,20 @@
       Version de démonstration : l’envoi en ligne n’est pas encore actif. Écrivez-nous à
       <a [href]="'mailto:' + site.email" class="font-semibold underline">{{ site.email }}</a
       >.
+    </p>
+  }
+
+  @if (statut() === 'verification') {
+    <p role="alert" class="m-0 border-l-4 border-or bg-or-clair/40 px-4 py-3 text-sm text-encre">
+      Validez d’abord la vérification anti-robot ci-dessus. Si elle ne s’affiche pas, écrivez-nous à
+      <a [href]="'mailto:' + site.email" class="font-semibold underline">{{ site.email }}</a
+      >.
+    </p>
+  }
+
+  @if (statut() === 'robot') {
+    <p role="alert" class="m-0 border-l-4 border-red-700 bg-red-50 px-4 py-3 text-sm text-red-800">
+      La vérification anti-robot n’a pas abouti. Validez-la de nouveau, puis renvoyez votre demande.
     </p>
   }
 

@@ -37,4 +37,6 @@ export interface ContactRequest {
   champs: Record<string, string>;
   /** Champ piège invisible : rempli uniquement par les robots. */
   website?: string;
+  /** Jeton Cloudflare Turnstile (anti-robots), vérifié par le serveur. */
+  turnstileToken?: string;
 }

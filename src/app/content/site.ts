@@ -66,6 +66,13 @@ export function textePartenariat(): string {
  */
 export const ESPACE_AGENTS: { url: string | null } = { url: null };
 
+/**
+ * Clé PUBLIQUE du widget Cloudflare Turnstile (anti-robots des formulaires).
+ * `null` : aucun widget (GitHub Pages, développement). La clé secrète n'est jamais dans le dépôt :
+ * elle se règle côté serveur (variable d'environnement TURNSTILE_SECRET).
+ */
+export const TURNSTILE_SITE_KEY: string | null = null;
+
 export type ReseauSocial = 'facebook' | 'linkedin' | 'instagram' | 'tiktok';
 
 /**

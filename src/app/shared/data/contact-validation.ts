@@ -1,4 +1,4 @@
-import { FORMULAIRES } from '@content/formulaires';
+import { FORMULAIRES } from '../../content/formulaires';
 import { CONTACT_SUJETS, ContactRequest, ContactSujet, FormField } from './contact.model';
 
 export const LONGUEUR_MAX = { court: 120, message: 2000 } as const;
