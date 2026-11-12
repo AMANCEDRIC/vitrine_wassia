@@ -3,10 +3,14 @@ import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import {
   COMPARATIF,
+  CONDITIONS_EPARGNE,
+  DISCIPLINE_NOTE,
+  DISCIPLINE_REMBOURSEMENT,
   DUREES_CREDIT,
   ETAPES_CREDIT,
   EXEMPLES_CREDIT,
   GRILLE_CREDIT,
+  PIECES_A_FOURNIR,
   SLOGAN,
   TAUX_MENSUEL,
   calculerCredit,
@@ -35,12 +39,16 @@ export class FinancePage {
   protected readonly formulaire = FORMULAIRES['devenir-membre'];
 
   protected readonly chiffres = [
-    { valeur: '1 000 F', libelle: 'pour ouvrir votre compte' },
+    { valeur: '1 000 F', libelle: 'à l’inscription' },
     { valeur: '8 sem.', libelle: 'd’épargne avant le prêt' },
     { valeur: '48 h', libelle: 'pour la réponse' },
   ];
 
   protected readonly tauxMensuel = TAUX_MENSUEL;
+  protected readonly conditions = CONDITIONS_EPARGNE;
+  protected readonly discipline = DISCIPLINE_REMBOURSEMENT;
+  protected readonly disciplineNote = DISCIPLINE_NOTE;
+  protected readonly pieces = PIECES_A_FOURNIR;
   protected readonly etapesCredit = ETAPES_CREDIT;
   protected readonly exemples = EXEMPLES_CREDIT;
   protected readonly comparatif = COMPARATIF;

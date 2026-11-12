@@ -3,7 +3,8 @@
  *
  * À CONFIRMER PAR LE CLIENT avant la mise en ligne :
  * - l'adresse de l'application des agents ;
- * - le siège : le dossier client indique Akoupé, le site garde Yopougon (consigne du 2026-11-09).
+ * - le siège : le dossier client indique Akoupé, le site garde Yopougon (consigne du 2026-11-09) ;
+ * - l'agence principale (Treichville), reprise de la fiche d'enrôlement 2026.
  */
 export const SITE = {
   nom: 'GROUPE WASSIA SARL HOLDING',
@@ -21,6 +22,12 @@ export const SITE = {
   annee: 2026,
   mentionIob:
     'WASSIA intervient comme intermédiaire en opérations de banque (IOB). Elle ne se substitue pas à un établissement de crédit agréé.',
+} as const;
+
+/** Agence principale, indiquée sur la fiche d'enrôlement 2026. */
+export const AGENCE = {
+  nom: 'Agence principale',
+  adresse: 'Treichville, Avenue 21 / Rue 22, Abidjan',
 } as const;
 
 /**

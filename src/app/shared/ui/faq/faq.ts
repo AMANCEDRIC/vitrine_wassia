@@ -20,7 +20,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           >
             {{ item.question }}
             <span
-              class="flex size-10 flex-none items-center justify-center border-[1.5px] border-nuit text-nuit transition-[rotate,background-color,border-color,color] duration-500 ease-doux group-open:rotate-45 group-open:border-sapin group-open:bg-sapin group-open:text-white"
+              class="flex size-10 flex-none items-center justify-center border-[1.5px] border-nuit text-nuit transition-[background-color,border-color,color] duration-500 ease-doux group-open:border-sapin group-open:bg-sapin group-open:text-white [&>svg]:transition-transform [&>svg]:duration-500 group-open:[&>svg]:rotate-45"
               aria-hidden="true"
             >
               <svg

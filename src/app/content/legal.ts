@@ -123,6 +123,7 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         liste: [
           `Raison sociale : ${NOM}`,
           'Siège social : Yopougon, Abidjan — Côte d’Ivoire',
+          'Agence principale : Treichville, Avenue 21 / Rue 22, Abidjan',
           'RCCM : [À COMPLÉTER]',
           'Capital social : [À COMPLÉTER]',
           `Téléphone : ${SITE.telephone}`,
