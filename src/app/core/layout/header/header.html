@@ -70,45 +70,51 @@
               <div
                 class="grid grid-cols-[1fr_250px] overflow-hidden border-t-2 border-or bg-white shadow-[0_30px_60px_rgba(0,13,31,.35)]"
               >
-                <ul class="m-0 grid list-none grid-cols-2 gap-1 p-3">
-                  @for (pole of poles; track pole.id; let i = $index) {
-                    <li class="mega-item" [style.--mega-delay]="i * 40 + 'ms'">
-                      <a
-                        [routerLink]="pole.route"
-                        [fragment]="pole.fragment"
-                        class="group/pole flex items-start gap-3.5 p-3 transition-colors duration-500 ease-doux hover:bg-fond"
-                      >
-                        <span
-                          class="flex size-11 flex-none items-center justify-center transition-transform duration-500 ease-doux group-hover/pole:scale-105 group-hover/pole:-rotate-3"
-                          [class]="pole.pastille"
-                        >
-                          <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
-                        </span>
-                        <span class="flex min-w-0 flex-col gap-1">
-                          <span
-                            class="flex items-center gap-1.5 font-display text-[15px] leading-tight font-bold text-nuit"
+                <div class="flex flex-col p-3">
+                  @for (groupe of groupes; track groupe.titre) {
+                    <p class="eyebrow eyebrow-nue m-0 px-3 pt-2 pb-1 text-xs text-ardoise">
+                      {{ groupe.titre }}
+                    </p>
+                    <ul class="m-0 grid list-none grid-cols-2 gap-1 p-0">
+                      @for (pole of groupe.activites; track pole.id; let i = $index) {
+                        <li class="mega-item" [style.--mega-delay]="i * 40 + 'ms'">
+                          <a
+                            [routerLink]="pole.route"
+                            class="group/pole flex items-start gap-3.5 p-3 transition-colors duration-500 ease-doux hover:bg-fond"
                           >
-                            {{ pole.titreCourt }}
                             <span
-                              class="text-sapin opacity-0 transition-[opacity,translate] duration-500 ease-doux group-hover/pole:translate-x-1 group-hover/pole:opacity-100"
-                              aria-hidden="true"
-                              >→</span
+                              class="flex size-11 flex-none items-center justify-center transition-transform duration-500 ease-doux group-hover/pole:scale-105 group-hover/pole:-rotate-3"
+                              [class]="pole.pastille"
                             >
-                          </span>
-                          <span class="text-[13px] leading-snug font-normal text-ardoise">{{
-                            pole.resumeCourt
-                          }}</span>
-                        </span>
-                      </a>
-                    </li>
+                              <app-icon [name]="pole.icone" [size]="22" [color]="pole.traitIcone" />
+                            </span>
+                            <span class="flex min-w-0 flex-col gap-1">
+                              <span
+                                class="flex items-center gap-1.5 font-display text-[15px] leading-tight font-bold text-nuit"
+                              >
+                                {{ pole.titreCourt }}
+                                <span
+                                  class="text-sapin opacity-0 transition-[opacity,translate] duration-500 ease-doux group-hover/pole:translate-x-1 group-hover/pole:opacity-100"
+                                  aria-hidden="true"
+                                  >→</span
+                                >
+                              </span>
+                              <span class="text-[13px] leading-snug font-normal text-ardoise">{{
+                                pole.resumeCourt
+                              }}</span>
+                            </span>
+                          </a>
+                        </li>
+                      }
+                    </ul>
                   }
-                </ul>
+                </div>
 
                 <div class="flex flex-col justify-between gap-5 bg-nuit p-6 text-white">
                   <div class="flex flex-col gap-2.5">
                     <span class="eyebrow eyebrow-or text-or-clair">Nos activités</span>
                     <p class="m-0 font-display text-lg leading-snug font-bold">
-                      Cinq pôles, un seul groupe.
+                      Cinq pôles, deux services, un seul groupe.
                     </p>
                     <p class="m-0 text-[13px] leading-relaxed font-normal text-brume">
                       Vous ne savez pas par où commencer ? Dites-nous qui vous êtes, nous vous
@@ -148,10 +154,10 @@
         >
       }
       <a
-        [routerLink]="devenirMembre.route"
-        [fragment]="devenirMembre.fragment"
+        [routerLink]="actionPrincipale.route"
+        [fragment]="actionPrincipale.fragment"
         class="btn-or min-h-12 px-[22px] py-2.5 text-[15px]"
-        >Devenir membre
+        >{{ actionPrincipale.label }}
         <svg
           width="18"
           height="18"

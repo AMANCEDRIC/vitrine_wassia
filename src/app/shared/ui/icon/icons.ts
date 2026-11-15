@@ -7,6 +7,8 @@ export const ICONS = {
   mobilite: 'M5 17h14M3 13l2-6h14l2 6v4H3zM7 17v2M17 17v2',
   voyage: 'M2 16 22 4l-5 17-5-6-4 3 1-6z',
   agrobusiness: 'M12 21v-9M12 12c0-4 3-6 7-6 0 4-3 6-7 6zM12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z',
+  commerce: 'M3 7.5 12 3l9 4.5v9L12 21l-9-4.5zM3 7.5l9 4.5 9-4.5M12 12v9',
+  energie: 'M13 2 4 14h7l-1 8 9-12h-7z',
   chevron: 'm9 6 6 6-6 6',
   menu: 'M4 7h16M4 12h16M4 17h16',
   fermer: 'M6 6l12 12M18 6 6 18',

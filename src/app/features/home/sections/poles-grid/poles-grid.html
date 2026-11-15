@@ -1,8 +1,8 @@
-<!-- Bandeau défilant des pôles -->
+<!-- Bandeau défilant des pôles et services -->
 <div class="marquee overflow-hidden bg-sapin whitespace-nowrap text-white" aria-hidden="true">
   <div class="marquee-track">
     @for (copie of [0, 1]; track copie) {
-      @for (pole of poles; track pole.id) {
+      @for (pole of activites; track pole.id) {
         <span
           class="inline-flex items-center py-5 font-display text-[clamp(1.05rem,1.8vw,1.45rem)] font-extrabold tracking-[-.01em] uppercase"
           >{{ pole.libelleFooter }}<span class="skew-bar mx-12 h-6 w-[9px] bg-or"></span
@@ -31,73 +31,80 @@
   </ul>
 </section>
 
-<!-- Les 5 pôles -->
+<!-- Les 5 pôles et les 2 autres services -->
 <section id="poles" class="bg-white">
   <div class="container-site py-14 nav:py-[120px]">
     <div class="mb-10 flex flex-wrap items-end justify-between gap-x-12 gap-y-5 nav:mb-16">
       <div class="flex max-w-[760px] flex-col gap-5">
         <span class="eyebrow text-ardoise">Nos activités</span>
-        <h2 class="section-title">Cinq pôles, un seul groupe</h2>
+        <h2 class="section-title">{{ titres.poles }}</h2>
       </div>
       <p class="section-lead max-w-[420px]">
-        Chaque pôle a sa page, son interlocuteur et son formulaire de demande.
+        Chaque activité a sa page, son interlocuteur et son formulaire de demande.
       </p>
     </div>
 
-    <ul class="m-0 list-none border-b border-trait p-0">
-      @for (pole of poles; track pole.id; let i = $index) {
-        <li>
-          <a
-            [routerLink]="pole.route"
-            [fragment]="pole.fragment"
-            class="balayage grid grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-4 gap-y-2 border-t border-trait px-2 py-7 text-encre nav:grid-cols-[48px_56px_minmax(0,1fr)_minmax(0,1.05fr)_52px] nav:gap-7 nav:px-5 nav:py-[38px]"
-          >
-            <span class="bl-num font-display text-sm font-semibold tracking-[.08em] text-sapin"
-              >0{{ i + 1 }}</span
-            >
-            <span
-              class="hidden size-14 items-center justify-center bg-or [clip-path:polygon(50%_0,96%_25%,96%_75%,50%_100%,4%_75%,4%_25%)] nav:flex"
-              aria-hidden="true"
-            >
-              <span
-                class="flex size-[52px] items-center justify-center [clip-path:polygon(50%_0,96%_25%,96%_75%,50%_100%,4%_75%,4%_25%)]"
-                [class]="pole.pastille"
-              >
-                <app-icon [name]="pole.icone" [color]="pole.traitIcone" />
-              </span>
-            </span>
-            <h3
-              class="bl-titre m-0 font-display text-[1.35rem] leading-[1.12] font-extrabold tracking-[-.03em] text-nuit nav:text-[clamp(1.4rem,2.5vw,2.15rem)]"
-            >
-              {{ pole.titre }}
-            </h3>
-            <p
-              class="bl-texte col-start-2 row-start-2 m-0 text-[15px] text-encre nav:col-start-auto nav:row-start-auto nav:text-base"
-            >
-              <span class="nav:hidden">{{ pole.resumeCourt }}</span>
-              <span class="hidden nav:inline">{{ pole.resume }}</span>
-            </p>
-            <span
-              class="bl-fleche col-start-3 row-span-2 row-start-1 flex size-11 items-center justify-center justify-self-end border-[1.5px] border-nuit text-nuit nav:col-start-auto nav:row-span-1 nav:row-start-auto nav:size-[52px]"
-              aria-hidden="true"
-            >
-              <app-icon name="fleche" [size]="22" />
-            </span>
-          </a>
-        </li>
+    @for (groupe of groupes; track groupe.depart) {
+      @if (groupe.titre) {
+        <div class="mt-14 mb-6 flex flex-col gap-2 nav:mt-20">
+          <h2 class="section-title">{{ groupe.titre }}</h2>
+          <p class="section-lead">{{ groupe.intro }}</p>
+        </div>
       }
-    </ul>
+      <ul class="m-0 list-none border-b border-trait p-0">
+        @for (pole of groupe.activites; track pole.id; let j = $index) {
+          @let i = groupe.depart + j;
+          <li>
+            <a
+              [routerLink]="pole.route"
+              class="balayage grid grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-4 gap-y-2 border-t border-trait px-2 py-7 text-encre nav:grid-cols-[48px_56px_minmax(0,1fr)_minmax(0,1.05fr)_52px] nav:gap-7 nav:px-5 nav:py-[38px]"
+            >
+              <span class="bl-num font-display text-sm font-semibold tracking-[.08em] text-sapin"
+                >0{{ i + 1 }}</span
+              >
+              <span
+                class="hidden size-14 items-center justify-center bg-or [clip-path:polygon(50%_0,96%_25%,96%_75%,50%_100%,4%_75%,4%_25%)] nav:flex"
+                aria-hidden="true"
+              >
+                <span
+                  class="flex size-[52px] items-center justify-center [clip-path:polygon(50%_0,96%_25%,96%_75%,50%_100%,4%_75%,4%_25%)]"
+                  [class]="pole.pastille"
+                >
+                  <app-icon [name]="pole.icone" [color]="pole.traitIcone" />
+                </span>
+              </span>
+              <h3
+                class="bl-titre m-0 font-display text-[1.35rem] leading-[1.12] font-extrabold tracking-[-.03em] text-nuit nav:text-[clamp(1.4rem,2.5vw,2.15rem)]"
+              >
+                {{ pole.titre }}
+              </h3>
+              <p
+                class="bl-texte col-start-2 row-start-2 m-0 text-[15px] text-encre nav:col-start-auto nav:row-start-auto nav:text-base"
+              >
+                {{ pole.texte }}
+              </p>
+              <span
+                class="bl-fleche col-start-3 row-span-2 row-start-1 flex size-11 items-center justify-center justify-self-end border-[1.5px] border-nuit text-nuit nav:col-start-auto nav:row-span-1 nav:row-start-auto nav:size-[52px]"
+                aria-hidden="true"
+              >
+                <app-icon name="fleche" [size]="22" />
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
 
     <div
       class="mt-10 flex flex-wrap items-center justify-between gap-x-12 gap-y-6 bg-fond px-6 py-8 nav:mt-14 nav:px-10 nav:py-9"
     >
       <div class="max-w-[720px]">
         <h3 class="m-0 mb-2 font-display text-2xl font-bold tracking-[-.02em] text-nuit">
-          Vous ne savez pas par où commencer ?
+          Vous ne savez pas par où commencer&nbsp;?
         </h3>
         <p class="m-0 text-ardoise">
-          Dites-nous qui vous êtes : bailleur, propriétaire de véhicule, commerçant, voyageur ou
-          partenaire.
+          Dites-nous qui vous êtes : commerçant, propriétaire, importateur, voyageur, investisseur
+          ou partenaire.
         </p>
       </div>
       <a routerLink="/contact" class="btn-contour-marine"

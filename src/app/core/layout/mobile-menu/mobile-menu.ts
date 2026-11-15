@@ -12,9 +12,9 @@ import {
 } from '@angular/core';
 import { IsActiveMatchOptions, RouterLink, RouterLinkActive } from '@angular/router';
 import { ESPACE_AGENTS, SITE, lienTelephone, lienWhatsapp } from '@content/site';
-import { POLES } from '@content/poles';
+import { ACTIVITES, POLES } from '@content/poles';
 import { Icon } from '@shared/ui/icon/icon';
-import { DEVENIR_MEMBRE, NAV_LINKS } from '../nav-links';
+import { ACTION_PRINCIPALE, NAV_LINKS } from '../nav-links';
 
 /** Distance de glissement vers la droite (px) qui referme le panneau. */
 const SEUIL_GLISSEMENT_PX = 70;
@@ -43,8 +43,9 @@ export class MobileMenu {
   protected readonly site = SITE;
   protected readonly espaceAgents = ESPACE_AGENTS;
   protected readonly links = NAV_LINKS;
-  protected readonly poles = POLES;
-  protected readonly devenirMembre = DEVENIR_MEMBRE;
+  protected readonly poles = ACTIVITES;
+  protected readonly nbPoles = POLES.length;
+  protected readonly actionPrincipale = ACTION_PRINCIPALE;
   protected readonly tel = lienTelephone(SITE.telephone);
   protected readonly whatsapp = lienWhatsapp();
   protected readonly exactPath: IsActiveMatchOptions = {

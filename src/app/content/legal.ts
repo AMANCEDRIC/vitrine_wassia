@@ -3,7 +3,7 @@
  * PROVISOIRES tant que le document n'est pas signé (« Approuvé & Bon pour publication »).
  *
  * Les mentions entre crochets [À COMPLÉTER] doivent être fournies par le client :
- * RCCM, capital social, directeur de la publication, hébergeur.
+ * capital social, directeur de la publication, hébergeur. Siège et RCCM : dossier officiel 2026.
  */
 import { SITE } from './site';
 
@@ -41,18 +41,19 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
           `Le ${NOM} intervient en tant que holding animatrice assurant le contrôle, la gestion stratégique et le développement de ses pôles d’activités :`,
         ],
         liste: [
-          'Services financiers et inclusion : intermédiation en opérations de banque, tontines numérisées à QR code, fonds de solidarité.',
-          'Immobilier et loyer garanti : gestion locative avec garantie de loyer, réhabilitation de bâtiments, transaction.',
-          'Mobilité, transport et GPS : gestion de flottes, recette journalière, prise en charge des pannes, télématique GPS.',
-          'Voyage et tourisme : billetterie, assistance visa et e-visa, conseil en mobilité.',
-          'Agrobusiness, industrie et énergies vertes : production agricole, transformation, import-export, énergies renouvelables.',
+          'Accompagnement Finance : assistance à la constitution et à la présentation de dossiers de financement auprès de partenaires financiers agréés. WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts.',
+          'Immobilier, construction et gestion patrimoniale : gestion locative, réhabilitation de biens, transactions foncières.',
+          'Gestion de flottes et traçabilité GPS : gestion déléguée de véhicules, supervision et géolocalisation.',
+          'Import-export et commerce général : sourcing international, dédouanement avec des transitaires agréés, distribution.',
+          'Agrobusiness et transformation : filières agricoles, animales et halieutiques, unités de transformation.',
+          'Autres services : voyage, Hadj, Oumrah et études (avec une agence agréée) ; énergie verte et développement industriel.',
         ],
       },
       {
         titre: '3. Engagements et responsabilité',
         paragraphes: [
           'Le GROUPE WASSIA met en œuvre des protocoles rigoureux pour garantir la continuité des services présentés sur la plateforme. La holding décline toute responsabilité en cas d’interruption technique indépendante de sa volonté ou de mauvaise manipulation de la part de l’utilisateur.',
-          'Les informations, grilles tarifaires et simulations présentées sur le site sont indicatives. Les conditions applicables à chaque service sont précisées lors de la demande.',
+          'Les informations présentées sur le site sont indicatives et ne constituent aucune promesse de résultat garanti. Les conditions applicables à chaque service sont précisées par écrit avant tout engagement.',
         ],
       },
       {
@@ -87,11 +88,6 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
               'Durée du contrat de gestion de flotte',
             ],
             [
-              'Identifiants tontines et cartes QR',
-              'Suivi de l’épargne et enregistrement comptable',
-              'Durée de la souscription au programme',
-            ],
-            [
               'Documents consulaires et visas',
               'Audit et vérification de la conformité du dossier',
               'Strictement limitée à la durée de la procédure',
@@ -123,9 +119,8 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         titre: 'Éditeur',
         liste: [
           `Raison sociale : ${NOM}`,
-          'Siège social : Yopougon, Abidjan — Côte d’Ivoire',
-          'Agence principale : Treichville, Avenue 21 / Rue 22, Abidjan',
-          'RCCM : [À COMPLÉTER]',
+          `Siège social : ${SITE.siege}`,
+          `RCCM : ${SITE.rccm}`,
           'Capital social : [À COMPLÉTER]',
           `Téléphone : ${SITE.telephone}`,
           'E-mail : contact@wassia-holding.com',
@@ -133,9 +128,9 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         ],
       },
       {
-        titre: 'Statut d’intermédiaire en opérations de banque',
+        titre: 'Activité financière',
         paragraphes: [
-          'WASSIA intervient comme intermédiaire en opérations de banque (IOB). Elle ne se substitue pas à un établissement de crédit agréé.',
+          SITE.mentionFinance,
           'En cours de conventionnement avec des établissements bancaires agréés APBEF-CI. Le nom du partenaire et le numéro de convention seront indiqués ici après signature.',
         ],
       },

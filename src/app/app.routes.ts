@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { Route, Routes } from '@angular/router';
+import { ACTIVITES } from '@content/poles';
 
 const SUFFIXE = ' · GROUPE WASSIA';
 
@@ -13,56 +14,25 @@ export const routes: Routes = [
     title: 'À propos' + SUFFIXE,
     data: {
       description:
-        'L’histoire, la vision et la gouvernance du GROUPE WASSIA SARL HOLDING, holding animatrice de cinq pôles d’activités.',
+        'L’identité, la philosophie et la synergie du GROUPE WASSIA SARL HOLDING : cinq pôles d’activités et deux services spécialisés.',
     },
     loadComponent: () => import('@features/about/about.page').then((m) => m.AboutPage),
   },
-  {
-    path: 'services-financiers',
-    title: 'Services financiers et inclusion' + SUFFIXE,
-    data: {
-      description:
-        'Intermédiation en opérations de banque, épargne par carte membre à QR code, crédit à 1 % par mois et solidarité mutualisée.',
-    },
-    loadComponent: () => import('@features/poles/finance/finance.page').then((m) => m.FinancePage),
-  },
-  {
-    path: 'immobilier-mobilite',
-    title: 'Immobilier et mobilité' + SUFFIXE,
-    data: {
-      description:
-        'Gestion locative à loyer garanti, rénovation de biens, gestion de flottes avec recette journalière et balises GPS.',
-    },
+  ...ACTIVITES.map((a): Route => ({
+    path: a.route.slice(1),
+    title: a.titre + SUFFIXE,
+    data: { activite: a.id, description: a.resume },
     loadComponent: () =>
-      import('@features/poles/immobilier-mobilite/immobilier-mobilite.page').then(
-        (m) => m.ImmobilierMobilitePage,
-      ),
-  },
-  {
-    path: 'voyage',
-    title: 'Voyage, tourisme et mobilité' + SUFFIXE,
-    data: {
-      description:
-        'Billetterie aérienne, assistance visa et e-visa, conseil en mobilité internationale et conciergerie de séjour.',
-    },
-    loadComponent: () => import('@features/poles/voyage/voyage.page').then((m) => m.VoyagePage),
-  },
-  {
-    path: 'agrobusiness',
-    title: 'Agrobusiness, industrie et énergies vertes' + SUFFIXE,
-    data: {
-      description:
-        'Production agricole, élevage, transformation, import-export et énergies renouvelables.',
-    },
-    loadComponent: () =>
-      import('@features/poles/agrobusiness/agrobusiness.page').then((m) => m.AgrobusinessPage),
-  },
+      import('@features/poles/activite/activite.page').then((m) => m.ActivitePage),
+  })),
+  // Anciennes adresses (avant les documents officiels de novembre 2026).
+  { path: 'services-financiers', redirectTo: 'accompagnement-finance' },
+  { path: 'immobilier-mobilite', redirectTo: 'immobilier' },
   {
     path: 'actualites',
     title: 'Actualités et projets' + SUFFIXE,
     data: {
-      description:
-        'Les actualités et les projets du GROUPE WASSIA dans ses cinq pôles d’activités.',
+      description: 'Les actualités et les projets du GROUPE WASSIA dans ses pôles d’activités.',
     },
     loadComponent: () =>
       import('@features/actualites/actualites.page').then((m) => m.ActualitesPage),

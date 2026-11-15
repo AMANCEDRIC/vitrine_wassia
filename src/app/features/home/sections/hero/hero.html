@@ -43,21 +43,34 @@
             }
             <div class="mt-1 grid grid-cols-1 gap-3 xs:flex xs:flex-wrap xs:gap-3.5">
               @for (action of d.actions; track action.label; let i = $index) {
-                <a
-                  [routerLink]="action.route"
-                  [fragment]="action.fragment"
-                  [class]="action.style === 'or' && i === 0 ? 'btn-or' : 'btn-contour-clair'"
-                >
-                  @if (action.labelCourt) {
-                    <span class="nav:hidden">{{ action.labelCourt }}</span>
-                    <span class="hidden nav:inline">{{ action.label }}</span>
-                  } @else {
-                    {{ action.label }}
-                  }
-                  @if (i === 0) {
-                    <app-icon name="fleche" [size]="20" class="btn-fleche" />
-                  }
-                </a>
+                @if (action.href; as href) {
+                  <!-- Lien externe (WhatsApp) -->
+                  <a [href]="href" target="_blank" rel="noopener" class="btn-contour-clair">
+                    <app-icon name="whatsapp" [size]="20" color="var(--color-emeraude)" />
+                    @if (action.labelCourt) {
+                      <span class="nav:hidden">{{ action.labelCourt }}</span>
+                      <span class="hidden nav:inline">{{ action.label }}</span>
+                    } @else {
+                      {{ action.label }}
+                    }
+                  </a>
+                } @else {
+                  <a
+                    [routerLink]="action.route"
+                    [fragment]="action.fragment"
+                    [class]="action.style === 'or' && i === 0 ? 'btn-or' : 'btn-contour-clair'"
+                  >
+                    @if (action.labelCourt) {
+                      <span class="nav:hidden">{{ action.labelCourt }}</span>
+                      <span class="hidden nav:inline">{{ action.label }}</span>
+                    } @else {
+                      {{ action.label }}
+                    }
+                    @if (i === 0) {
+                      <app-icon name="fleche" [size]="20" class="btn-fleche" />
+                    }
+                  </a>
+                }
               }
             </div>
           </div>

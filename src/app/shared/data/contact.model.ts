@@ -2,11 +2,13 @@
 
 export const CONTACT_SUJETS = [
   'general',
-  'devenir-membre',
+  'dossier-financement',
   'estimation-bien',
   'gestion-vehicule',
-  'voyage',
+  'sourcing',
   'agrobusiness',
+  'voyage',
+  'projet-energie',
 ] as const;
 
 export type ContactSujet = (typeof CONTACT_SUJETS)[number];

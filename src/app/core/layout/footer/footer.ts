@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  AGENCE,
   ESPACE_AGENTS,
   RESEAUX_SOCIAUX,
   SITE,
@@ -9,9 +8,9 @@ import {
   lienTelephone,
   textePartenariat,
 } from '@content/site';
-import { DEVENIR_MEMBRE } from '../nav-links';
+import { ACTION_PRINCIPALE } from '../nav-links';
 import { Icon } from '@shared/ui/icon/icon';
-import { POLES } from '@content/poles';
+import { ACTIVITES } from '@content/poles';
 
 @Component({
   selector: 'app-footer',
@@ -21,12 +20,11 @@ import { POLES } from '@content/poles';
 })
 export class Footer {
   protected readonly site = SITE;
-  protected readonly agence = AGENCE;
   protected readonly slogan = SLOGAN;
   protected readonly espaceAgents = ESPACE_AGENTS;
   protected readonly partenariat = textePartenariat();
-  protected readonly poles = POLES;
-  protected readonly devenirMembre = DEVENIR_MEMBRE;
+  protected readonly poles = ACTIVITES;
+  protected readonly actionPrincipale = ACTION_PRINCIPALE;
   protected readonly tel = lienTelephone(SITE.telephone);
   /** Seuls les réseaux dont l'adresse est connue sont affichés. */
   protected readonly reseaux = RESEAUX_SOCIAUX.flatMap((r) =>

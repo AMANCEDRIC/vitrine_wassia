@@ -17,9 +17,9 @@ import {
 } from '@angular/router';
 import { filter } from 'rxjs';
 import { ESPACE_AGENTS, SITE } from '@content/site';
-import { POLES } from '@content/poles';
+import { GROUPES_ACTIVITES } from '@content/poles';
 import { Icon } from '@shared/ui/icon/icon';
-import { DEVENIR_MEMBRE, NAV_LINKS } from '../nav-links';
+import { ACTION_PRINCIPALE, NAV_LINKS } from '../nav-links';
 import { MobileMenu } from '../mobile-menu/mobile-menu';
 
 /** Délai avant fermeture quand la souris quitte le menu (laisse le temps de rejoindre le panneau). */
@@ -42,8 +42,8 @@ export class Header {
   protected readonly site = SITE;
   protected readonly espaceAgents = ESPACE_AGENTS;
   protected readonly links = NAV_LINKS;
-  protected readonly poles = POLES;
-  protected readonly devenirMembre = DEVENIR_MEMBRE;
+  protected readonly groupes = GROUPES_ACTIVITES;
+  protected readonly actionPrincipale = ACTION_PRINCIPALE;
 
   protected readonly exactPath: IsActiveMatchOptions = {
     paths: 'exact',

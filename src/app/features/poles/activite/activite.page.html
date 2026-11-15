@@ -1,0 +1,124 @@
+@let p = page();
+
+<app-page-hero [eyebrow]="eyebrow()" [titre]="p.titre" [intro]="p.intro">
+  <a routerLink="." fragment="contact" class="btn-or"
+    >{{ p.boutonHero }} <app-icon name="fleche" [size]="20" class="btn-fleche"
+  /></a>
+  <a routerLink="." [fragment]="p.sections[0].id" class="btn-contour-clair">En savoir plus</a>
+</app-page-hero>
+
+<app-pole-quote>{{ p.accroche }}</app-pole-quote>
+
+@for (s of p.sections; track s.id) {
+  @let sombre = s.fond === 'sombre';
+  <section
+    [id]="s.id"
+    [class]="sombre ? 'bg-nuit text-brume' : s.fond === 'gris' ? 'bg-fond' : 'bg-white'"
+  >
+    <div class="container-site flex flex-col gap-9 py-14 nav:py-[120px]">
+      <div class="flex max-w-[820px] flex-col gap-5">
+        <span class="eyebrow" [class]="sombre ? 'eyebrow-or text-brume' : 'text-ardoise'">{{
+          s.eyebrow
+        }}</span>
+        <h2 class="section-title" [class.text-white]="sombre">{{ s.titre }}</h2>
+        @if (s.intro; as intro) {
+          <p class="section-lead" [class.text-brume]="sombre">{{ intro }}</p>
+        }
+      </div>
+
+      @if (s.etiquettes; as etiquettes) {
+        <ul class="m-0 flex list-none flex-wrap gap-2.5 p-0">
+          @for (e of etiquettes; track e) {
+            <li
+              class="border-[1.5px] px-4 py-2.5 font-display text-sm font-semibold"
+              [class]="sombre ? 'border-white/25 text-white' : 'border-trait bg-white text-nuit'"
+            >
+              {{ e }}
+            </li>
+          }
+        </ul>
+      }
+
+      @if (s.blocs; as blocs) {
+        <div
+          class="grid gap-x-12 gap-y-10"
+          [class]="blocs.length === 4 ? 'md:grid-cols-2' : 'md:grid-cols-3'"
+        >
+          @for (b of blocs; track b.titre; let i = $index) {
+            @if (sombre) {
+              <div class="min-w-0 border-t border-white/18 pt-7">
+                <span
+                  class="mb-3 block font-display text-[13px] font-semibold tracking-[.1em] text-or"
+                  >0{{ i + 1 }}</span
+                >
+                <h3
+                  class="m-0 mb-2.5 font-display text-[1.35rem] font-bold tracking-[-.02em] text-white"
+                >
+                  {{ b.titre }}
+                </h3>
+                <p class="m-0 text-brume">{{ b.texte }}</p>
+              </div>
+            } @else {
+              <app-service-card [titre]="b.titre">
+                <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ b.texte }}</p>
+              </app-service-card>
+            }
+          }
+        </div>
+      }
+    </div>
+  </section>
+}
+
+<!-- Mentions de prudence (documents officiels du client) -->
+<section class="bg-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-20">
+    <div
+      class="flex min-w-0 flex-[1_1_420px] flex-col gap-4 border-l-[6px] border-sapin pl-5 nav:pl-8"
+    >
+      <span class="eyebrow text-ardoise">Notre engagement</span>
+      @for (a of p.avertissements; track a) {
+        <p class="m-0 text-base leading-[1.65] text-encre-douce nav:text-[17px]">{{ a }}</p>
+      }
+    </div>
+    @if (p.image; as image) {
+      <div class="relative h-[240px] min-w-0 flex-[1_1_380px] overflow-hidden bg-illustration">
+        <img [ngSrc]="image.src" [alt]="image.alt" fill class="object-cover" />
+      </div>
+    }
+  </div>
+</section>
+
+<section id="contact" class="bg-marine text-white">
+  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-[120px]">
+    <h2 class="section-title flex-[1_1_380px] text-white">{{ p.titreFormulaire }}</h2>
+    <div class="min-w-0 flex-[1_1_460px]">
+      <app-contact-form [config]="formulaire()" [idPrefix]="activite().id" />
+    </div>
+  </div>
+</section>
+
+<!-- Les autres activités du groupe -->
+<nav class="bg-fond" aria-label="Les autres activités du groupe">
+  <div class="container-site flex flex-col gap-6 py-14 nav:py-20">
+    <span class="eyebrow text-ardoise">Le groupe WASSIA, c’est aussi</span>
+    <ul class="m-0 grid list-none gap-3 p-0 xs:grid-cols-2 lg:grid-cols-3">
+      @for (a of autres(); track a.id) {
+        <li>
+          <a
+            [routerLink]="a.route"
+            class="group flex h-full items-center gap-3.5 bg-white p-4 transition-colors duration-500 ease-doux hover:bg-white/60"
+          >
+            <span class="flex size-11 flex-none items-center justify-center" [class]="a.pastille">
+              <app-icon [name]="a.icone" [size]="22" [color]="a.traitIcone" />
+            </span>
+            <span class="font-display text-[15px] leading-tight font-bold text-nuit">{{
+              a.titreCourt
+            }}</span>
+            <app-icon name="fleche" [size]="18" class="btn-fleche ml-auto text-sapin" />
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>

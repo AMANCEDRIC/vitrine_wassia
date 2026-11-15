@@ -8,7 +8,17 @@ const telephone: FormField = {
   autocomplete: 'tel',
 };
 
-/** Les 6 formulaires de la maquette. Ils servent aussi à la validation côté serveur. */
+const nom: FormField = {
+  name: 'nom',
+  label: 'Nom et prénoms',
+  type: 'text',
+  required: true,
+  autocomplete: 'name',
+};
+
+const message: FormField = { name: 'message', label: 'Message', type: 'textarea' };
+
+/** Un formulaire par activité, plus le formulaire général. Ils servent aussi à la validation côté serveur. */
 export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
   general: {
     sujet: 'general',
@@ -20,38 +30,62 @@ export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
         type: 'select',
         required: true,
         options: [
-          'Commerçant ou épargnant',
-          'Bailleur immobilier',
+          'Commerçant ou entrepreneur',
+          'Propriétaire d’un bien immobilier',
           'Propriétaire de véhicule',
-          'Voyageur ou demandeur de visa',
-          'Partenaire',
+          'Importateur ou revendeur',
+          'Voyageur, pèlerin ou étudiant',
+          'Investisseur ou partenaire',
         ],
       },
-      { name: 'nom', label: 'Nom', type: 'text', required: true, autocomplete: 'name', half: true },
+      { ...nom, label: 'Nom', half: true },
       { ...telephone, half: true },
       { name: 'email', label: 'E-mail', type: 'email', autocomplete: 'email', masqueMobile: true },
-      { name: 'message', label: 'Message', type: 'textarea' },
+      message,
     ],
   },
-  'devenir-membre': {
-    sujet: 'devenir-membre',
-    bouton: 'Être contacté par un agent',
+  'dossier-financement': {
+    sujet: 'dossier-financement',
+    bouton: 'Être rappelé',
     champs: [
-      { name: 'nom', label: 'Nom et prénoms', type: 'text', required: true, autocomplete: 'name' },
+      nom,
       telephone,
-      { name: 'lieu', label: 'Marché ou commune', type: 'text' },
+      {
+        name: 'profil',
+        label: 'Je suis',
+        type: 'select',
+        required: true,
+        options: [
+          'Commerçant',
+          'Entrepreneur ou artisan',
+          'Chauffeur ou transporteur',
+          'Producteur agricole',
+          'Autre',
+        ],
+      },
+      { name: 'projet', label: 'Mon projet en quelques mots', type: 'textarea' },
     ],
   },
   'estimation-bien': {
     sujet: 'estimation-bien',
-    bouton: 'Faire estimer mon bien',
+    bouton: 'Présenter mon bien',
     champs: [
+      {
+        name: 'demande',
+        label: 'Ma demande',
+        type: 'select',
+        required: true,
+        options: [
+          'Gestion locative',
+          'Réhabilitation ou finition de chantier',
+          'Achat ou vente de terrain ou de bien',
+        ],
+      },
       {
         name: 'typeBien',
         label: 'Type de bien',
         type: 'select',
-        required: true,
-        options: ['Appartement', 'Villa', 'Magasin', 'Terrain'],
+        options: ['Appartement', 'Villa', 'Immeuble', 'Magasin', 'Terrain', 'Chantier inachevé'],
       },
       { name: 'commune', label: 'Commune', type: 'text' },
       telephone,
@@ -59,16 +93,62 @@ export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
   },
   'gestion-vehicule': {
     sujet: 'gestion-vehicule',
-    bouton: 'Placer mon véhicule sous gestion',
+    bouton: 'Être recontacté',
     champs: [
+      {
+        name: 'demande',
+        label: 'Ma demande',
+        type: 'select',
+        required: true,
+        options: ['Gestion de mes véhicules', 'Installation d’un GPS seulement'],
+      },
       {
         name: 'typeVehicule',
         label: 'Type de véhicule',
         type: 'select',
-        required: true,
-        options: ['Voiture (taxi ou VTC)', 'Moto', 'Véhicule personnel'],
+        options: ['Taxi compteur', 'VTC', 'Véhicule utilitaire', 'Minicar', 'Moto-taxi'],
       },
       { name: 'nombre', label: 'Nombre de véhicules', type: 'number' },
+      telephone,
+    ],
+  },
+  sourcing: {
+    sujet: 'sourcing',
+    bouton: 'Envoyer ma demande',
+    champs: [
+      {
+        name: 'demande',
+        label: 'Ma demande',
+        type: 'select',
+        required: true,
+        options: [
+          'Importer des marchandises',
+          'Acheter en gros ou demi-gros',
+          'Approvisionner mon entreprise',
+        ],
+      },
+      { name: 'produits', label: 'Produits recherchés', type: 'text' },
+      nom,
+      telephone,
+    ],
+  },
+  agrobusiness: {
+    sujet: 'agrobusiness',
+    bouton: 'Être recontacté',
+    champs: [
+      {
+        name: 'profil',
+        label: 'Je suis',
+        type: 'select',
+        required: true,
+        options: [
+          'Producteur ou groupement',
+          'Industriel ou équipementier',
+          'Investisseur ou partenaire',
+          'Acheteur',
+        ],
+      },
+      { ...nom, label: 'Nom ou structure' },
       telephone,
     ],
   },
@@ -82,28 +162,35 @@ export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
         type: 'select',
         required: true,
         options: [
-          'Billet d’avion',
-          'Visa ou e-visa',
-          'Conseil en mobilité',
-          'Séjour et conciergerie',
+          'Billet d’avion ou hôtel',
+          'Assistance visa',
+          'Hadj ou Oumrah',
+          'Études en Arabie saoudite',
+          'Voyage d’affaires',
+          'Tourisme ou location de véhicule',
         ],
       },
       { name: 'destination', label: 'Destination', type: 'text' },
       telephone,
     ],
   },
-  agrobusiness: {
-    sujet: 'agrobusiness',
+  'projet-energie': {
+    sujet: 'projet-energie',
     bouton: 'Être recontacté',
     champs: [
       {
-        name: 'profil',
-        label: 'Je suis',
+        name: 'demande',
+        label: 'Mon besoin',
         type: 'select',
         required: true,
-        options: ['Producteur', 'Acheteur ou importateur', 'Investisseur ou partenaire'],
+        options: [
+          'Installation solaire',
+          'Machines ou ligne de production',
+          'Audit énergétique',
+          'Partenariat industriel',
+        ],
       },
-      { name: 'nom', label: 'Nom', type: 'text', required: true, autocomplete: 'name' },
+      { ...nom, label: 'Nom ou structure' },
       telephone,
     ],
   },

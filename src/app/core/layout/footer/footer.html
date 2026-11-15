@@ -33,11 +33,11 @@
         }
       </div>
       <a
-        [routerLink]="devenirMembre.route"
-        [fragment]="devenirMembre.fragment"
+        [routerLink]="actionPrincipale.route"
+        [fragment]="actionPrincipale.fragment"
         class="group inline-flex items-center gap-4 font-display text-[clamp(1.6rem,3.4vw,2.8rem)] leading-none font-extrabold tracking-[-.04em] text-white"
       >
-        <span class="border-b-4 border-or pb-1.5">Devenir membre</span>
+        <span class="border-b-4 border-or pb-1.5">{{ actionPrincipale.label }}</span>
         <app-icon name="fleche" [size]="40" color="var(--color-or)" class="btn-fleche" />
       </a>
     </div>
@@ -48,12 +48,9 @@
         <ul class="m-0 grid list-none gap-2 p-0">
           @for (pole of poles; track pole.id) {
             <li>
-              <a
-                [routerLink]="pole.route"
-                [fragment]="pole.fragment"
-                class="hover:text-white hover:underline"
-                >{{ pole.libelleFooter }}</a
-              >
+              <a [routerLink]="pole.route" class="hover:text-white hover:underline">{{
+                pole.libelleFooter
+              }}</a>
             </li>
           }
         </ul>
@@ -90,7 +87,7 @@
         <p class="eyebrow eyebrow-nue m-0 mb-3.5 text-xs text-or">Contact</p>
         <p class="m-0 leading-[1.8]">
           {{ site.siege }}<br />
-          {{ agence.nom }} : {{ agence.adresse }}<br />
+          RCCM {{ site.rccm }}<br />
           <a [href]="tel" class="hover:text-white hover:underline">{{ site.telephone }}</a
           ><br />
           <a [href]="'mailto:' + site.email" class="hover:text-white hover:underline">{{
@@ -101,7 +98,7 @@
     </div>
 
     <p class="m-0 border border-white/14 px-6 py-5 text-[13.5px] leading-[1.6]">
-      {{ site.mentionIob }} {{ partenariat }}
+      {{ site.mentionFinance }} {{ partenariat }}
     </p>
     <p class="m-0 mt-7 text-[13.5px]">© {{ site.annee }} {{ site.nom }}. Tous droits réservés.</p>
   </div>

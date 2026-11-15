@@ -17,7 +17,7 @@ import { Icon } from '@shared/ui/icon/icon';
             <span class="eyebrow text-ardoise">Pourquoi WASSIA</span>
             <h2 class="section-title">Pourquoi choisir le GROUPE WASSIA ?</h2>
             <p class="section-lead">
-              Six raisons de nous confier vos biens, votre mobilité et votre épargne.
+              Six raisons de faire de WASSIA votre partenaire en Côte d’Ivoire.
             </p>
           </div>
           <a routerLink="/contact" class="btn-contour-marine"

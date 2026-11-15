@@ -1,98 +1,135 @@
 import { IconName } from '@shared/ui/icon/icons';
 
-export type PoleId = 'finance' | 'immobilier' | 'mobilite' | 'voyage' | 'agrobusiness';
+export type PoleId = 'finance' | 'immobilier' | 'flottes' | 'commerce' | 'agrobusiness';
+export type ServiceId = 'voyage' | 'energie';
+export type ActiviteId = PoleId | ServiceId;
 
-export interface Pole {
-  id: PoleId;
-  /** Titre de la carte sur la page d'accueil (ordinateur). */
+export interface Activite {
+  id: ActiviteId;
+  /** Titre de la ligne sur la page d'accueil (ordinateur). */
   titre: string;
-  /** Titre court : accueil mobile et menu mobile. */
+  /** Titre court : menus et organigramme. */
   titreCourt: string;
-  /** Libellé du pied de page. */
+  /** Libellé du pied de page et du bandeau défilant. */
   libelleFooter: string;
   resume: string;
-  /** Résumé de l'accueil mobile. */
+  /** Résumé de l'accueil mobile et des menus. */
   resumeCourt: string;
   route: string;
-  fragment?: string;
   icone: IconName;
-  /** Classes de la pastille d'icône (couleur du pôle). */
+  /** Classes de la pastille d'icône (couleur de l'activité). */
   pastille: string;
   /** Couleur du trait de l'icône. */
   traitIcone: string;
 }
 
 /**
- * Les 5 pôles retenus par Cédric le 2026-11-07 (version « Agrobusiness & Énergies vertes »).
- * Couleurs : charte graphique, avec Voyage (or) et Agrobusiness (bleu roi + or) repris de la maquette,
- * à faire valider par le client.
+ * Les 5 pôles, dans l'ordre et avec les noms validés par le client (texte de l'accueil, 15/11/2026).
+ * Couleurs : charte graphique, à faire valider par le client pour Import-Export.
  */
-export const POLES: readonly Pole[] = [
+export const POLES: readonly Activite[] = [
   {
     id: 'finance',
-    titre: 'Services financiers et inclusion',
-    titreCourt: 'Services financiers et inclusion',
-    libelleFooter: 'Services financiers',
+    titre: 'Accompagnement Finance',
+    titreCourt: 'Accompagnement Finance',
+    libelleFooter: 'Accompagnement Finance',
     resume:
-      'Intermédiation en opérations de banque, tontines numérisées par carte QR, solidarité mutualisée.',
-    resumeCourt: 'Intermédiation bancaire, tontines par carte QR, solidarité.',
-    route: '/services-financiers',
+      'Montage et présentation de dossiers de financement auprès de nos partenaires financiers agréés.',
+    resumeCourt: 'Dossiers de financement, partenaires agréés.',
+    route: '/accompagnement-finance',
     icone: 'finance',
     pastille: 'bg-emeraude',
     traitIcone: 'var(--color-marine)',
   },
   {
     id: 'immobilier',
-    titre: 'Immobilier et patrimoine',
-    titreCourt: 'Immobilier et patrimoine',
+    titre: 'Immobilier',
+    titreCourt: 'Immobilier',
     libelleFooter: 'Immobilier',
     resume:
-      'Gestion locative à loyer garanti, rénovation de biens dégradés, achat, vente et courtage foncier.',
-    resumeCourt: 'Loyer garanti, rénovation, courtage foncier.',
-    route: '/immobilier-mobilite',
-    fragment: 'immobilier',
+      'Gestion locative sécurisée, réhabilitation et finition de chantiers, transactions foncières.',
+    resumeCourt: 'Gestion locative, réhabilitation, foncier.',
+    route: '/immobilier',
     icone: 'immobilier',
     pastille: 'bg-sapin',
     traitIcone: '#ffffff',
   },
   {
-    id: 'mobilite',
-    titre: 'Mobilité, transport et GPS',
-    titreCourt: 'Mobilité, transport et GPS',
-    libelleFooter: 'Mobilité et GPS',
+    id: 'agrobusiness',
+    titre: 'Agrobusiness',
+    titreCourt: 'Agrobusiness',
+    libelleFooter: 'Agrobusiness',
     resume:
-      'Gestion déléguée de véhicules et de motos, recette garantie, balises GPS, logistique et courrier express.',
-    resumeCourt: 'Recette garantie, pannes prises en charge, balises GPS.',
-    route: '/immobilier-mobilite',
-    fragment: 'flottes',
+      'Filières agricoles, élevage, aquaculture et transformation locale, avec nos partenaires.',
+    resumeCourt: 'Agriculture, élevage, transformation.',
+    route: '/agrobusiness',
+    icone: 'agrobusiness',
+    pastille: 'bg-roi',
+    traitIcone: 'var(--color-or)',
+  },
+  {
+    id: 'commerce',
+    titre: 'Import-Export & Commerce Général',
+    titreCourt: 'Import-Export & Commerce Général',
+    libelleFooter: 'Import-Export',
+    resume:
+      'Sourcing direct en Asie, au Golfe, en Afrique et en Europe, dédouanement et distribution en Côte d’Ivoire.',
+    resumeCourt: 'Sourcing mondial, gros et détail.',
+    route: '/import-export',
+    icone: 'commerce',
+    pastille: 'bg-nuit',
+    traitIcone: 'var(--color-or)',
+  },
+  {
+    id: 'flottes',
+    titre: 'Flottes & GPS',
+    titreCourt: 'Flottes & GPS',
+    libelleFooter: 'Flottes & GPS',
+    resume:
+      'Gestion déléguée de véhicules de transport, supervision GPS 24 h/24, encadrement des chauffeurs.',
+    resumeCourt: 'Gestion de véhicules, GPS 24 h/24.',
+    route: '/flottes-gps',
     icone: 'mobilite',
     pastille: 'bg-marine',
     traitIcone: '#ffffff',
   },
+];
+
+/** Les 2 « autres services spécialisés » du dossier officiel. */
+export const SERVICES: readonly Activite[] = [
   {
     id: 'voyage',
-    titre: 'Voyage, tourisme et mobilité',
-    titreCourt: 'Voyage, tourisme et mobilité',
-    libelleFooter: 'Voyage et tourisme',
+    titre: 'Voyage, Hadj, Oumrah & Mobilité',
+    titreCourt: 'Voyage, Hadj, Oumrah & Mobilité',
+    libelleFooter: 'Voyage, Hadj, Oumrah',
     resume:
-      'Billetterie aérienne, assistance visa et e-visa, conseil aux voyageurs, conciergerie de séjour.',
-    resumeCourt: 'Billets d’avion, visas et e-visas, conciergerie.',
+      'Billetterie, assistance visa, Hadj et Oumrah, études en Arabie saoudite, avec une agence agréée.',
+    resumeCourt: 'Billets, visas, Hadj, Oumrah, études.',
     route: '/voyage',
     icone: 'voyage',
     pastille: 'bg-or',
     traitIcone: 'var(--color-marine)',
   },
   {
-    id: 'agrobusiness',
-    titre: 'Agrobusiness, industrie et énergies vertes',
-    titreCourt: 'Agrobusiness et énergies vertes',
-    libelleFooter: 'Agrobusiness',
+    id: 'energie',
+    titre: 'Énergie Verte',
+    titreCourt: 'Énergie Verte',
+    libelleFooter: 'Énergie Verte',
     resume:
-      'Production agricole et élevage, transformation, import-export, énergies renouvelables.',
-    resumeCourt: 'Agriculture, transformation, import-export, solaire.',
-    route: '/agrobusiness',
-    icone: 'agrobusiness',
-    pastille: 'bg-roi',
-    traitIcone: 'var(--color-or)',
+      'Solutions solaires, équipements industriels et unités de production avec nos partenaires.',
+    resumeCourt: 'Solaire, machines, unités de production.',
+    route: '/energie-verte',
+    icone: 'energie',
+    pastille: 'bg-vert-fonce',
+    traitIcone: 'var(--color-or-clair)',
   },
+];
+
+/** Toutes les activités : les 5 pôles puis les 2 services. */
+export const ACTIVITES: readonly Activite[] = [...POLES, ...SERVICES];
+
+/** Menus et pied de page : les pôles, puis les autres services, chacun sous son titre. */
+export const GROUPES_ACTIVITES: readonly { titre: string; activites: readonly Activite[] }[] = [
+  { titre: 'Nos pôles', activites: POLES },
+  { titre: 'Nos autres services', activites: SERVICES },
 ];

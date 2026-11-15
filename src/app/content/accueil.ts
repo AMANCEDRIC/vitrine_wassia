@@ -1,12 +1,107 @@
-/** Textes de la page d'accueil (maquette Main.html et Site-Accueil-Mobile). */
+/**
+ * Textes de la page d'accueil.
+ *
+ * TEXTE FINAL FOURNI PAR LE CLIENT (2026-11-15, « il n'a rien à changer ») : recopié mot pour mot.
+ * Ne pas reformuler. Seules adaptations : apostrophes typographiques et espaces insécables
+ * avant « : » et « ? ».
+ */
+import { ActiviteId } from './poles';
+import { lienWhatsapp } from './site';
+
+export const BANNIERE = {
+  nom: 'GROUPE WASSIA SARL HOLDING',
+  devise: 'Votre Référence, Notre Engagement',
+  texte:
+    'Un groupe ivoirien qui accompagne les entreprises, les commerçants et les investisseurs en Côte d’Ivoire et à l’international, avec transparence et professionnalisme.',
+  boutonServices: 'Découvrir nos services',
+  boutonWhatsapp: 'Nous contacter sur WhatsApp',
+} as const;
+
+export const PRESENTATION = {
+  titre: 'Qui sommes-nous ?',
+  paragraphes: [
+    'Le GROUPE WASSIA SARL HOLDING, basé à Treichville, Abidjan, est un groupe ivoirien actif dans l’accompagnement financier, l’immobilier, l’agrobusiness, le commerce international et la gestion de flottes.',
+    'Notre engagement est simple : un accompagnement clair, des conditions expliquées par écrit avant tout engagement, et un suivi humain à chaque étape.',
+  ],
+} as const;
+
+export interface TexteAccueil {
+  /** Accroche en gras (seulement pour l'Accompagnement Finance). */
+  accroche?: string;
+  paragraphes: readonly string[];
+  bouton: string;
+  /** Ancre de la page visée (ex. `contact` pour aller directement au formulaire). */
+  fragment?: string;
+}
+
+/** Texte de chaque pôle et service sur l'accueil, avec le libellé de son bouton. */
+export const TEXTES_ACCUEIL: Record<ActiviteId, TexteAccueil> = {
+  finance: {
+    accroche: 'Vous avez un projet et vous cherchez un financement ?',
+    paragraphes: [
+      'Nous vous accompagnons dans la constitution et la présentation de votre dossier auprès de nos partenaires financiers agréés.',
+      'Nous ne collectons pas l’épargne du public et nous n’octroyons pas de prêts. Les conditions de financement (montant, durée, taux, frais, garanties) sont fixées uniquement par l’établissement partenaire agréé, après étude de votre dossier, et vous sont communiquées par écrit avant tout engagement.',
+    ],
+    bouton: 'Demander un accompagnement',
+    fragment: 'contact',
+  },
+  immobilier: {
+    paragraphes: [
+      'Achat, vente et gestion de terrains et de biens immobiliers en Côte d’Ivoire.',
+      'Nous vous accompagnons pour des biens avec Titre Foncier Définitif ou ACD vérifié, avec accompagnement juridique complet.',
+    ],
+    bouton: 'Voir le pôle Immobilier',
+  },
+  agrobusiness: {
+    paragraphes: [
+      'Nous développons des activités agricoles et de transformation, avec nos partenaires industriels et investisseurs, pour valoriser les produits locaux et créer de la valeur en Côte d’Ivoire.',
+    ],
+    bouton: 'Voir le pôle Agrobusiness',
+  },
+  commerce: {
+    paragraphes: [
+      'Sourcing, importation et distribution de produits depuis la Chine, l’Inde, Dubaï, l’Égypte, l’Europe et l’Afrique.',
+      'Accompagnement et suivi des formalités de dédouanement et de transit, avec nos transitaires partenaires agréés, sous réserve des contrôles et décisions des autorités douanières. Livraison suivie par GPS jusqu’à votre magasin ou entrepôt.',
+    ],
+    bouton: 'Voir le pôle Import-Export',
+  },
+  flottes: {
+    paragraphes: [
+      'Gestion et sécurisation de vos véhicules et taxis à Abidjan.',
+      'Suivi GPS 24h/24, sélection et suivi des chauffeurs, suivi des recettes perçues selon le contrat de gestion signé, et alertes de sécurité.',
+      'Immobilisation sécurisée du véhicule à distance, uniquement à l’arrêt et avec l’accord du propriétaire, conformément au contrat signé.',
+    ],
+    bouton: 'Voir le pôle Flottes & GPS',
+  },
+  voyage: {
+    paragraphes: [
+      'Accompagnement pour vos voyages, vos démarches de visa, vos études à l’étranger, et votre pèlerinage en partenariat avec une agence agréée. Les visas sont délivrés uniquement par l’ambassade ou le consulat compétent. WASSIA ne délivre pas les visas.',
+    ],
+    bouton: 'Voir Voyage & Hadj',
+  },
+  energie: {
+    paragraphes: [
+      'Nous développons des solutions d’énergie verte et des unités en cours de développement avec nos partenaires industriels et investisseurs, ainsi que la distribution et la commercialisation d’équipements via nos partenaires fabricants.',
+    ],
+    bouton: 'Voir Énergie Verte',
+  },
+};
+
+/*
+ * Mise en page d'origine de l'accueil (carrousel, bandeau des engagements, « Pourquoi WASSIA »),
+ * remplie avec les textes du client ci-dessus (choix de Cédric, 2026-11-15).
+ */
 
 export interface LienAction {
   label: string;
   /** Libellé raccourci sur mobile (boutons côte à côte). */
   labelCourt?: string;
-  route: string;
+  /** Lien interne… */
+  route?: string;
   fragment?: string;
-  /** `or` : bouton doré (offre phare) ; `lien` : lien texte secondaire avec flèche. */
+  /** …ou lien externe (WhatsApp), ouvert dans un nouvel onglet. */
+  href?: string;
+  /** `or` : bouton doré (offre phare) ; `lien` : bouton secondaire. */
   style: 'or' | 'lien';
 }
 
@@ -21,140 +116,123 @@ export interface Diapositive {
   alt: string;
 }
 
+/** Carrousel de la bannière : la bannière du client, puis deux de ses textes de pôles. */
 export const DIAPOSITIVES: readonly Diapositive[] = [
   {
-    eyebrow: 'Holding multisectorielle · Côte d’Ivoire',
-    titre: 'L’excellence au service de vos biens, de votre mobilité et de votre avenir financier.',
-    texte:
-      'Intermédiation financière, gestion locative à loyer garanti, gestion de flottes sécurisée par GPS, solutions de voyage et projets durables : nous bâtissons des garanties solides pour les particuliers, les investisseurs et les professionnels.',
-    texteMobile:
-      'Loyers garantis, flottes de véhicules sécurisées par GPS, épargne par carte QR, voyage et projets durables.',
+    eyebrow: BANNIERE.nom,
+    titre: BANNIERE.devise,
+    texte: BANNIERE.texte,
     actions: [
+      { label: BANNIERE.boutonServices, route: '/', fragment: 'poles', style: 'or' },
       {
-        label: 'Loyer garanti',
-        route: '/immobilier-mobilite',
-        fragment: 'immobilier',
-        style: 'or',
+        label: BANNIERE.boutonWhatsapp,
+        labelCourt: 'WhatsApp',
+        href: lienWhatsapp(),
+        style: 'lien',
       },
-      {
-        label: 'Recette véhicule garantie',
-        labelCourt: 'Recette garantie',
-        route: '/immobilier-mobilite',
-        fragment: 'flottes',
-        style: 'or',
-      },
-      { label: 'Découvrir nos services', route: '/', fragment: 'poles', style: 'lien' },
     ],
     image: 'images/illustrations/immobilier-mobilite.svg',
     alt: 'Illustration : immeuble, maison et véhicule suivi par GPS',
   },
   {
-    eyebrow: 'Épargne communautaire',
-    titre: 'Votre épargne, tracée et confirmée par SMS.',
-    texte:
-      'Une carte membre à QR code, un agent de proximité sur votre marché et un solde que vous suivez à chaque passage.',
+    eyebrow: 'Accompagnement Finance',
+    titre: TEXTES_ACCUEIL.finance.accroche ?? '',
+    texte: TEXTES_ACCUEIL.finance.paragraphes[0],
     actions: [
-      { label: 'Devenir membre', route: '/services-financiers', fragment: 'contact', style: 'or' },
-      { label: 'Comment ça marche', route: '/', fragment: 'carte', style: 'lien' },
+      {
+        label: TEXTES_ACCUEIL.finance.bouton,
+        route: '/accompagnement-finance',
+        fragment: 'contact',
+        style: 'or',
+      },
     ],
-    image: 'images/illustrations/carte-membre.svg',
-    alt: 'Illustration : commerçante avec sa carte membre à QR code',
+    image: 'images/illustrations/transport.svg',
+    alt: 'Illustration : véhicules de transport et commerce',
   },
   {
-    eyebrow: 'Voyage et tourisme',
-    titre: 'Voyagez l’esprit tranquille, du visa au billet.',
-    texte:
-      'Accompagnement des dossiers de visa, réservations et organisation de séjours pour les particuliers et les professionnels.',
-    actions: [
-      { label: 'Découvrir le pôle Voyage', route: '/voyage', style: 'or' },
-      { label: 'Nous contacter', route: '/contact', style: 'lien' },
-    ],
+    eyebrow: 'Nos autres services',
+    titre: 'Voyage, Hadj, Oumrah & Mobilité',
+    texte: TEXTES_ACCUEIL.voyage.paragraphes[0],
+    actions: [{ label: TEXTES_ACCUEIL.voyage.bouton, route: '/voyage', style: 'or' }],
     image: 'images/illustrations/voyage.svg',
     alt: 'Illustration : avion, valises et passeport',
   },
 ];
 
-/**
- * Engagements affichés sous la bannière.
- * À CONFIRMER PAR ÉCRIT PAR LE CLIENT avant la mise en ligne (garanties de loyer et de recette).
- */
+/** Bandeau des 4 engagements sous la bannière (phrases du client). */
 export const ENGAGEMENTS: readonly { titre: string; texte: string }[] = [
   {
-    titre: 'Loyer garanti',
-    texte: 'Un revenu locatif assuré chaque mois pour les propriétaires bailleurs.',
+    titre: 'Transparence avant tout',
+    texte: 'Aucune promesse de résultat garanti. Aucun frais caché.',
   },
   {
-    titre: 'Recette journalière garantie',
-    texte: 'Flottes de transport gérées par WASSIA, pannes prises en charge.',
+    titre: 'Des conditions écrites',
+    texte: 'Toutes les conditions vous sont expliquées par écrit avant tout engagement.',
   },
   {
-    titre: 'Géolocalisation 24 h/24',
-    texte: 'Suivi en temps réel et sécurisation des véhicules par balise GPS.',
+    titre: 'Un accompagnement clair',
+    texte:
+      'Un groupe ivoirien qui accompagne les entreprises, les commerçants et les investisseurs en Côte d’Ivoire et à l’international.',
   },
   {
-    titre: 'Épargne par carte QR',
-    texte: 'Chaque versement est enregistré, tracé et confirmé par SMS.',
+    titre: 'Un suivi humain',
+    texte: 'Un suivi humain à chaque étape.',
   },
 ];
 
-export type Forme =
-  | { type: 'path'; d: string }
-  | { type: 'circle'; cx: number; cy: number; r: number }
-  | { type: 'rect'; x: number; y: number; width: number; height: number; rx?: number };
-
-export interface EtapeCarte {
-  titre: string;
-  texte: string;
-  /** Texte raccourci de la version mobile. */
-  texteMobile: string;
-  /** Formes de l'illustration (viewBox 64 × 64). */
-  dessin: readonly Forme[];
-}
-
-export const ETAPES_CARTE: readonly EtapeCarte[] = [
+/** Bloc « Pourquoi choisir le GROUPE WASSIA ? » (dossier institutionnel officiel 2026). */
+export const ATOUTS: readonly { titre: string; texte: string }[] = [
   {
-    titre: 'Rencontrez un agent WASSIA',
-    texte: 'Il vient sur votre marché et enregistre votre commerce avec votre pièce d’identité.',
-    texteMobile: 'Il enregistre votre commerce avec votre pièce d’identité.',
-    dessin: [
-      { type: 'circle', cx: 32, cy: 22, r: 12 },
-      { type: 'path', d: 'M8 58c0-14 10-22 24-22s24 8 24 22' },
-    ],
+    titre: 'Un interlocuteur unique et crédible',
+    texte:
+      'Une société holding légalement constituée à Abidjan, avec une gouvernance claire, un siège physique à Treichville et une vision à long terme.',
   },
   {
-    titre: 'Recevez votre carte à QR code',
+    titre: 'Une transparence contractuelle',
     texte:
-      'Pour 1 000 F versés en espèces à l’inscription, une carte PVC à QR code à votre nom, activée par un SMS de bienvenue.',
-    texteMobile: '1 000 F à l’inscription : une carte PVC à votre nom.',
-    dessin: [
-      { type: 'rect', x: 6, y: 14, width: 52, height: 36, rx: 6 },
-      { type: 'path', d: 'M6 26h52' },
-      { type: 'rect', x: 14, y: 34, width: 12, height: 10 },
-      { type: 'path', d: 'M34 36h16M34 42h10' },
-    ],
+      'Des conditions contractuelles claires, sans frais dissimulés, et un suivi rigoureux de chaque opération. Aucune promesse de résultat garanti.',
   },
   {
-    titre: 'Épargnez pendant 8 semaines',
+    titre: 'Un ancrage local, un réseau mondial',
     texte:
-      'Au moins 2 000 F par semaine. À chaque passage de l’agent, un reçu et un SMS indiquent le montant versé et votre nouveau solde.',
-    texteMobile: '8 semaines minimum, un SMS à chaque versement.',
-    dessin: [
-      { type: 'rect', x: 18, y: 6, width: 28, height: 52, rx: 6 },
-      { type: 'path', d: 'M26 14h12' },
-      { type: 'path', d: 'M24 34l6 6 10-12' },
-    ],
+      'La maîtrise des réalités du terrain en Côte d’Ivoire, avec des partenaires stratégiques en Asie, en Europe et en Afrique.',
   },
   {
-    titre: 'Demandez un crédit adapté',
+    titre: 'Un impact social mesurable',
     texte:
-      'Votre épargne régulière ouvre l’accès au crédit à 1 % par mois. Réponse sous 48 h, sans bulletin de salaire ni garantie immobilière.',
-    texteMobile: 'Crédit à 1 % par mois, réponse sous 48 h.',
-    dessin: [
-      { type: 'circle', cx: 32, cy: 32, r: 24 },
-      { type: 'path', d: 'M32 18v28M24 26c0-4 4-6 8-6s8 2 8 6-4 5-8 6-8 2-8 6 4 6 8 6 8-2 8-6' },
-    ],
+      'Chaque partenariat contribue à l’emploi des jeunes, à l’autonomie des femmes et des paysans et à la transformation locale de nos richesses.',
+  },
+  {
+    titre: 'Des pôles qui se renforcent',
+    texte:
+      'Du champ au marché, de l’usine au magasin : nos pôles travaillent ensemble pour offrir un service global et sécurisé.',
+  },
+  {
+    titre: 'Des partenaires agréés',
+    texte:
+      'Financement, transit, voyage : nous travaillons avec des partenaires agréés. WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts.',
   },
 ];
+
+export const TITRES_ACCUEIL = {
+  poles: 'Nos 5 pôles principaux',
+  services: 'Nos autres services',
+  servicesIntro: 'Découvrez aussi nos autres services :',
+} as const;
+
+/** Bande de confiance en bas de l'accueil. */
+export const CONFIANCE = {
+  titre: 'Notre engagement : Transparence avant tout.',
+  texte:
+    'Aucune promesse de résultat garanti. Aucun frais caché. Toutes les conditions vous sont expliquées par écrit avant tout engagement.',
+} as const;
+
+/** Bloc Contact de l'accueil. */
+export const CONTACT_ACCUEIL = {
+  titre: 'Contact',
+  adresse: 'GROUPE WASSIA SARL HOLDING - Agence Treichville, Avenue 21, Abidjan',
+  boutonWhatsapp: 'WhatsApp',
+} as const;
 
 export interface Actualite {
   categorie: string;
@@ -165,31 +243,31 @@ export interface Actualite {
   alt: string;
 }
 
-/** Articles prévus par la maquette, encore à rédiger. */
+/** Articles prévus, encore à rédiger. */
 export const ACTUALITES: readonly Actualite[] = [
   {
-    categorie: 'Finance',
-    titre: 'Lancement des souscriptions à la carte membre',
-    date: '',
-    image: 'images/illustrations/carte-membre.svg',
-    alt: 'Illustration : commerçante avec sa carte membre à QR code',
-  },
-  {
-    categorie: 'Mobilité',
-    titre: 'Ouverture de nouvelles lignes de transport',
+    categorie: 'Import-Export',
+    titre: 'Importer en groupage : comment partager un conteneur',
     date: '',
     image: 'images/illustrations/transport.svg',
-    alt: 'Illustration : bus sur une ligne de transport',
+    alt: 'Illustration : véhicules de transport de marchandises',
+  },
+  {
+    categorie: 'Flottes & GPS',
+    titre: 'GPS : suivre son véhicule 24 h/24 depuis son téléphone',
+    date: '',
+    image: 'images/illustrations/transport.svg',
+    alt: 'Illustration : véhicules de transport suivis par GPS',
   },
   {
     categorie: 'Voyage',
-    titre: 'Visa : préparer un dossier consulaire complet',
+    titre: 'Hadj et Oumrah : préparer son dossier',
     date: '',
     image: 'images/illustrations/voyage.svg',
     alt: 'Illustration : avion, valises et passeport',
   },
   {
-    categorie: 'Agrobusiness',
+    categorie: 'Énergie Verte',
     titre: 'Un projet solaire pour une exploitation agricole',
     date: '',
     image: 'images/illustrations/agrobusiness.svg',
@@ -197,44 +275,10 @@ export const ACTUALITES: readonly Actualite[] = [
   },
   {
     categorie: 'Immobilier',
-    titre: 'Loyer garanti : comment ça fonctionne pour le propriétaire',
+    titre: 'Acheter un terrain : vérifier le Titre Foncier ou l’ACD',
     date: '',
     image: 'images/illustrations/immobilier-mobilite.svg',
-    alt: 'Illustration : immeuble, maison et véhicule suivi par GPS',
-  },
-];
-
-/** Bloc « Pourquoi choisir le GROUPE WASSIA ? » (atouts tirés des documents du client). */
-export const ATOUTS: readonly { titre: string; texte: string }[] = [
-  {
-    titre: 'Des garanties concrètes',
-    texte:
-      'Loyer versé chaque mois aux propriétaires, recette journalière convenue pour les véhicules en gestion : nous portons les aléas à votre place.',
-  },
-  {
-    titre: 'Des agents près de chez vous',
-    texte:
-      'Nos agents viennent à votre rencontre sur les marchés et dans les quartiers pour vous inscrire et suivre vos versements.',
-  },
-  {
-    titre: 'Chaque franc tracé',
-    texte:
-      'Chaque versement est enregistré, rattaché à votre carte membre et confirmé par SMS avec votre nouveau solde.',
-  },
-  {
-    titre: 'La technologie au service de la confiance',
-    texte:
-      'Carte membre à QR code, suivi GPS des véhicules 24 h/24, plateformes de suivi : chaque opération est transparente.',
-  },
-  {
-    titre: 'Un groupe, cinq pôles',
-    texte:
-      'Finance, immobilier, mobilité, voyage et agrobusiness : un interlocuteur unique pour vos biens, votre mobilité et vos projets.',
-  },
-  {
-    titre: 'Un statut d’intermédiaire en opérations de banque',
-    texte:
-      'WASSIA intervient comme IOB au service de l’inclusion financière, en cours de conventionnement avec des établissements bancaires agréés APBEF-CI.',
+    alt: 'Illustration : immeubles et maisons',
   },
 ];
 
@@ -251,8 +295,8 @@ export interface ChiffreCle {
  * À compléter avec les données du client (exemples de libellés à adapter).
  */
 export const CHIFFRES_CLES: readonly ChiffreCle[] = [
-  { label: 'Commerçants inscrits', valeur: null, suffixe: '+' },
-  { label: 'Cartes membres actives', valeur: null, suffixe: '+' },
+  { label: 'Dossiers accompagnés', valeur: null, suffixe: '+' },
   { label: 'Véhicules suivis par GPS', valeur: null, suffixe: '+' },
   { label: 'Biens en gestion', valeur: null, suffixe: '+' },
+  { label: 'Pays partenaires', valeur: null, suffixe: '+' },
 ];

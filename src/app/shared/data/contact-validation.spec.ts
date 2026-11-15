@@ -5,7 +5,7 @@ describe('validerDemande', () => {
     const r = validerDemande({
       sujet: 'voyage',
       champs: {
-        demande: 'Visa ou e-visa',
+        demande: 'Assistance visa',
         destination: 'Canada',
         telephone: '+225 07 07 07 07 07',
       },
@@ -14,7 +14,7 @@ describe('validerDemande', () => {
       ok: true,
       sujet: 'voyage',
       champs: {
-        demande: 'Visa ou e-visa',
+        demande: 'Assistance visa',
         destination: 'Canada',
         telephone: '+225 07 07 07 07 07',
       },
@@ -37,7 +37,7 @@ describe('validerDemande', () => {
     const r = validerDemande({
       sujet: 'general',
       champs: {
-        profil: 'Partenaire',
+        profil: 'Investisseur ou partenaire',
         nom: 'Koua',
         telephone: '0707',
         email: 'pas-un-email',
@@ -51,7 +51,11 @@ describe('validerDemande', () => {
   });
 
   it('borne le nombre de véhicules', () => {
-    const base = { typeVehicule: 'Moto', telephone: '0707070707' };
+    const base = {
+      demande: 'Gestion de mes véhicules',
+      typeVehicule: 'Moto-taxi',
+      telephone: '0707070707',
+    };
     expect(validerDemande({ sujet: 'gestion-vehicule', champs: { ...base, nombre: '3' } }).ok).toBe(
       true,
     );

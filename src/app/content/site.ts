@@ -1,37 +1,34 @@
 /**
  * Informations générales du groupe, affichées dans l'en-tête, le pied de page et les formulaires.
+ * Siège et RCCM : dossier de présentation institutionnelle officiel 2026 (reçu le 2026-11-15).
  *
- * À CONFIRMER PAR LE CLIENT avant la mise en ligne :
- * - l'adresse de l'application des agents ;
- * - le siège : le dossier client indique Akoupé, le site garde Yopougon (consigne du 2026-11-09) ;
- * - l'agence principale (Treichville), reprise de la fiche d'enrôlement 2026.
+ * À CONFIRMER PAR LE CLIENT avant la mise en ligne : l'adresse de l'application des agents.
  */
 export const SITE = {
   nom: 'GROUPE WASSIA SARL HOLDING',
   nomLogo: 'Groupe Wassia SARL',
   accroche: 'Holding multisectorielle · Côte d’Ivoire',
-  baseline: 'Inclusion financière, immobilier, flottes GPS, import-export.',
+  baseline: 'Accompagnement finance, immobilier, flottes GPS, import-export, agrobusiness.',
   /** Nom de domaine officiel retenu par le client (2026-11-07). */
   domaine: 'wassia-holding.com',
-  siege: 'Yopougon, Abidjan — Côte d’Ivoire',
-  siegeCourt: 'Yopougon, Abidjan',
+  siege: 'Treichville, Avenue 21 / Rue 22, Abidjan — Côte d’Ivoire',
+  siegeCourt: 'Treichville, Abidjan',
+  rccm: 'CI-ABJ-03-2026-B12-08942',
   telephone: '+225 07 98 01 25 91',
   email: 'contact@wassia-holding.com',
   /** Numéro WhatsApp au format international, sans « + » ni espaces. */
   whatsapp: '2250798012591',
   annee: 2026,
-  mentionIob:
-    'WASSIA intervient comme intermédiaire en opérations de banque (IOB). Elle ne se substitue pas à un établissement de crédit agréé.',
+  /** Phrase du dossier officiel : WASSIA n'est ni une banque ni un établissement de microfinance. */
+  mentionFinance:
+    'WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts : elle accompagne la constitution de dossiers de financement auprès de partenaires financiers agréés, selon le dossier et après étude.',
 } as const;
 
-/** Agence principale, indiquée sur la fiche d'enrôlement 2026. */
-export const AGENCE = {
-  nom: 'Agence principale',
-  adresse: 'Treichville, Avenue 21 / Rue 22, Abidjan',
-} as const;
+/** Devise du groupe (texte de l'accueil validé par le client, 2026-11-15). */
+export const SLOGAN = 'Votre Référence, Notre Engagement';
 
 /**
- * Partenaire bancaire de l'activité d'IOB.
+ * Partenaire bancaire.
  *
  * Consigne du client (2026-11-07) : AUCUN nom de banque tant que les accords ne sont pas signés
  * (le partenariat envisagé n'est pas finalisé). Tant que `nom` vaut `null`, le site affiche la phrase
@@ -42,9 +39,6 @@ export const PARTENAIRE_BANCAIRE: { nom: string | null; convention: string | nul
   nom: null,
   convention: null,
 };
-
-/** Slogan officiel (dossier 2026). Défini dans `content/credit.ts`. */
-export { SLOGAN } from './credit';
 
 export const CONVENTIONNEMENT_EN_COURS =
   'En cours de conventionnement avec des établissements bancaires agréés APBEF-CI.';

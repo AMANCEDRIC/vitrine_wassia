@@ -72,19 +72,19 @@ import { PageHero } from '@shared/ui/page-hero/page-hero';
           </address>
 
           <!--
-            Carte de la commune du siège (OpenStreetMap : pas de cookie ni de mesure d'audience).
+            Carte du quartier du siège (Treichville) (OpenStreetMap : pas de cookie ni de mesure d'audience).
             À recentrer sur l'adresse exacte du siège quand le client l'aura fournie.
           -->
           <div class="overflow-hidden border border-white/25 bg-roi">
             <iframe
-              title="Carte : siège du GROUPE WASSIA à Yopougon, Abidjan"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-4.12%2C5.30%2C-4.03%2C5.37&amp;layer=mapnik&amp;marker=5.3364%2C-4.075"
+              title="Carte : siège du GROUPE WASSIA à Treichville, Abidjan"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-4.03%2C5.285%2C-3.99%2C5.315&amp;layer=mapnik&amp;marker=5.3%2C-4.01"
               class="block h-[220px] w-full border-0 grayscale-[30%]"
               loading="lazy"
               referrerpolicy="no-referrer"
             ></iframe>
             <a
-              href="https://www.google.com/maps/search/?api=1&amp;query=Yopougon%2C%20Abidjan%2C%20C%C3%B4te%20d%27Ivoire"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Treichville%2C%20Avenue%2021%2C%20Rue%2022%2C%20Abidjan"
               target="_blank"
               rel="noopener"
               class="flex min-h-11 items-center gap-2 px-4 py-3 font-display text-sm font-semibold text-brume-clair transition-colors duration-500 ease-doux hover:text-white"

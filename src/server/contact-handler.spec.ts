@@ -18,7 +18,7 @@ const ENV_COMPLET: EnvContact = {
 const DEMANDE_VALIDE = {
   sujet: 'general',
   champs: {
-    profil: 'Bailleur immobilier',
+    profil: 'Propriétaire d’un bien immobilier',
     nom: 'Awa Koné',
     telephone: '+225 07 98 01 25 91',
     email: 'awa@example.test',
@@ -140,7 +140,7 @@ describe('construireMessage', () => {
 
   it('n’ajoute pas de Reply-To sans e-mail du visiteur', () => {
     const message = construireMessage(
-      'devenir-membre',
+      'dossier-financement',
       { nom: 'Awa', telephone: '0798012591' },
       ENV_COMPLET,
     );

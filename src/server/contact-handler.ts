@@ -46,11 +46,13 @@ export interface ReponseContact {
 /** Sujet du formulaire tel qu'il apparaît dans l'objet du mail. */
 export const LIBELLE_SUJET: Record<ContactSujet, string> = {
   general: 'Demande générale',
-  'devenir-membre': 'Devenir membre',
-  'estimation-bien': 'Estimation d’un bien immobilier',
+  'dossier-financement': 'Dossier de financement',
+  'estimation-bien': 'Bien immobilier',
   'gestion-vehicule': 'Gestion d’un véhicule',
-  voyage: 'Voyage',
+  sourcing: 'Import-export',
   agrobusiness: 'Agrobusiness',
+  voyage: 'Voyage, Hadj et études',
+  'projet-energie': 'Énergie verte',
 };
 
 /** Une seule ligne, sans retour à la ligne (protège contre l'injection d'en-têtes de mail). */

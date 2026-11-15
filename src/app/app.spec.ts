@@ -17,7 +17,7 @@ describe('App', () => {
     expect(el.querySelector('app-header')).toBeTruthy();
     expect(el.querySelector('main')).toBeTruthy();
     expect(el.querySelector('app-footer')?.textContent).toContain(
-      'intermédiaire en opérations de banque',
+      'ne collecte pas l’épargne du public',
     );
   });
 });

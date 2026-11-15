@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 const DESCRIPTION_PAR_DEFAUT =
-  'GROUPE WASSIA SARL HOLDING, holding multisectorielle ivoirienne : services financiers et inclusion, immobilier à loyer garanti, mobilité et GPS, voyage et tourisme, agrobusiness et énergies vertes.';
+  'GROUPE WASSIA SARL HOLDING, holding multisectorielle ivoirienne : accompagnement finance, immobilier, flottes et GPS, import-export, agrobusiness, voyage et énergie verte.';
 
 /**
  * Met à jour la meta description à chaque navigation, à partir de `data.description` de la route.

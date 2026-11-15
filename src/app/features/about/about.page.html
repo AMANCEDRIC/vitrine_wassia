@@ -1,50 +1,50 @@
 <app-page-hero
   eyebrow="À propos"
-  titre="Bâtir un avenir solide, sécurisé et inclusif"
-  [intro]="'L’histoire, la vision et la gouvernance du ' + site.nom + '.'"
+  titre="Un bâtisseur d’écosystème économique et social"
+  [intro]="'L’identité, la philosophie et la synergie du ' + site.nom + '.'"
   [large]="true"
 />
 
-<!-- Mot du Directeur Général (texte à faire valider par son signataire) -->
+<!-- Notre identité et notre philosophie (dossier institutionnel officiel 2026) -->
 <section class="bg-white">
-  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:gap-14 nav:py-[120px]">
-    <div
-      class="relative h-[300px] min-w-0 flex-[1_1_320px] overflow-hidden border-[12px] border-nuit bg-illustration nav:h-[440px]"
-    >
-      <img
-        ngSrc="images/illustrations/portrait-dg.svg"
-        alt="Illustration : portrait du Directeur général"
-        fill
-        class="object-cover"
-      />
+  <div class="container-site flex flex-wrap items-start gap-10 py-14 nav:gap-14 nav:py-[120px]">
+    <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">Notre identité</span>
+      <p class="m-0 text-[17px] leading-[1.7] text-encre-douce">{{ identite }}</p>
+      <dl class="m-0 grid gap-3 text-[15px] text-ardoise">
+        <div>
+          <dt class="inline font-semibold text-nuit">Siège social :</dt>
+          <dd class="inline">{{ site.siege }}</dd>
+        </div>
+        <div>
+          <dt class="inline font-semibold text-nuit">RCCM :</dt>
+          <dd class="inline">{{ site.rccm }}</dd>
+        </div>
+      </dl>
     </div>
-    <div class="flex min-w-0 flex-[1.4_1_460px] flex-col gap-5">
-      <span class="eyebrow text-ardoise">Le mot du Directeur Général</span>
+    <div class="flex min-w-0 flex-[1.2_1_460px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">Notre philosophie</span>
       <blockquote
-        class="m-0 border-l-[6px] border-emeraude pl-5 font-display text-[1.5rem] leading-[1.25] font-bold tracking-[-.03em] text-nuit nav:pl-8 nav:text-[clamp(1.6rem,2.8vw,2.4rem)]"
+        class="m-0 border-l-[6px] border-emeraude pl-5 font-display text-[1.35rem] leading-[1.3] font-bold tracking-[-.02em] text-nuit nav:pl-8 nav:text-[clamp(1.4rem,2.2vw,1.9rem)]"
       >
-        Nous portons la gestion, vous récoltez la sérénité.
+        {{ philosophie }}
       </blockquote>
-      <p class="m-0 text-[17px] leading-[1.7] text-encre-douce">
-        En créant le {{ site.nom }}, nous avons voulu bâtir un modèle économique fondé sur la
-        confiance et la garantie. Qu’il s’agisse de permettre à un propriétaire d’encaisser ses
-        loyers chaque mois, d’assurer à un investisseur automobile une recette journalière fixe
-        malgré les pannes, ou d’accompagner les citoyens dans leurs projets d’épargne et de mobilité
-        internationale, WASSIA se veut un bouclier et un accélérateur de réussite.
-      </p>
-      <span class="font-sans text-[15px] font-semibold text-ardoise"
-        >La Direction Générale, {{ site.nom }}</span
-      >
     </div>
   </div>
 </section>
 
-<!-- Trois engagements -->
+<!-- La force de la synergie -->
 <section class="bg-fond">
   <div class="container-site flex flex-col gap-10 py-14 nav:gap-16 nav:py-[120px]">
-    <h2 class="section-title">Nos trois engagements</h2>
-    <ul class="m-0 grid list-none gap-12 p-0 md:grid-cols-3">
-      @for (e of engagements; track e.titre; let i = $index) {
+    <div class="flex max-w-[820px] flex-col gap-5">
+      <span class="eyebrow text-ardoise">La force de la synergie</span>
+      <h2 class="section-title">Des pôles qui travaillent ensemble</h2>
+      <p class="section-lead">
+        Nos départements travaillent en interconnexion pour offrir un service global et sécurisé.
+      </p>
+    </div>
+    <ul class="m-0 grid list-none gap-12 p-0 md:grid-cols-2">
+      @for (e of synergies; track e.titre; let i = $index) {
         <li class="min-w-0 border-t-2 border-nuit pt-[22px]">
           <span
             class="mb-3.5 block font-display text-[13px] font-semibold tracking-[.1em] text-sapin"
@@ -105,7 +105,6 @@
           <li class="org-branch relative">
             <a
               [routerLink]="pole.route"
-              [fragment]="pole.fragment"
               class="group relative flex h-full flex-col gap-3 overflow-hidden bg-white p-5 transition-[translate] duration-500 ease-doux hover:-translate-y-1"
             >
               <span
@@ -128,6 +127,40 @@
           </li>
         }
       </ul>
+
+      <!-- Les 2 autres services, rattachés à la holding -->
+      <div class="mt-10 flex w-full flex-col gap-4">
+        <span class="eyebrow eyebrow-or text-brume">Autres services spécialisés</span>
+        <ul class="m-0 grid list-none gap-4 p-0 md:grid-cols-2">
+          @for (s of services; track s.id) {
+            <li>
+              <a
+                [routerLink]="s.route"
+                class="group flex h-full items-center gap-4 border border-white/20 p-5 transition-colors duration-500 ease-doux hover:bg-white/10"
+              >
+                <span
+                  class="flex size-11 flex-none items-center justify-center"
+                  [class]="s.pastille"
+                >
+                  <app-icon [name]="s.icone" [size]="22" [color]="s.traitIcone" />
+                </span>
+                <span class="flex min-w-0 flex-col gap-1">
+                  <span class="font-display text-[15px] font-bold text-white">{{
+                    s.titreCourt
+                  }}</span>
+                  <span class="text-[13px] leading-snug text-brume">{{ s.resumeCourt }}</span>
+                </span>
+                <app-icon
+                  name="fleche"
+                  [size]="18"
+                  color="var(--color-or)"
+                  class="btn-fleche ml-auto"
+                />
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
     </div>
   </div>
 </section>
