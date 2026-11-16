@@ -14,7 +14,7 @@ import { Icon } from '@shared/ui/icon/icon';
       <div class="container-site py-14 nav:py-[120px]">
         <div class="mb-10 flex flex-wrap items-end justify-between gap-x-12 gap-y-6 nav:mb-16">
           <div class="flex max-w-[820px] flex-col gap-5">
-            <span class="eyebrow text-ardoise">Pourquoi WASSIA</span>
+            <span class="eyebrow text-ardoise">02 — Pourquoi WASSIA</span>
             <h2 class="section-title">Pourquoi choisir le GROUPE WASSIA ?</h2>
             <p class="section-lead">
               Six raisons de faire de WASSIA votre partenaire en Côte d’Ivoire.

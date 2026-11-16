@@ -18,7 +18,7 @@
 <section class="bg-white">
   <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
     <div class="flex max-w-[820px] flex-col gap-5">
-      <span class="eyebrow text-ardoise">Trois piliers</span>
+      <span class="eyebrow text-ardoise">01 — Trois piliers</span>
       <h2 class="section-title">Ce que WASSIA vous apporte</h2>
     </div>
     <div class="flex flex-wrap gap-12">
@@ -53,7 +53,7 @@
 <section id="statut" class="bg-nuit text-brume">
   <div class="container-site flex flex-wrap items-start gap-x-20 gap-y-12 py-14 nav:py-[120px]">
     <div class="flex min-w-0 flex-[1.2_1_520px] flex-col gap-6">
-      <span class="eyebrow eyebrow-or text-brume">Notre statut</span>
+      <span class="eyebrow eyebrow-or text-brume">02 — Notre statut</span>
       <h2 class="section-title text-white nav:text-[clamp(2rem,3.8vw,3.3rem)] nav:leading-[1.06]">
         Intermédiaire en opérations de banque (IOB)
       </h2>
@@ -95,7 +95,7 @@
 <section id="carte">
   <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
     <div class="flex max-w-[820px] flex-col gap-5">
-      <span class="eyebrow text-ardoise">La carte membre</span>
+      <span class="eyebrow text-ardoise">03 — La carte membre</span>
       <h2 class="section-title">Épargner avec une carte et un agent près de chez vous</h2>
       <p class="section-lead">
         Pas besoin de compte bancaire ni de savoir écrire : l’agent et la carte font le travail.
@@ -123,7 +123,7 @@
   <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-[120px]">
     <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-3.5">
       <div class="flex max-w-[820px] flex-col gap-5">
-        <span class="eyebrow text-ardoise">Crédit</span>
+        <span class="eyebrow text-ardoise">04 — Crédit</span>
         <h2 class="section-title">Un crédit qui part de votre épargne</h2>
         <p class="section-lead">
           Des prêts de 250 000 à 10 millions de F, sur 6, 12 ou 18 mois, à un taux unique de
@@ -148,7 +148,7 @@
 <section id="credit-etapes" class="bg-nuit text-brume">
   <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
     <div class="flex max-w-[820px] flex-col gap-5">
-      <span class="eyebrow eyebrow-or text-brume">Le système WASSIA</span>
+      <span class="eyebrow eyebrow-or text-brume">05 — Le système WASSIA</span>
       <h2 class="section-title text-white">Du premier versement au crédit, étape par étape</h2>
       <p class="section-lead text-brume">
         Chez WASSIA, on ne prête pas seulement à ceux qui ont un grand capital : on prête à ceux qui
@@ -178,7 +178,7 @@
 <section id="conditions" class="bg-white">
   <div class="container-site py-14 nav:py-[120px]">
     <div class="mb-10 flex max-w-[820px] flex-col gap-5 nav:mb-16">
-      <span class="eyebrow text-ardoise">Conditions du compte épargne</span>
+      <span class="eyebrow text-ardoise">06 — Conditions du compte épargne</span>
       <h2 class="section-title">Ce qu’il faut savoir avant d’ouvrir votre compte</h2>
       <p class="section-lead">
         Extrait des conditions générales d’adhésion de la fiche d’enrôlement 2026.
@@ -207,7 +207,7 @@
 <section id="retards" class="bg-fond">
   <div class="container-site flex flex-wrap items-start gap-x-20 gap-y-14 py-14 nav:py-[120px]">
     <div class="flex min-w-0 flex-[1_1_420px] flex-col gap-5">
-      <span class="eyebrow text-ardoise">En cas de retard</span>
+      <span class="eyebrow text-ardoise">07 — En cas de retard</span>
       <h2 class="section-title nav:text-[clamp(2rem,3.4vw,2.8rem)]">
         Un retard de remboursement, étape par étape
       </h2>
@@ -254,7 +254,7 @@
 <section id="exemples" class="bg-fond">
   <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
     <div class="flex max-w-[820px] flex-col gap-5">
-      <span class="eyebrow text-ardoise">Exemples concrets</span>
+      <span class="eyebrow text-ardoise">08 — Exemples concrets</span>
       <h2 class="section-title">Comment ça se passe sur le terrain</h2>
     </div>
     <div class="flex flex-wrap gap-5">
@@ -281,7 +281,7 @@
 <section id="comparatif" class="bg-nuit text-brume">
   <div class="container-site flex flex-col gap-8 py-14 nav:py-[120px]">
     <div class="flex max-w-[820px] flex-col gap-5">
-      <span class="eyebrow eyebrow-or text-brume">Pourquoi WASSIA</span>
+      <span class="eyebrow eyebrow-or text-brume">09 — Pourquoi WASSIA</span>
       <h2 class="section-title text-white">Un partenaire pensé pour le secteur informel</h2>
       <p class="section-lead text-brume">
         Plus de 80 % de l’économie repose sur des commerçants, artisans, chauffeurs, couturiers et
@@ -342,14 +342,14 @@
 </section>
 
 <!-- Accompagnement de dossiers (documents officiels 2026, `content/activites.ts`) -->
-@for (s of accompagnement; track s.id) {
+@for (s of accompagnement; track s.id; let n = $index) {
   @let sombre = s.fond === 'sombre';
   <section [id]="'accompagnement-' + s.id" [class]="sombre ? 'bg-nuit text-brume' : 'bg-white'">
     <div class="container-site flex flex-col gap-9 py-14 nav:py-[120px]">
       <div class="flex max-w-[820px] flex-col gap-5">
-        <span class="eyebrow" [class]="sombre ? 'eyebrow-or text-brume' : 'text-ardoise'">{{
-          s.eyebrow
-        }}</span>
+        <span class="eyebrow" [class]="sombre ? 'eyebrow-or text-brume' : 'text-ardoise'"
+          >{{ 10 + n }} — {{ s.eyebrow }}</span
+        >
         <h2 class="section-title" [class.text-white]="sombre">{{ s.titre }}</h2>
       </div>
       <div class="grid gap-x-12 gap-y-10 md:grid-cols-3">
@@ -374,6 +374,14 @@
           }
         }
       </div>
+      @if (s.note; as note) {
+        <p
+          class="m-0 max-w-[860px] text-[14.5px] leading-[1.6]"
+          [class]="sombre ? 'text-brume' : 'text-ardoise'"
+        >
+          {{ note }}
+        </p>
+      }
     </div>
   </section>
 }
@@ -383,7 +391,7 @@
   <div class="container-site grid gap-8 py-12 nav:grid-cols-[1fr_1.6fr] nav:gap-14 nav:py-[72px]">
     <div class="flex flex-col gap-6 nav:sticky nav:top-28 nav:self-start">
       <div class="flex flex-col gap-3">
-        <span class="eyebrow text-ardoise">Questions fréquentes</span>
+        <span class="eyebrow text-ardoise">12 — Questions fréquentes</span>
         <h2 class="section-title">Carte, épargne et crédit : vos questions</h2>
         <p class="section-lead">
           Les réponses aux questions les plus posées avant de devenir membre.

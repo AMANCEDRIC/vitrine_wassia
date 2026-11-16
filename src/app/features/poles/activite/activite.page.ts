@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
@@ -9,7 +9,7 @@ import { ACTIVITES, ActiviteId, POLES } from '@content/poles';
 import { ContactForm } from '@shared/ui/contact-form/contact-form';
 import { Icon } from '@shared/ui/icon/icon';
 import { PageHero } from '@shared/ui/page-hero/page-hero';
-import { PoleQuote, ServiceCard } from '../pole-section';
+import { PoleQuote } from '../pole-section';
 
 /**
  * Page d'un pôle ou d'un service : un seul gabarit, contenu dans `content/activites.ts`.
@@ -17,7 +17,7 @@ import { PoleQuote, ServiceCard } from '../pole-section';
  */
 @Component({
   selector: 'app-activite-page',
-  imports: [PageHero, PoleQuote, ServiceCard, ContactForm, RouterLink, NgOptimizedImage, Icon],
+  imports: [PageHero, PoleQuote, ContactForm, RouterLink, DecimalPipe, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './activite.page.html',
 })

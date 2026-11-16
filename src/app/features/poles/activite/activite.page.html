@@ -1,98 +1,158 @@
 @let p = page();
 
-<app-page-hero [eyebrow]="eyebrow()" [titre]="p.titre" [intro]="p.intro">
+<app-page-hero
+  [eyebrow]="eyebrow()"
+  [titre]="p.titre"
+  [souligne]="p.souligne"
+  [intro]="p.intro"
+  [image]="p.image?.src"
+  [imageAlt]="p.image?.alt ?? ''"
+  [points]="p.points ?? []"
+>
   <a routerLink="." fragment="contact" class="btn-or"
     >{{ p.boutonHero }} <app-icon name="fleche" [size]="20" class="btn-fleche"
   /></a>
-  <a routerLink="." [fragment]="p.sections[0].id" class="btn-contour-clair">En savoir plus</a>
+  @if (p.boutonSecondaire; as b) {
+    <a routerLink="." [fragment]="b.fragment" class="btn-contour-clair">{{ b.label }}</a>
+  }
 </app-page-hero>
 
-<app-pole-quote>{{ p.accroche }}</app-pole-quote>
+@if (p.accroche; as accroche) {
+  <app-pole-quote>{{ accroche }}</app-pole-quote>
+}
 
-@for (s of p.sections; track s.id) {
+<!-- Sections (maquette « Site-Pole-* ») : surtitre numéroté, intro, étiquettes, blocs, note -->
+@for (s of p.sections; track s.id; let n = $index) {
   @let sombre = s.fond === 'sombre';
   <section
     [id]="s.id"
     [class]="sombre ? 'bg-nuit text-brume' : s.fond === 'gris' ? 'bg-fond' : 'bg-white'"
   >
     <div class="container-site flex flex-col gap-9 py-14 nav:py-[120px]">
-      <div class="flex max-w-[820px] flex-col gap-5">
-        <span class="eyebrow" [class]="sombre ? 'eyebrow-or text-brume' : 'text-ardoise'">{{
-          s.eyebrow
-        }}</span>
+      <div class="flex max-w-[860px] flex-col gap-5">
+        <span class="eyebrow" [class]="sombre ? 'eyebrow-or text-brume' : 'text-ardoise'"
+          >{{ n + 1 | number: '2.0' }} — {{ s.eyebrow }}</span
+        >
         <h2 class="section-title" [class.text-white]="sombre">{{ s.titre }}</h2>
         @if (s.intro; as intro) {
           <p class="section-lead" [class.text-brume]="sombre">{{ intro }}</p>
         }
       </div>
 
+      @if (s.encadre; as encadre) {
+        <p
+          class="m-0 max-w-[860px] border-l-[6px] border-or px-5 py-4 text-[15.5px] leading-[1.6] font-semibold"
+          [class]="sombre ? 'bg-or/10 text-white' : 'bg-or/10 text-encre'"
+        >
+          {{ encadre }}
+        </p>
+      }
+
       @if (s.etiquettes; as etiquettes) {
-        <ul class="m-0 flex list-none flex-wrap gap-2.5 p-0">
-          @for (e of etiquettes; track e) {
-            <li
-              class="border-[1.5px] px-4 py-2.5 font-display text-sm font-semibold"
-              [class]="sombre ? 'border-white/25 text-white' : 'border-trait bg-white text-nuit'"
+        <div class="flex flex-wrap items-center gap-2.5">
+          @if (s.etiquettesTitre; as titreEtiquettes) {
+            <span
+              class="mr-1 font-display text-sm font-semibold"
+              [class]="sombre ? 'text-white' : 'text-nuit'"
+              >{{ titreEtiquettes }}</span
             >
-              {{ e }}
-            </li>
           }
-        </ul>
+          <ul class="m-0 flex list-none flex-wrap gap-2.5 p-0">
+            @for (e of etiquettes; track e) {
+              <li
+                class="border-[1.5px] px-4 py-2.5 font-display text-sm font-semibold"
+                [class]="sombre ? 'border-white/25 text-white' : 'border-trait bg-white text-nuit'"
+              >
+                {{ e }}
+              </li>
+            }
+          </ul>
+        </div>
       }
 
       @if (s.blocs; as blocs) {
         <div
           class="grid gap-x-12 gap-y-10"
-          [class]="blocs.length === 4 ? 'md:grid-cols-2' : 'md:grid-cols-3'"
+          [class]="
+            blocs.length === 4
+              ? 'md:grid-cols-2 lg:grid-cols-4'
+              : blocs.length === 2
+                ? 'md:grid-cols-2'
+                : blocs.length === 1
+                  ? 'max-w-[760px]'
+                  : 'md:grid-cols-3'
+          "
+          [class.gap-x-5]="sombre"
+          [class.gap-y-5]="sombre"
         >
           @for (b of blocs; track b.titre; let i = $index) {
             @if (sombre) {
-              <div class="min-w-0 border-t border-white/18 pt-7">
+              <!-- Fond sombre : cartes bordées, l'or pour la carte mise en avant -->
+              <div
+                class="flex min-w-0 flex-col gap-2 border p-7"
+                [class]="b.misEnAvant ? 'border-or bg-or/8' : 'border-white/20'"
+              >
+                @if (b.etiquette; as etiquette) {
+                  <span class="eyebrow eyebrow-nue text-xs text-or-clair">{{ etiquette }}</span>
+                }
+                <h3 class="m-0 font-display text-[1.2rem] font-bold text-white">{{ b.titre }}</h3>
+                <p class="m-0 text-[15.5px]">{{ b.texte }}</p>
+              </div>
+            } @else if (b.misEnAvant) {
+              <div class="flex min-w-0 flex-col gap-2 border-t-[3px] border-or bg-or/10 p-7">
+                <h3 class="m-0 font-display text-[1.3rem] font-bold text-nuit">{{ b.titre }}</h3>
+                <p class="m-0 text-[15.5px] leading-[1.65] text-encre">{{ b.texte }}</p>
+              </div>
+            } @else {
+              <div class="min-w-0 border-t-2 border-nuit pt-[22px]">
                 <span
-                  class="mb-3 block font-display text-[13px] font-semibold tracking-[.1em] text-or"
-                  >0{{ i + 1 }}</span
+                  class="mb-3.5 block font-display text-[13px] font-semibold tracking-[.1em] text-sapin"
+                  >{{ b.etiquette ?? (i + 1 | number: '2.0') }}</span
                 >
                 <h3
-                  class="m-0 mb-2.5 font-display text-[1.35rem] font-bold tracking-[-.02em] text-white"
+                  class="m-0 mb-2.5 font-display text-[1.3rem] leading-[1.25] font-bold tracking-[-.02em] text-nuit"
                 >
                   {{ b.titre }}
                 </h3>
-                <p class="m-0 text-brume">{{ b.texte }}</p>
+                <p class="m-0 text-[15.5px] leading-[1.65] text-ardoise">{{ b.texte }}</p>
               </div>
-            } @else {
-              <app-service-card [titre]="b.titre">
-                <p class="m-0 text-[15px] leading-[1.65] text-ardoise">{{ b.texte }}</p>
-              </app-service-card>
             }
           }
         </div>
+      }
+
+      @if (s.note; as note) {
+        <p
+          class="m-0 max-w-[860px] text-[14.5px] leading-[1.6]"
+          [class]="sombre ? 'text-brume' : 'text-ardoise'"
+        >
+          {{ note }}
+        </p>
+      }
+
+      @if (s.lien; as lien) {
+        <a
+          [routerLink]="lien.route"
+          class="self-start"
+          [class]="sombre ? 'btn-contour-clair' : 'btn-contour-marine'"
+          >{{ lien.label }} <app-icon name="fleche" [size]="20" class="btn-fleche"
+        /></a>
       }
     </div>
   </section>
 }
 
-<!-- Mentions de prudence (documents officiels du client) -->
-<section class="bg-white">
-  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-20">
-    <div
-      class="flex min-w-0 flex-[1_1_420px] flex-col gap-4 border-l-[6px] border-sapin pl-5 nav:pl-8"
-    >
-      <span class="eyebrow text-ardoise">Notre engagement</span>
-      @for (a of p.avertissements; track a) {
-        <p class="m-0 text-base leading-[1.65] text-encre-douce nav:text-[17px]">{{ a }}</p>
-      }
+<!-- Contact : texte à gauche, formulaire à droite (maquette) -->
+<section id="contact" class="bg-marine text-brume-clair">
+  <div
+    class="container-site flex flex-wrap items-center gap-x-[72px] gap-y-10 py-14 nav:py-[120px]"
+  >
+    <div class="flex min-w-0 flex-[.9_1_420px] flex-col gap-5">
+      <span class="eyebrow eyebrow-or text-brume-clair">Contact</span>
+      <h2 class="section-title text-white">{{ p.titreFormulaire }}</h2>
+      <p class="m-0 text-[1.1rem] leading-[1.6]">{{ p.introFormulaire }}</p>
     </div>
-    @if (p.image; as image) {
-      <div class="relative h-[240px] min-w-0 flex-[1_1_380px] overflow-hidden bg-illustration">
-        <img [ngSrc]="image.src" [alt]="image.alt" fill class="object-cover" />
-      </div>
-    }
-  </div>
-</section>
-
-<section id="contact" class="bg-marine text-white">
-  <div class="container-site flex flex-wrap items-center gap-10 py-14 nav:py-[120px]">
-    <h2 class="section-title flex-[1_1_380px] text-white">{{ p.titreFormulaire }}</h2>
-    <div class="min-w-0 flex-[1_1_460px]">
+    <div class="min-w-0 flex-[1.1_1_480px]">
       <app-contact-form [config]="formulaire()" [idPrefix]="activite().id" />
     </div>
   </div>

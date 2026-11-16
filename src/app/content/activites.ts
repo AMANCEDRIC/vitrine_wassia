@@ -1,11 +1,13 @@
 /**
  * Textes des pages des 5 pôles et des 2 services.
  *
- * Source : documents officiels 2026 du client (`docs_wassia/doc_pols`, reçus le 2026-11-15).
- * On suit les fiches « Pôle … » (version prudente), pas les « Fiches commerciales » (loyer garanti,
- * travaux pris en charge à 100 %…). Décisions de Cédric : aucune promesse « garanti », aucun
- * pourcentage de répartition. Branche `fusion-v2-conformite` : la page Finance est celle de style-v2
- * (épargne, crédit), complétée par les sections d'accompagnement de dossiers ci-dessous.
+ * Source : documents officiels 2026 du client (`docs_wassia/doc_pols`, reçus le 2026-11-15), mis en
+ * page d'après la maquette Design « Wassia — Site vitrine » (pages `Site-Pole-*`, 2026-11-16).
+ * On suit les fiches « Pôle … » (version prudente), pas les « Fiches commerciales ». Règles de
+ * Cédric : aucune promesse « garanti », aucun pourcentage de répartition, pas de grille tarifaire.
+ * Branche `fusion-v2-conformite` : la page Finance est celle de style-v2 (épargne, crédit),
+ * complétée par les sections d'accompagnement de dossiers de l'entrée `finance` ci-dessous ; l'épargne
+ * WASSIA est donc citée sur les pages Flottes, Import-Export et Voyage, comme dans la maquette.
  */
 import { ContactSujet } from '../shared/data/contact.model';
 import { ActiviteId } from './poles';
@@ -13,33 +15,50 @@ import { ActiviteId } from './poles';
 export interface BlocActivite {
   titre: string;
   texte: string;
+  /** Petit libellé au-dessus du titre (ex. Amont, Milieu, Aval). */
+  etiquette?: string;
+  /** Carte bordée d'or (sur fond sombre) ou fond doré léger (sur fond clair). */
+  misEnAvant?: boolean;
 }
 
 export interface SectionActivite {
   id: string;
+  /** Surtitre ; la page le numérote (« 01 — … »). */
   eyebrow: string;
   titre: string;
   intro?: string;
-  /** Blocs numérotés (services, étapes, domaines). */
+  /** Blocs (services, étapes, domaines). */
   blocs?: readonly BlocActivite[];
-  /** Courte liste d'étiquettes (pays, véhicules, filières…). */
+  /** Courte liste d'étiquettes (véhicules, filières, produits…). */
   etiquettes?: readonly string[];
+  /** Phrase placée avant les étiquettes (« Aussi en développement : »). */
+  etiquettesTitre?: string;
+  /** Petite phrase de prudence sous les blocs. */
+  note?: string;
+  /** Encadré or, sous l'intro (agrément, réserve importante). */
+  encadre?: string;
+  /** Lien vers une autre page. */
+  lien?: { label: string; route: string };
   /** `clair` : fond blanc ; `gris` : fond gris clair ; `sombre` : fond nuit. */
   fond: 'clair' | 'gris' | 'sombre';
 }
 
 export interface PageActivite {
   titre: string;
+  /** Fin du titre, soulignée d'une barre or. */
+  souligne?: string;
   intro: string;
-  /** Phrase d'accroche affichée en grand sous le bandeau. */
-  accroche: string;
+  /** Phrase d'accroche affichée en grand sous le bandeau (page Finance). */
+  accroche?: string;
   sections: readonly SectionActivite[];
-  /** Mentions de prudence (« sous réserve… », « aucun rendement garanti… »). */
-  avertissements: readonly string[];
   image?: { src: string; alt: string };
+  /** Liste affichée à droite de la bannière quand il n'y a pas d'image. */
+  points?: readonly { titre: string; texte: string }[];
   formulaire: ContactSujet;
   titreFormulaire: string;
+  introFormulaire: string;
   boutonHero: string;
+  boutonSecondaire?: { label: string; fragment: string };
 }
 
 /** Mention reprise sur toutes les pages où un financement est évoqué. */
@@ -47,6 +66,7 @@ const VIA_PARTENAIRES =
   'Tout financement passe par nos partenaires financiers agréés, selon le dossier et après étude.';
 
 export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
+  /** Sections reprises dans la page Finance de style-v2 (« Accompagnement de dossiers »). */
   finance: {
     titre: 'Préparer et présenter votre dossier de financement',
     intro:
@@ -54,19 +74,6 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
     accroche:
       'Un bon dossier ouvre des portes : nous vous aidons à le construire, puis à le présenter aux bons partenaires.',
     sections: [
-      {
-        id: 'pour-qui',
-        eyebrow: 'Pour qui',
-        titre: 'Ceux qui font tourner l’économie au quotidien',
-        etiquettes: [
-          'Commerçants',
-          'Entrepreneurs et artisans',
-          'Chauffeurs et transporteurs',
-          'Producteurs agricoles',
-          'PME',
-        ],
-        fond: 'clair',
-      },
       {
         id: 'etapes',
         eyebrow: 'Comment ça se passe',
@@ -88,7 +95,8 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
               'Le dossier est transmis à nos partenaires financiers agréés. La décision leur appartient, après étude.',
           },
         ],
-        fond: 'gris',
+        note: 'Les conditions de financement (montant, durée, taux, frais, garanties) sont communiquées par écrit avant tout engagement, après étude de votre dossier.',
+        fond: 'clair',
       },
       {
         id: 'synergie',
@@ -98,12 +106,12 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
           {
             titre: 'Commerce',
             texte:
-              'Les commerçants peuvent être accompagnés pour financer le renouvellement de leur stock, en lien avec notre pôle Import-export.',
+              'Les commerçants peuvent être accompagnés pour financer le renouvellement de leur stock, en lien avec notre pôle Import-Export.',
           },
           {
             titre: 'Transport',
             texte:
-              'Les chauffeurs réguliers suivis par notre pôle Flottes peuvent être orientés pour l’achat de pièces ou de leur propre véhicule.',
+              'Les chauffeurs réguliers suivis par notre pôle Flottes & GPS peuvent être orientés pour l’achat de pièces ou de leur propre véhicule.',
           },
           {
             titre: 'Agriculture et énergie',
@@ -111,407 +119,465 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
               'Campagnes agricoles, petits équipements, installations solaires : nous orientons les producteurs, artisans et ménages.',
           },
         ],
+        note: VIA_PARTENAIRES,
         fond: 'sombre',
       },
     ],
-    avertissements: [
-      'Les conditions de financement (montant, durée, taux, frais, garanties) sont communiquées par écrit avant tout engagement, après étude de votre dossier.',
-      VIA_PARTENAIRES,
-    ],
     formulaire: 'dossier-financement',
     titreFormulaire: 'Parlez-nous de votre projet',
+    introFormulaire: 'Un conseiller vous rappelle pour faire le point sur votre besoin.',
     boutonHero: 'Monter mon dossier',
   },
 
   immobilier: {
-    titre: 'Valoriser votre patrimoine immobilier, en toute sécurité',
+    titre: 'Immobilier, construction et gestion',
+    souligne: 'patrimoniale',
     intro:
-      'Gestion locative, réhabilitation de chantiers et transactions foncières pour les propriétaires, bailleurs et investisseurs en Côte d’Ivoire.',
-    accroche:
-      'Notre mission : valoriser votre patrimoine tout en réduisant les risques d’impayés et de chantiers bloqués.',
+      'Nous accompagnons propriétaires, bailleurs et investisseurs pour valoriser leur patrimoine tout en réduisant les risques d’impayés et de chantiers bloqués.',
     sections: [
       {
         id: 'gestion-locative',
         eyebrow: 'Gestion locative sécurisée',
-        titre: 'Confiez-nous vos immeubles, villas ou appartements',
+        titre: 'Confiez-nous vos biens, percevez vos loyers sereinement',
+        intro:
+          'Immeubles, villas ou appartements : nous gérons au quotidien selon le contrat de gestion signé avec vous.',
         blocs: [
           {
             titre: 'Reversement mensuel',
             texte:
-              'Vos loyers perçus vous sont reversés chaque mois, selon les conditions du contrat de gestion signé.',
+              'Vos loyers perçus vous sont reversés chaque mois, selon les conditions du contrat de gestion.',
           },
           {
-            titre: 'Sélection rigoureuse des locataires',
+            titre: 'Locataires sélectionnés',
             texte:
-              'Chaque candidat est étudié (dossier, solvabilité, garanties) avant toute signature de bail. Suivi et relance des loyers.',
+              'Étude du dossier, de la solvabilité et des garanties de chaque candidat, puis suivi et relance des loyers.',
           },
           {
             titre: 'Entretien courant',
             texte:
-              'Les petits travaux entre deux locataires sont pris en charge selon le contrat de gestion et dans la limite du fonds d’entretien prévu.',
+              'Petits travaux entre deux locataires pris en charge, dans la limite du fonds d’entretien prévu au contrat.',
           },
         ],
         fond: 'clair',
       },
       {
         id: 'rehabilitation',
-        eyebrow: 'Bail à réhabilitation',
-        titre: 'Un chantier inachevé ? Un bâtiment à rénover ?',
+        eyebrow: 'Réhabilitation et finition de chantiers',
+        titre: 'Transformer un bien inactif en source de revenus',
         intro:
-          'Nous étudions, organisons le financement et réalisons les travaux pour transformer votre bien inactif en source de revenus.',
+          'Chantier inachevé ou bâtiment à rénover : WASSIA étudie, organise le financement et réalise les travaux pour le mettre en location.',
         blocs: [
           {
-            titre: 'Apport selon l’étude du chantier',
+            titre: 'Apport adapté au chantier',
             texte:
-              'Après audit technique et chiffrage par nos ingénieurs, le montage s’adapte au dossier : apport du propriétaire sur certains chantiers, financement des travaux possible sur d’autres, sous réserve d’étude et de validation.',
+              'Après audit technique et devis, apport du propriétaire sur certains chantiers ou financement des travaux pour les dossiers éligibles, sous réserve d’étude technique et de validation.',
           },
           {
-            titre: 'Fournisseurs et suivi technique',
+            titre: 'Suivi technique',
             texte:
-              'Approvisionnement auprès de nos quincailleries partenaires et exécution contrôlée par notre conducteur de travaux.',
+              'Approvisionnement auprès de quincailleries partenaires et exécution contrôlée par notre conducteur de travaux.',
           },
           {
             titre: 'Encadrement notarié',
             texte:
-              'Une convention tripartite et un acte notarié fixent le budget des travaux, la durée d’amortissement et les droits de chacun.',
+              'Convention tripartite et acte notarié : budget des travaux, durée d’amortissement et droits de chaque partie.',
           },
         ],
         fond: 'gris',
       },
       {
-        id: 'foncier',
+        id: 'transactions',
         eyebrow: 'Transactions foncières',
-        titre: 'Acheter ou vendre un terrain ou un bien bâti, en sécurité',
+        titre: 'Acheter ou vendre un terrain en toute sécurité',
         intro:
-          'Vérification préalable des titres fonciers, accompagnement technique et sécurisation notariale de chaque transaction.',
+          'Vérification préalable des titres fonciers (ACD, arrêtés, certificats), accompagnement technique et sécurisation notariale des transactions.',
         etiquettes: ['ACD', 'Arrêtés', 'Certificats', 'Actes notariés'],
+        note: 'Gestion locative ou réhabilitation : notre priorité est de protéger la valeur de votre patrimoine. Les conditions sont celles du contrat signé, sans promesse de résultat garanti.',
         fond: 'sombre',
       },
-    ],
-    avertissements: [
-      'Les conditions (reversement, entretien, travaux) sont celles du contrat signé avec chaque propriétaire. Aucune promesse de résultat garanti.',
     ],
     image: {
       src: 'images/illustrations/immobilier-mobilite.svg',
-      alt: 'Illustration : immeubles et maisons gérés par WASSIA',
+      alt: 'Illustration : immeubles gérés par WASSIA',
     },
     formulaire: 'estimation-bien',
-    titreFormulaire: 'Présentez-nous votre bien',
-    boutonHero: 'Présenter mon bien',
-  },
-
-  flottes: {
-    titre: 'Des véhicules mieux gérés, suivis 24 h/24',
-    intro:
-      'Gestion déléguée et géolocalisation en temps réel pour les propriétaires de taxis, VTC, utilitaires, minicars et motos-taxis.',
-    accroche:
-      'La rigueur de la gestion déléguée, alliée à la géolocalisation en temps réel, pour protéger vos véhicules et suivre vos recettes.',
-    sections: [
-      {
-        id: 'gestion',
-        eyebrow: 'Gestion de flotte sécurisée',
-        titre: 'Confiez l’exploitation quotidienne de vos véhicules',
-        etiquettes: ['Taxis compteurs', 'VTC', 'Utilitaires', 'Minicars', 'Motos-taxis'],
-        blocs: [
-          {
-            titre: 'Reversement des recettes perçues',
-            texte:
-              'Les recettes perçues vous sont reversées selon les conditions et le calendrier du contrat de gestion signé.',
-          },
-          {
-            titre: 'Chauffeurs sélectionnés et encadrés',
-            texte:
-              'Vérification d’identité, permis valide, enquête de moralité, référent familial et contrat d’engagement pour chaque conducteur.',
-          },
-          {
-            titre: 'Maintenance préventive',
-            texte:
-              'Vidanges, pneumatiques, visites techniques : un contrôle régulier pour préserver vos véhicules et éviter les immobilisations.',
-          },
-        ],
-        fond: 'clair',
-      },
-      {
-        id: 'gps',
-        eyebrow: 'Supervision GPS',
-        titre: 'Votre véhicule, visible à tout moment',
-        blocs: [
-          {
-            titre: 'Localisation en temps réel',
-            texte: 'Position, itinéraires, temps d’arrêt et zones d’activité, 24 h/24.',
-          },
-          {
-            titre: 'Coupure moteur à distance',
-            texte:
-              'En cas de vol ou d’usage non autorisé : immobilisation uniquement à l’arrêt et avec l’accord du propriétaire, selon le contrat.',
-          },
-          {
-            titre: 'Alertes de zone',
-            texte:
-              'Notification en cas de sortie de la zone autorisée, d’excès de vitesse ou de débranchement de la batterie.',
-          },
-          {
-            titre: 'Rapports d’activité',
-            texte:
-              'Historique des parcours et du kilométrage pour anticiper l’entretien et vérifier les recettes déclarées.',
-          },
-        ],
-        fond: 'sombre',
-      },
-      {
-        id: 'gps-seul',
-        eyebrow: 'Propriétaires indépendants',
-        titre: 'Vous gérez vous-même ? Le GPS seul suffit',
-        intro:
-          'Souscrivez uniquement à l’installation et à l’abonnement de notre solution GPS, avec un accès mobile dédié.',
-        fond: 'gris',
-      },
-    ],
-    avertissements: [
-      'Les conditions de reversement et de gestion sont celles du contrat signé. Les chauffeurs réguliers peuvent être orientés vers nos partenaires financiers agréés, selon leur dossier et après étude.',
-    ],
-    image: {
-      src: 'images/illustrations/transport.svg',
-      alt: 'Illustration : véhicules de transport suivis par GPS',
-    },
-    formulaire: 'gestion-vehicule',
-    titreFormulaire: 'Parlez-nous de vos véhicules',
-    boutonHero: 'Confier mes véhicules',
-  },
-
-  commerce: {
-    titre: 'Importer, s’approvisionner et vendre, dans tous les secteurs',
-    intro:
-      'Un réseau de fabricants et de fournisseurs sur tous les continents, puis la distribution sur l’ensemble du territoire ivoirien.',
-    accroche:
-      'Nous connectons les commerçants, grossistes, artisans et entreprises de Côte d’Ivoire aux grandes plateformes industrielles mondiales.',
-    sections: [
-      {
-        id: 'reseau',
-        eyebrow: 'Un réseau mondial',
-        titre: 'Des fournisseurs sur quatre zones',
-        blocs: [
-          {
-            titre: 'Asie',
-            texte:
-              'Chine, Inde, Japon, Corée du Sud : équipements, pièces détachées, électronique, textiles, quincaillerie, matériaux.',
-          },
-          {
-            titre: 'Golfe',
-            texte:
-              'Dubaï et Émirats : négoce multi-produits, parfumerie, électronique, accessoires automobiles, électroménager.',
-          },
-          {
-            titre: 'Afrique',
-            texte:
-              'Égypte et CEDEAO : agroalimentaire, produits manufacturés, textiles et coton, matériaux de finition.',
-          },
-          {
-            titre: 'Europe et Amérique',
-            texte:
-              'Machines professionnelles, véhicules et engins, équipements techniques, produits certifiés aux normes internationales.',
-          },
-        ],
-        fond: 'clair',
-      },
-      {
-        id: 'solutions',
-        eyebrow: 'De la commande à la livraison',
-        titre: 'Nous nous occupons de toute la chaîne',
-        blocs: [
-          {
-            titre: 'Sourcing et achat sur mesure',
-            texte:
-              'Recherche d’usines fiables selon votre cahier des charges, négociation des prix et contrôle qualité avant embarquement.',
-          },
-          {
-            titre: 'Groupage maritime et fret aérien',
-            texte:
-              'Des conteneurs partagés pour importer à moindre coût, sans payer un conteneur complet.',
-          },
-          {
-            titre: 'Dédouanement et livraison',
-            texte:
-              'Suivi des formalités avec nos transitaires agréés, au port d’Abidjan et à l’aéroport, jusqu’à votre magasin, sous réserve des contrôles des autorités douanières.',
-          },
-        ],
-        fond: 'gris',
-      },
-      {
-        id: 'vente',
-        eyebrow: 'Commerce général',
-        titre: 'Gros, demi-gros et détail',
-        intro:
-          'Vente aux commerçants des grands marchés d’Abidjan et de l’intérieur, accueil des particuliers dans notre espace de Treichville, approvisionnement régulier des PME, ateliers, restaurants et chantiers.',
-        etiquettes: [
-          'Textiles et habillement',
-          'Cosmétique et hygiène',
-          'Électronique et électroménager',
-          'Quincaillerie et pièces',
-          'Agroalimentaire',
-        ],
-        fond: 'sombre',
-      },
-    ],
-    avertissements: [
-      'Livraison suivie par nos véhicules équipés de GPS. Les commerçants peuvent être orientés vers nos partenaires financiers agréés pour financer leur stock, selon leur dossier et après étude.',
-    ],
-    formulaire: 'sourcing',
-    titreFormulaire: 'Dites-nous ce que vous cherchez',
-    boutonHero: 'Faire une demande',
+    titreFormulaire: 'Confiez-nous la gestion de votre bien',
+    introFormulaire:
+      'Gestion locative, réhabilitation ou transaction : présentez-nous votre bien, nous vous recontactons.',
+    boutonHero: 'Faire estimer mon bien',
+    boutonSecondaire: { label: 'Réhabiliter un chantier', fragment: 'rehabilitation' },
   },
 
   agrobusiness: {
-    titre: 'Produire local, transformer local',
+    titre: 'Produire local, transformer',
+    souligne: 'local',
     intro:
-      'Filières agricoles, animales et halieutiques, et transformation en Côte d’Ivoire, avec nos partenaires techniques et investisseurs.',
-    accroche:
-      'Produire local, transformer local, et créer des emplois et de la valeur en Côte d’Ivoire, dans le respect des normes et des études techniques.',
+      'Agrobusiness et transformation industrielle : nous structurons la chaîne de valeur agricole en Côte d’Ivoire, de la production rurale jusqu’à la vente.',
     sections: [
       {
-        id: 'filieres',
-        eyebrow: 'Quatre filières',
-        titre: 'Des projets en cours de développement',
+        id: 'transformation',
+        eyebrow: 'Transformation locale',
+        titre: 'Valoriser les matières premières sur place',
+        intro:
+          'Unités en cours de développement avec nos partenaires industriels et investisseurs.',
         blocs: [
           {
-            titre: 'Agriculture et transformation',
-            texte: 'Cultures et unités de transformation de produits agricoles locaux.',
+            titre: 'Jus et nectars',
+            texte:
+              'Ananas, mangues, agrumes et papayes transformés en jus naturels et concentrés aux standards internationaux.',
           },
           {
-            titre: 'Élevage',
+            titre: 'Filières stratégiques',
             texte:
-              'Unités d’élevage pour soutenir la production locale, dans le respect des normes sanitaires et vétérinaires.',
+              'Anacarde, cacao, manioc (amidon, attiéké industriel) et productions vivrières de grande consommation.',
           },
           {
-            titre: 'Aquaculture',
+            titre: 'Technologie et co-investissement',
             texte:
-              'Production de poissons, avec un accompagnement sur la qualité de l’eau, l’alimentation et le suivi des bassins.',
-          },
-          {
-            titre: 'Barrages hydro-agricoles',
-            texte:
-              'Projets d’irrigation, sous réserve des études techniques et des autorisations administratives.',
+              'Savoir-faire industriel partagé, lignes de production modernes et marchés d’exportation sécurisés.',
           },
         ],
+        etiquettesTitre: 'Aussi en développement :',
+        etiquettes: ['Élevage', 'Aquaculture', 'Barrages hydro-agricoles'],
         fond: 'clair',
       },
       {
         id: 'chaine',
         eyebrow: 'De la terre au consommateur',
-        titre: 'Toute la chaîne de valeur',
+        titre: 'Une chaîne de valeur intégrée',
         blocs: [
           {
-            titre: 'Amont',
+            etiquette: 'Amont',
+            titre: 'Financement et intrants',
             texte:
-              'Structuration des groupements de producteurs, accès aux semences et engrais, orientation vers un financement.',
+              'Structuration des groupements de producteurs, accès aux semences et engrais, financement via nos partenaires agréés, après étude.',
           },
           {
-            titre: 'Collecte et transport',
-            texte: 'Acheminement des récoltes par nos véhicules suivis par GPS.',
+            etiquette: 'Milieu',
+            titre: 'Collecte et transport GPS',
+            texte:
+              'Acheminement sécurisé des récoltes vers les centres de stockage et usines, avec nos véhicules suivis en temps réel.',
           },
           {
+            etiquette: 'Aval',
             titre: 'Transformation et vente',
             texte:
-              'Produits finis (jus, dérivés alimentaires) vendus en Côte d’Ivoire ou à l’export par nos pôles Commerce et Import-export.',
+              'Produits finis distribués sur le marché national (commerce général) ou à l’international (import-export).',
           },
         ],
         fond: 'gris',
       },
       {
-        id: 'partenaires',
-        eyebrow: 'Appel aux partenaires',
-        titre: 'Industriels, équipementiers, investisseurs : rejoignez-nous',
-        intro:
-          'Nous recherchons des partenaires pour implanter des unités de transformation : jus et nectars de fruits locaux, anacarde, cacao, manioc. Nous apportons un cadre rigoureux, des bassins de production et une logistique intégrée.',
-        etiquettes: ['Jus et nectars', 'Anacarde', 'Cacao', 'Manioc', 'Vivriers'],
+        id: 'groupe',
+        eyebrow: 'La force du groupe',
+        titre: 'Sécuriser la chaîne, réduire les risques',
+        blocs: [
+          {
+            titre: 'Finance et trésorerie',
+            texte:
+              'Accompagnement vers le financement des campagnes agricoles et des petits équipements, via nos partenaires financiers agréés, selon le dossier et après étude.',
+          },
+          {
+            titre: 'Sécurité foncière',
+            texte:
+              'Acquisition et sécurisation de terres agricoles et de sites industriels avec titre foncier définitif ou ACD vérifié.',
+          },
+          {
+            titre: 'Notre engagement',
+            texte:
+              'Nous ne promettons aucun rendement garanti. Chaque projet fait l’objet d’une étude technique et financière avec nos partenaires, et les conditions sont communiquées par écrit avant tout engagement.',
+            misEnAvant: true,
+          },
+        ],
+        note: 'Les autorisations administratives relèvent uniquement des autorités compétentes.',
         fond: 'sombre',
       },
-    ],
-    avertissements: [
-      'Nous ne promettons aucun rendement garanti. Chaque projet fait l’objet d’une étude technique et financière, et les conditions sont communiquées par écrit avant tout engagement.',
-      'WASSIA ne délivre pas les autorisations administratives, qui relèvent des autorités compétentes. ' +
-        VIA_PARTENAIRES,
     ],
     image: {
       src: 'images/illustrations/agrobusiness.svg',
       alt: 'Illustration : champs cultivés et panneaux solaires',
     },
     formulaire: 'agrobusiness',
-    titreFormulaire: 'Producteur, industriel ou investisseur ?',
+    titreFormulaire: 'Implantez-vous durablement en Côte d’Ivoire',
+    introFormulaire:
+      'Industriel, équipementier, investisseur ou producteur : un cadre institutionnel rigoureux, des bassins de production riches et une logistique intégrée.',
     boutonHero: 'Proposer un partenariat',
+    boutonSecondaire: { label: 'De la terre au consommateur', fragment: 'chaine' },
   },
 
-  voyage: {
-    titre: 'Voyager, accomplir le Hadj, étudier à l’étranger',
+  commerce: {
+    titre: 'Import-export, sourcing direct et',
+    souligne: 'commerce général',
     intro:
-      'Billetterie, assistance visa, voyages d’affaires, tourisme, Hadj, Oumrah et études en Arabie saoudite, avec nos partenaires.',
-    accroche:
-      'De votre première démarche à notre agence de Treichville jusqu’à votre arrivée, nous simplifions chaque étape de votre voyage.',
+      'Nous relions commerçants, grossistes, artisans et entreprises de Côte d’Ivoire aux grandes plateformes industrielles mondiales, puis distribuons sur tout le territoire.',
+    points: [
+      { titre: 'Asie', texte: 'Chine, Inde, Japon, Corée du Sud' },
+      { titre: 'Golfe', texte: 'Dubaï, Émirats arabes unis' },
+      { titre: 'Afrique', texte: 'Égypte, CEDEAO' },
+      { titre: 'Europe et Amérique', texte: 'Machines, engins, normes internationales' },
+    ],
     sections: [
       {
-        id: 'services',
-        eyebrow: 'Voyage et tourisme',
-        titre: 'Nos prestations',
+        id: 'solutions',
+        eyebrow: 'De la commande à la livraison',
+        titre: 'Acheter au bon prix, recevoir en toute sécurité',
         blocs: [
           {
-            titre: 'Billets d’avion et hébergement',
+            titre: 'Sourcing sur mesure',
             texte:
-              'Billets toutes destinations à tarifs négociés, hôtels et résidences meublées vérifiés.',
+              'Recherche d’usines fiables selon votre cahier des charges, négociation des tarifs, contrôle qualité avant embarquement.',
           },
           {
-            titre: 'Assistance visa',
+            titre: 'Groupage maritime et aérien',
             texte:
-              'Aide au montage du dossier, lettres d’invitation, assurance voyage et rendez-vous consulaires.',
+              'Conteneurs partagés : importez à moindre coût, sans payer un conteneur complet.',
           },
           {
-            titre: 'Voyages d’affaires',
+            titre: 'Dédouanement et livraison',
             texte:
-              'Missions commerciales et visites d’usines ou de foires (Canton, Dubaï, New Delhi, Istanbul), avec accueil et interprètes.',
+              'Transit au Port autonome et à l’aéroport d’Abidjan avec des transitaires agréés, livraison jusqu’à votre magasin.',
+          },
+        ],
+        note: 'Sous réserve des contrôles et décisions des autorités douanières.',
+        fond: 'clair',
+      },
+      {
+        id: 'distribution',
+        eyebrow: 'Commerce général en Côte d’Ivoire',
+        titre: 'Ce que nous distribuons',
+        etiquettes: [
+          'Textiles et habillement',
+          'Cosmétique et hygiène',
+          'Électronique et électroménager',
+          'Quincaillerie et pièces détachées',
+          'Agroalimentaire et grande consommation',
+        ],
+        blocs: [
+          {
+            titre: 'Gros et demi-gros',
+            texte:
+              'Commerçantes et revendeurs des marchés d’Abidjan (Treichville, Adjamé, Marcory, Yopougon, Cocody) et grossistes de l’intérieur.',
           },
           {
-            titre: 'Tourisme et location de véhicules',
+            titre: 'Détail',
+            texte: 'Espace commercial de Treichville (Avenue 21 / Rue 22) et commande en ligne.',
+          },
+          {
+            titre: 'Entreprises',
             texte:
-              'Accueil à Abidjan, circuits en Côte d’Ivoire (Grand-Bassam, Assinie, Yamoussoukro, Man), véhicules avec ou sans chauffeur suivis par GPS.',
+              'Approvisionnement régulier des PME, ateliers, restaurants, chantiers et collectivités.',
+          },
+        ],
+        fond: 'gris',
+      },
+      {
+        id: 'avantages',
+        eyebrow: 'Avantages commerçants',
+        titre: 'La force du groupe pour votre stock',
+        blocs: [
+          {
+            titre: 'Approvisionnement accompagné',
+            texte:
+              'Avec un compte d’épargne WASSIA, vous pouvez être accompagné vers un financement de votre stock, via nos partenaires financiers agréés, selon votre dossier et après étude.',
+            misEnAvant: true,
+          },
+          {
+            titre: 'Livraison suivie par GPS',
+            texte:
+              'Vos colis et marchandises acheminés jusqu’à votre boutique par nos véhicules suivis en temps réel.',
+          },
+        ],
+        lien: { label: 'Découvrir l’épargne WASSIA', route: '/services-financiers' },
+        fond: 'sombre',
+      },
+    ],
+    formulaire: 'sourcing',
+    titreFormulaire: 'Dites-nous ce que vous cherchez',
+    introFormulaire:
+      'Quel que soit votre secteur, nous vous proposons un approvisionnement direct, avec contrôle qualité avant expédition.',
+    boutonHero: 'Demander un approvisionnement',
+  },
+
+  flottes: {
+    titre: 'Gestion de flottes et traçabilité',
+    souligne: 'GPS',
+    intro:
+      'Taxis compteurs, VTC, utilitaires, minicars et motos-taxis : nous transformons vos véhicules en actifs suivis, sécurisés et documentés.',
+    sections: [
+      {
+        id: 'gestion',
+        eyebrow: 'Gestion de flotte sécurisée',
+        titre: 'Confiez l’exploitation, suivez vos recettes en toute transparence',
+        intro:
+          'Une gestion rigoureuse des recettes, un suivi quotidien et un contrôle régulier sur le terrain.',
+        blocs: [
+          {
+            titre: 'Reversement des recettes',
+            texte:
+              'Les recettes perçues vous sont reversées selon les conditions et le calendrier du contrat de gestion signé.',
+          },
+          {
+            titre: 'Chauffeurs encadrés',
+            texte:
+              'Identité vérifiée, permis valide, enquête de moralité, référent familial et contrat d’engagement.',
+          },
+          {
+            titre: 'Maintenance préventive',
+            texte:
+              'Vidanges, pneumatiques, visites techniques : un suivi régulier pour éviter les immobilisations imprévues.',
           },
         ],
         fond: 'clair',
       },
       {
-        id: 'hadj',
-        eyebrow: 'Hadj, Oumrah et études',
-        titre: 'Accompagnés jusqu’en Arabie saoudite',
-        intro:
-          'En partenariat avec une agence agréée par le Commissariat du Hadj en Côte d’Ivoire, et avec nos partenaires basés à Djeddah.',
+        id: 'gps',
+        eyebrow: 'Supervision GPS 24 h/24',
+        titre: 'Chaque véhicule relié à notre centre de contrôle',
         blocs: [
           {
-            titre: 'Hadj et Oumrah',
-            texte:
-              'Séjours spirituels clés en main, hébergement près des Lieux saints et transferts climatisés.',
+            titre: 'Localisation en temps réel',
+            texte: 'Position, itinéraires, temps d’arrêt et zones d’activité.',
           },
           {
-            titre: 'Études',
+            titre: 'Coupure moteur à distance',
             texte:
-              'Orientation et inscription dans des instituts de langue arabe, écoles et universités partenaires, selon les places disponibles.',
+              'Uniquement à l’arrêt et avec l’accord du propriétaire, selon le contrat : vol, usage non autorisé.',
           },
           {
-            titre: 'Accueil à Djeddah',
+            titre: 'Alertes et périmètre',
             texte:
-              'Guides francophones et arabophones sur place, aide au logement étudiant et lien avec les familles en Côte d’Ivoire.',
+              'Sortie de zone autorisée, excès de vitesse ou batterie débranchée : notification immédiate.',
+          },
+          {
+            titre: 'Rapports d’activité',
+            texte:
+              'Historique des parcours et kilométrage pour anticiper les révisions et vérifier les recettes déclarées.',
           },
         ],
         fond: 'sombre',
       },
       {
-        id: 'transparence',
-        eyebrow: 'Transparence',
-        titre: 'Tous les frais, par écrit, avant l’inscription',
-        intro:
-          'Billets, visa, hébergement, encadrement et frais de service WASSIA sont détaillés par écrit dès l’inscription en agence.',
+        id: 'formules',
+        eyebrow: 'Chauffeurs et propriétaires',
+        titre: 'Deux formules selon votre situation',
+        blocs: [
+          {
+            titre: 'Chauffeurs réguliers',
+            texte:
+              'Avec un compte d’épargne WASSIA, les chauffeurs disciplinés peuvent être accompagnés vers un financement, via nos partenaires financiers agréés, pour des pièces, une réparation ou l’achat progressif de leur véhicule, selon le dossier et après étude.',
+            misEnAvant: true,
+          },
+          {
+            titre: 'Propriétaires indépendants',
+            texte:
+              'Vous gérez vous-même vos véhicules ? Souscrivez uniquement l’installation et l’abonnement GPS, avec un accès mobile dédié.',
+          },
+        ],
+        note: 'Les conditions de reversement et de gestion sont celles du contrat signé, avec des rapports de gestion réguliers. Aucune promesse de résultat garanti.',
         fond: 'gris',
       },
     ],
-    avertissements: [
-      'Les visas sont délivrés uniquement par l’ambassade ou le consulat compétent. WASSIA ne délivre pas les visas. Hadj et Oumrah sous réserve de l’agrément officiel et des quotas attribués par les autorités saoudiennes.',
+    image: {
+      src: 'images/illustrations/transport.svg',
+      alt: 'Illustration : véhicule de transport suivi par GPS',
+    },
+    formulaire: 'gestion-vehicule',
+    titreFormulaire: 'Protégez votre capital roulant',
+    introFormulaire:
+      'Particulier investisseur ou professionnel du transport : des revenus suivis, traçables et documentés par des rapports de gestion réguliers.',
+    boutonHero: 'Confier mon véhicule',
+    boutonSecondaire: { label: 'Voir le suivi GPS', fragment: 'gps' },
+  },
+
+  voyage: {
+    titre: 'Voyage, tourisme, Hadj, Oumrah et',
+    souligne: 'mobilité',
+    intro:
+      'Un accompagnement complet et sécurisé pour les commerçants, entrepreneurs, étudiants, pèlerins et particuliers, grâce à nos partenaires en Afrique, Asie, Moyen-Orient, Europe et Amérique.',
+    sections: [
+      {
+        id: 'prestations',
+        eyebrow: 'Nos prestations',
+        titre: 'Chaque étape de vos déplacements',
+        blocs: [
+          {
+            titre: 'Billets et hébergement',
+            texte: 'Toutes destinations à tarifs négociés, hôtels et résidences meublées vérifiés.',
+          },
+          {
+            titre: 'Visas et formalités',
+            texte:
+              'Montage du dossier, lettres d’invitation, assurance voyage et rendez-vous consulaires.',
+          },
+          {
+            titre: 'Voyages d’affaires',
+            texte:
+              'Missions d’achat et foires (Canton, Dubaï, New Delhi, Istanbul) avec accueil, interprètes et transport des marchandises.',
+          },
+          {
+            titre: 'Tourisme en Côte d’Ivoire',
+            texte:
+              'Accueil de la diaspora et circuits à Grand-Bassam, Assinie, Yamoussoukro et Man.',
+          },
+          {
+            titre: 'Location de véhicules',
+            texte:
+              'Tourisme, utilitaires et navettes aéroport, avec ou sans chauffeur, suivis par GPS.',
+          },
+        ],
+        note: 'Les visas sont délivrés uniquement par l’ambassade ou le consulat compétent. WASSIA ne délivre pas les visas.',
+        fond: 'clair',
+      },
+      {
+        id: 'hadj',
+        eyebrow: 'Hadj, Oumrah et études en Arabie saoudite',
+        titre: 'De Treichville jusqu’à Djeddah',
+        intro:
+          'Pèlerins, étudiants et familles accompagnés avec nos partenaires et nos guides installés à Djeddah.',
+        encadre:
+          'En partenariat avec une agence agréée par le Commissariat du Hadj en Côte d’Ivoire, sous réserve de l’agrément officiel et des quotas attribués par les autorités saoudiennes.',
+        blocs: [
+          {
+            titre: 'Hadj et Oumrah',
+            texte:
+              'Séjours clés en main toute l’année, hébergement proche des Lieux saints et transferts climatisés.',
+          },
+          {
+            titre: 'Études et instituts',
+            texte:
+              'Orientation et inscription dans des écoles et universités partenaires, aide au logement et à l’installation.',
+          },
+          {
+            titre: 'Visas et démarches',
+            texte:
+              'Visa Oumrah, Hadj ou étudiant : montage et suivi du dossier, sous réserve du quota et du visa accordés.',
+          },
+          {
+            titre: 'Accueil à Djeddah',
+            texte:
+              'Guides francophones et arabophones à l’aéroport, accompagnement rituel et suivi quotidien.',
+          },
+        ],
+        note: 'Tous les frais (service, billet, visa, hébergement, encadrement) sont détaillés par écrit avant toute inscription.',
+        fond: 'sombre',
+      },
+      {
+        id: 'epargne-voyage',
+        eyebrow: 'Préparer son projet sereinement',
+        titre: 'Épargne-Voyage, Hadj, Oumrah ou Études',
+        intro:
+          'Un compte d’épargne dédié pour cotiser à votre rythme, par jour, par semaine ou par mois, jusqu’à réunir le budget du voyage ou de la scolarité.',
+        blocs: [
+          {
+            titre: 'Facilitation complémentaire',
+            texte:
+              'Les épargnants réguliers peuvent être accompagnés vers un financement, via nos partenaires financiers agréés, pour le billet, le visa ou l’installation, selon le dossier et après étude.',
+            misEnAvant: true,
+          },
+        ],
+        lien: { label: 'Découvrir l’épargne WASSIA', route: '/services-financiers' },
+        fond: 'gris',
+      },
     ],
     image: {
       src: 'images/illustrations/voyage.svg',
@@ -519,63 +585,84 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
     },
     formulaire: 'voyage',
     titreFormulaire: 'Parlez-nous de votre voyage',
+    introFormulaire: 'Ou écrivez-nous sur WhatsApp : +225 07 98 01 25 91.',
     boutonHero: 'Demander un devis',
+    boutonSecondaire: { label: 'Hadj, Oumrah et études', fragment: 'hadj' },
   },
 
   energie: {
-    titre: 'L’énergie propre au service de la production locale',
+    titre: 'Énergie verte et développement',
+    souligne: 'industriel',
     intro:
-      'Solutions solaires, équipements industriels et unités de production pour les entreprises, les exploitations agricoles et les ménages.',
-    accroche:
-      'Conjuguer énergie propre et production industrielle locale pour bâtir une économie compétitive, autonome et respectueuse de l’environnement.',
+      'Transition solaire et industrialisation durable en Côte d’Ivoire, au service des entreprises, des exploitations agricoles et des ménages.',
     sections: [
       {
-        id: 'domaines',
-        eyebrow: 'Quatre domaines',
-        titre: 'De l’installation solaire à la ligne de production',
+        id: 'piliers',
+        eyebrow: 'Nos piliers',
+        titre: 'Énergie propre et industrialisation',
         blocs: [
           {
-            titre: 'Solaire et énergies renouvelables',
+            titre: 'Solaire et renouvelables',
             texte:
-              'Kits résidentiels, centrales autonomes pour PME, pompage solaire pour l’agriculture, éclairage public solaire : fourniture, installation et maintenance.',
+              'Kits résidentiels, centrales autonomes pour PME, pompage solaire et éclairage public : fourniture, installation et maintenance.',
           },
           {
             titre: 'Unités industrielles',
             texte:
-              'Unités locales de transformation et de fabrication, en cours de développement avec nos partenaires industriels et investisseurs.',
+              'Co-investissement dans des unités locales de production et de transformation, en cours de développement avec nos partenaires.',
           },
           {
             titre: 'Machines et lignes de production',
             texte:
-              'Groupes électrogènes hybrides, lignes d’embouteillage, machines-outils, importés de Chine, d’Inde, d’Europe et du Moyen-Orient.',
+              'Sourcing, importation et mise en service : groupes électrogènes hybrides, lignes d’embouteillage, machines-outils.',
           },
           {
             titre: 'Efficacité énergétique',
             texte:
-              'Audit de vos besoins et stockage sur batterie pour réduire durablement les coûts des usines, fermes, ateliers et commerces.',
+              'Audit des besoins et stockage sur batterie pour réduire durablement les coûts des usines, fermes et commerces.',
           },
         ],
         fond: 'clair',
       },
       {
         id: 'partenariats',
-        eyebrow: 'Partenariats',
-        titre: 'Fabricants, développeurs, investisseurs',
-        intro:
-          'Co-investissement et coentreprises, terrains avec titre foncier vérifié, cadre juridique à Abidjan et accès aux marchés de la sous-région.',
+        eyebrow: 'Partenariats et synergies',
+        titre: 'Avec les fabricants, les investisseurs et le groupe',
+        blocs: [
+          {
+            titre: 'Joint-ventures industrielles',
+            texte:
+              'Terrains avec titre foncier définitif ou ACD vérifié, accompagnement juridique et accès aux marchés locaux et sous-régionaux.',
+          },
+          {
+            titre: 'Distribution d’équipements',
+            texte:
+              'Technologies solaires et industrielles adaptées au climat et à l’économie ouest-africaine.',
+          },
+          {
+            titre: 'Appui aux fermes',
+            texte:
+              'Énergie solaire pour l’irrigation, l’aquaculture, l’élevage et la transformation agroalimentaire du groupe.',
+          },
+          {
+            titre: 'Facilitation financière',
+            texte:
+              'PME, artisans et ménages accompagnés pour s’équiper, via nos partenaires financiers agréés, selon le dossier et après étude.',
+            misEnAvant: true,
+          },
+        ],
+        note: 'Les unités industrielles sont en cours de développement avec nos partenaires.',
         fond: 'sombre',
       },
-    ],
-    avertissements: [
-      'Les unités industrielles sont en cours de développement avec nos partenaires. ' +
-        VIA_PARTENAIRES,
     ],
     image: {
       src: 'images/illustrations/agrobusiness.svg',
       alt: 'Illustration : panneaux solaires et champs cultivés',
     },
     formulaire: 'projet-energie',
-    titreFormulaire: 'Parlez-nous de votre projet',
-    boutonHero: 'Être recontacté',
+    titreFormulaire: 'De l’étude technique à la mise en service',
+    introFormulaire:
+      'Particulier, entreprise, exploitation agricole ou investisseur : parlons de votre projet.',
+    boutonHero: 'Étudier mon projet',
   },
 };

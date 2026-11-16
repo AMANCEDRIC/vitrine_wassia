@@ -72,7 +72,9 @@ describe('Contenus', () => {
     for (const activite of ACTIVITES) {
       const page = PAGES_ACTIVITES[activite.id];
       expect(page.sections.length).toBeGreaterThan(0);
-      expect(page.avertissements.length).toBeGreaterThan(0);
+      // Chaque page porte au moins une phrase de prudence (note ou encadré) et un texte de contact.
+      expect(page.sections.some((sec) => sec.note || sec.encadre)).toBe(true);
+      expect(page.introFormulaire).not.toBe('');
       expect(CONTACT_SUJETS).toContain(page.formulaire);
     }
   });
@@ -111,6 +113,10 @@ describe('Contenus', () => {
       'loyer garanti',
       'recette garantie',
       'recette journalière garantie',
+      '85 %',
+      '85 %',
+      '70 %',
+      '70 %',
       'ne collecte pas l’épargne',
       'ne collectons pas l’épargne',
       'n’octroie pas de prêts',
