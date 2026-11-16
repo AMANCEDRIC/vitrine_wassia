@@ -8,7 +8,7 @@ export const SITE = {
   nom: 'GROUPE WASSIA SARL HOLDING',
   nomLogo: 'Groupe Wassia SARL',
   accroche: 'Holding multisectorielle · Côte d’Ivoire',
-  baseline: 'Accompagnement finance, immobilier, flottes GPS, import-export, agrobusiness.',
+  baseline: 'Inclusion financière, immobilier, flottes GPS, import-export, agrobusiness.',
   /** Nom de domaine officiel retenu par le client (2026-11-07). */
   domaine: 'wassia-holding.com',
   siege: 'Treichville, Avenue 21 / Rue 22, Abidjan — Côte d’Ivoire',
@@ -19,9 +19,13 @@ export const SITE = {
   /** Numéro WhatsApp au format international, sans « + » ni espaces. */
   whatsapp: '2250798012591',
   annee: 2026,
-  /** Phrase du dossier officiel : WASSIA n'est ni une banque ni un établissement de microfinance. */
-  mentionFinance:
-    'WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts : elle accompagne la constitution de dossiers de financement auprès de partenaires financiers agréés, selon le dossier et après étude.',
+  /**
+   * Statut de l'activité financière (version style-v2). Branche `fusion-v2-conformite` : la phrase du
+   * dossier officiel « ne collecte pas l'épargne / n'octroie pas de prêts » est retirée, car le site
+   * présente l'épargne et le crédit (choix de Cédric, 2026-11-15, à faire valider par le client).
+   */
+  mentionIob:
+    'WASSIA intervient comme intermédiaire en opérations de banque (IOB). Elle ne se substitue pas à un établissement de crédit agréé.',
 } as const;
 
 /** Devise du groupe (texte de l'accueil validé par le client, 2026-11-15). */

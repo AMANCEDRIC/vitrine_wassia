@@ -4,6 +4,9 @@
  * TEXTE FINAL FOURNI PAR LE CLIENT (2026-11-15, « il n'a rien à changer ») : recopié mot pour mot.
  * Ne pas reformuler. Seules adaptations : apostrophes typographiques et espaces insécables
  * avant « : » et « ? ».
+ *
+ * Branche `fusion-v2-conformite` : la phrase « nous ne collectons pas l'épargne / n'octroyons pas de
+ * prêts » est retirée du texte Finance (le site présente l'épargne et le crédit, choix de Cédric).
  */
 import { ActiviteId } from './poles';
 import { lienWhatsapp } from './site';
@@ -40,7 +43,6 @@ export const TEXTES_ACCUEIL: Record<ActiviteId, TexteAccueil> = {
     accroche: 'Vous avez un projet et vous cherchez un financement ?',
     paragraphes: [
       'Nous vous accompagnons dans la constitution et la présentation de votre dossier auprès de nos partenaires financiers agréés.',
-      'Nous ne collectons pas l’épargne du public et nous n’octroyons pas de prêts. Les conditions de financement (montant, durée, taux, frais, garanties) sont fixées uniquement par l’établissement partenaire agréé, après étude de votre dossier, et vous sont communiquées par écrit avant tout engagement.',
     ],
     bouton: 'Demander un accompagnement',
     fragment: 'contact',
@@ -135,19 +137,16 @@ export const DIAPOSITIVES: readonly Diapositive[] = [
     alt: 'Illustration : immeuble, maison et véhicule suivi par GPS',
   },
   {
-    eyebrow: 'Accompagnement Finance',
-    titre: TEXTES_ACCUEIL.finance.accroche ?? '',
-    texte: TEXTES_ACCUEIL.finance.paragraphes[0],
+    eyebrow: 'Épargne communautaire',
+    titre: 'Votre épargne, tracée et confirmée par SMS.',
+    texte:
+      'Une carte membre à QR code, un agent de proximité sur votre marché et un solde que vous suivez à chaque passage.',
     actions: [
-      {
-        label: TEXTES_ACCUEIL.finance.bouton,
-        route: '/accompagnement-finance',
-        fragment: 'contact',
-        style: 'or',
-      },
+      { label: 'Devenir membre', route: '/services-financiers', fragment: 'contact', style: 'or' },
+      { label: 'Comment ça marche', route: '/', fragment: 'carte', style: 'lien' },
     ],
-    image: 'images/illustrations/transport.svg',
-    alt: 'Illustration : véhicules de transport et commerce',
+    image: 'images/illustrations/carte-membre.svg',
+    alt: 'Illustration : commerçante avec sa carte membre à QR code',
   },
   {
     eyebrow: 'Nos autres services',
@@ -208,9 +207,9 @@ export const ATOUTS: readonly { titre: string; texte: string }[] = [
       'Du champ au marché, de l’usine au magasin : nos pôles travaillent ensemble pour offrir un service global et sécurisé.',
   },
   {
-    titre: 'Des partenaires agréés',
+    titre: 'Un statut d’intermédiaire en opérations de banque',
     texte:
-      'Financement, transit, voyage : nous travaillons avec des partenaires agréés. WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts.',
+      'WASSIA intervient comme intermédiaire en opérations de banque au service de l’inclusion financière, en cours de conventionnement avec des établissements bancaires agréés APBEF-CI.',
   },
 ];
 
@@ -233,6 +232,65 @@ export const CONTACT_ACCUEIL = {
   adresse: 'GROUPE WASSIA SARL HOLDING - Agence Treichville, Avenue 21, Abidjan',
   boutonWhatsapp: 'WhatsApp',
 } as const;
+
+export type Forme =
+  | { type: 'path'; d: string }
+  | { type: 'circle'; cx: number; cy: number; r: number }
+  | { type: 'rect'; x: number; y: number; width: number; height: number; rx?: number };
+
+export interface EtapeCarte {
+  titre: string;
+  texte: string;
+  /** Texte raccourci de la version mobile. */
+  texteMobile: string;
+  /** Formes de l'illustration (viewBox 64 × 64). */
+  dessin: readonly Forme[];
+}
+
+export const ETAPES_CARTE: readonly EtapeCarte[] = [
+  {
+    titre: 'Rencontrez un agent WASSIA',
+    texte: 'Il vient sur votre marché et enregistre votre commerce avec votre pièce d’identité.',
+    texteMobile: 'Il enregistre votre commerce avec votre pièce d’identité.',
+    dessin: [
+      { type: 'circle', cx: 32, cy: 22, r: 12 },
+      { type: 'path', d: 'M8 58c0-14 10-22 24-22s24 8 24 22' },
+    ],
+  },
+  {
+    titre: 'Recevez votre carte à QR code',
+    texte:
+      'Pour 1 000 F versés en espèces à l’inscription, une carte PVC à QR code à votre nom, activée par un SMS de bienvenue.',
+    texteMobile: '1 000 F à l’inscription : une carte PVC à votre nom.',
+    dessin: [
+      { type: 'rect', x: 6, y: 14, width: 52, height: 36, rx: 6 },
+      { type: 'path', d: 'M6 26h52' },
+      { type: 'rect', x: 14, y: 34, width: 12, height: 10 },
+      { type: 'path', d: 'M34 36h16M34 42h10' },
+    ],
+  },
+  {
+    titre: 'Épargnez pendant 8 semaines',
+    texte:
+      'Au moins 2 000 F par semaine. À chaque passage de l’agent, un reçu et un SMS indiquent le montant versé et votre nouveau solde.',
+    texteMobile: '8 semaines minimum, un SMS à chaque versement.',
+    dessin: [
+      { type: 'rect', x: 18, y: 6, width: 28, height: 52, rx: 6 },
+      { type: 'path', d: 'M26 14h12' },
+      { type: 'path', d: 'M24 34l6 6 10-12' },
+    ],
+  },
+  {
+    titre: 'Demandez un crédit adapté',
+    texte:
+      'Votre épargne régulière ouvre l’accès au crédit à 1 % par mois. Réponse sous 48 h, sans bulletin de salaire ni garantie immobilière.',
+    texteMobile: 'Crédit à 1 % par mois, réponse sous 48 h.',
+    dessin: [
+      { type: 'circle', cx: 32, cy: 32, r: 24 },
+      { type: 'path', d: 'M32 18v28M24 26c0-4 4-6 8-6s8 2 8 6-4 5-8 6-8 2-8 6 4 6 8 6 8-2 8-6' },
+    ],
+  },
+];
 
 export interface Actualite {
   categorie: string;
@@ -295,8 +353,8 @@ export interface ChiffreCle {
  * À compléter avec les données du client (exemples de libellés à adapter).
  */
 export const CHIFFRES_CLES: readonly ChiffreCle[] = [
-  { label: 'Dossiers accompagnés', valeur: null, suffixe: '+' },
+  { label: 'Commerçants inscrits', valeur: null, suffixe: '+' },
+  { label: 'Cartes membres actives', valeur: null, suffixe: '+' },
   { label: 'Véhicules suivis par GPS', valeur: null, suffixe: '+' },
   { label: 'Biens en gestion', valeur: null, suffixe: '+' },
-  { label: 'Pays partenaires', valeur: null, suffixe: '+' },
 ];

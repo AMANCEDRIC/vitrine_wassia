@@ -30,13 +30,13 @@ export interface Activite {
 export const POLES: readonly Activite[] = [
   {
     id: 'finance',
-    titre: 'Accompagnement Finance',
-    titreCourt: 'Accompagnement Finance',
-    libelleFooter: 'Accompagnement Finance',
+    titre: 'Services financiers et inclusion',
+    titreCourt: 'Services financiers et inclusion',
+    libelleFooter: 'Services financiers',
     resume:
-      'Montage et présentation de dossiers de financement auprès de nos partenaires financiers agréés.',
-    resumeCourt: 'Dossiers de financement, partenaires agréés.',
-    route: '/accompagnement-finance',
+      'Intermédiation en opérations de banque, épargne par carte QR, accès au crédit et accompagnement de dossiers de financement.',
+    resumeCourt: 'Épargne par carte QR, crédit, dossiers de financement.',
+    route: '/services-financiers',
     icone: 'finance',
     pastille: 'bg-emeraude',
     traitIcone: 'var(--color-marine)',

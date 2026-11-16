@@ -19,7 +19,7 @@ const PAGES = [
  * Le pré-rendu ne produit pas de fichier pour une redirection : les versions statiques reçoivent
  * une page de redirection écrite à la main (`public/<adresse>/index.html`), servie en priorité.
  */
-const REDIRECTIONS = ['services-financiers', 'immobilier-mobilite'];
+const REDIRECTIONS = ['accompagnement-finance', 'immobilier-mobilite'];
 
 export const serverRoutes: ServerRoute[] = [
   ...PAGES.map((path): ServerRoute => ({ path, renderMode: RenderMode.Prerender })),

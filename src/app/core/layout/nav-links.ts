@@ -12,12 +12,13 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: 'À propos', route: '/a-propos' },
   { label: 'Nos activités', route: '/', fragment: 'poles', poles: true },
   { label: 'Actualités', route: '/actualites' },
+  { label: 'Simulateur', route: '/', fragment: 'simulateur' },
   { label: 'Contact', route: '/contact' },
 ];
 
-/** Bouton d'action principal de l'en-tête : le formulaire du pôle Accompagnement Finance. */
+/** Bouton d'action principal (« Devenir membre ») : le formulaire du pôle Services financiers. */
 export const ACTION_PRINCIPALE = {
-  label: 'Monter mon dossier',
-  route: '/accompagnement-finance',
+  label: 'Devenir membre',
+  route: '/services-financiers',
   fragment: 'contact',
 } as const;

@@ -4,8 +4,8 @@
  * Source : documents officiels 2026 du client (`docs_wassia/doc_pols`, reçus le 2026-11-15).
  * On suit les fiches « Pôle … » (version prudente), pas les « Fiches commerciales » (loyer garanti,
  * travaux pris en charge à 100 %…). Décisions de Cédric : aucune promesse « garanti », aucun
- * pourcentage de répartition, aucune mention de compte d'épargne WASSIA (le dossier officiel précise
- * que WASSIA ne collecte pas l'épargne du public et n'octroie pas de prêts).
+ * pourcentage de répartition. Branche `fusion-v2-conformite` : la page Finance est celle de style-v2
+ * (épargne, crédit), complétée par les sections d'accompagnement de dossiers ci-dessous.
  */
 import { ContactSujet } from '../shared/data/contact.model';
 import { ActiviteId } from './poles';
@@ -115,7 +115,7 @@ export const PAGES_ACTIVITES: Record<ActiviteId, PageActivite> = {
       },
     ],
     avertissements: [
-      'WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts. Les conditions de financement (montant, durée, taux, frais, garanties) sont fixées uniquement par l’établissement partenaire agréé, après étude de votre dossier, et vous sont communiquées par écrit avant tout engagement.',
+      'Les conditions de financement (montant, durée, taux, frais, garanties) sont communiquées par écrit avant tout engagement, après étude de votre dossier.',
       VIA_PARTENAIRES,
     ],
     formulaire: 'dossier-financement',

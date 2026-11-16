@@ -30,7 +30,8 @@ export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
         type: 'select',
         required: true,
         options: [
-          'Commerçant ou entrepreneur',
+          'Commerçant ou épargnant',
+          'Entrepreneur',
           'Propriétaire d’un bien immobilier',
           'Propriétaire de véhicule',
           'Importateur ou revendeur',
@@ -43,6 +44,11 @@ export const FORMULAIRES: Record<ContactSujet, FormConfig> = {
       { name: 'email', label: 'E-mail', type: 'email', autocomplete: 'email', masqueMobile: true },
       message,
     ],
+  },
+  'devenir-membre': {
+    sujet: 'devenir-membre',
+    bouton: 'Être contacté par un agent',
+    champs: [nom, telephone, { name: 'lieu', label: 'Marché ou commune', type: 'text' }],
   },
   'dossier-financement': {
     sujet: 'dossier-financement',

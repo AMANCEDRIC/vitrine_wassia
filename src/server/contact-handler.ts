@@ -46,6 +46,7 @@ export interface ReponseContact {
 /** Sujet du formulaire tel qu'il apparaît dans l'objet du mail. */
 export const LIBELLE_SUJET: Record<ContactSujet, string> = {
   general: 'Demande générale',
+  'devenir-membre': 'Devenir membre',
   'dossier-financement': 'Dossier de financement',
   'estimation-bien': 'Bien immobilier',
   'gestion-vehicule': 'Gestion d’un véhicule',

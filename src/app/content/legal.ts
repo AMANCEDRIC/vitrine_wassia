@@ -41,7 +41,7 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
           `Le ${NOM} intervient en tant que holding animatrice assurant le contrôle, la gestion stratégique et le développement de ses pôles d’activités :`,
         ],
         liste: [
-          'Accompagnement Finance : assistance à la constitution et à la présentation de dossiers de financement auprès de partenaires financiers agréés. WASSIA ne collecte pas l’épargne du public et n’octroie pas de prêts.',
+          'Services financiers et inclusion : intermédiation en opérations de banque, épargne par carte membre à QR code, accès au crédit, accompagnement de dossiers de financement auprès de partenaires financiers agréés.',
           'Immobilier, construction et gestion patrimoniale : gestion locative, réhabilitation de biens, transactions foncières.',
           'Gestion de flottes et traçabilité GPS : gestion déléguée de véhicules, supervision et géolocalisation.',
           'Import-export et commerce général : sourcing international, dédouanement avec des transitaires agréés, distribution.',
@@ -88,6 +88,11 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
               'Durée du contrat de gestion de flotte',
             ],
             [
+              'Identifiants des cartes membres à QR code',
+              'Suivi de l’épargne et enregistrement comptable',
+              'Durée de la souscription au programme',
+            ],
+            [
               'Documents consulaires et visas',
               'Audit et vérification de la conformité du dossier',
               'Strictement limitée à la durée de la procédure',
@@ -128,9 +133,9 @@ export const LEGAL: Record<LegalPageId, LegalPage> = {
         ],
       },
       {
-        titre: 'Activité financière',
+        titre: 'Statut d’intermédiaire en opérations de banque',
         paragraphes: [
-          SITE.mentionFinance,
+          SITE.mentionIob,
           'En cours de conventionnement avec des établissements bancaires agréés APBEF-CI. Le nom du partenaire et le numéro de convention seront indiqués ici après signature.',
         ],
       },

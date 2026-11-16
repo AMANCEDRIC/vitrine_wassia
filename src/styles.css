@@ -431,6 +431,23 @@ footer a {
   }
 }
 
+/* Carte membre : retournement en 3D */
+.member-flip {
+  transform-style: preserve-3d;
+  transition: transform 1.1s var(--ease-doux);
+}
+.member-flip.is-verso {
+  transform: rotateY(180deg);
+}
+.member-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.member-face-verso {
+  transform: rotateY(180deg);
+}
+
 /* En-tête compacté au défilement */
 header.is-compact {
   box-shadow: 0 6px 20px rgba(10, 42, 94, 0.08);
@@ -685,6 +702,19 @@ header.is-compact {
     border-color: var(--color-or);
     color: var(--color-nuit);
     transform: translateX(-6px);
+  }
+}
+
+/* Étapes de la carte membre en escalier (ordinateur) */
+@media (min-width: 64rem) {
+  .escalier > li:nth-child(2) {
+    margin-top: 56px;
+  }
+  .escalier > li:nth-child(3) {
+    margin-top: 112px;
+  }
+  .escalier > li:nth-child(4) {
+    margin-top: 168px;
   }
 }
 

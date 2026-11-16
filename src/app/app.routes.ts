@@ -22,11 +22,14 @@ export const routes: Routes = [
     path: a.route.slice(1),
     title: a.titre + SUFFIXE,
     data: { activite: a.id, description: a.resume },
+    // Le pôle Finance garde la page complète de style-v2 (épargne, crédit, accompagnement de dossiers).
     loadComponent: () =>
-      import('@features/poles/activite/activite.page').then((m) => m.ActivitePage),
+      a.id === 'finance'
+        ? import('@features/poles/finance/finance.page').then((m) => m.FinancePage)
+        : import('@features/poles/activite/activite.page').then((m) => m.ActivitePage),
   })),
   // Anciennes adresses (avant les documents officiels de novembre 2026).
-  { path: 'services-financiers', redirectTo: 'accompagnement-finance' },
+  { path: 'accompagnement-finance', redirectTo: 'services-financiers' },
   { path: 'immobilier-mobilite', redirectTo: 'immobilier' },
   {
     path: 'actualites',

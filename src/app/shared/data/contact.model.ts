@@ -2,6 +2,7 @@
 
 export const CONTACT_SUJETS = [
   'general',
+  'devenir-membre',
   'dossier-financement',
   'estimation-bien',
   'gestion-vehicule',
