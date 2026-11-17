@@ -114,42 +114,15 @@ export const EXEMPLES_CREDIT: readonly {
   },
 ];
 
-export const COMPARATIF: readonly {
-  acteur: string;
-  taux: string;
-  exigences: string;
-  wassia?: boolean;
-}[] = [
-  {
-    acteur: 'Prêteurs informels (margouillats, tontines)',
-    taux: '10\u00a0% à 30\u00a0% par mois',
-    exigences: 'Aucun contrat, recouvrement abusif',
-  },
-  {
-    acteur: 'Microfinances classiques',
-    taux: '2\u00a0% à 2,5\u00a0% par mois + 5\u00a0% de frais + assurance',
-    exigences: 'Garanties lourdes ou fiches de paie',
-  },
-  {
-    acteur: 'Banques traditionnelles',
-    taux: '8\u00a0% à 12\u00a0% par an',
-    exigences: 'Fiches de paie, garanties hypothécaires',
-  },
-  {
-    acteur: 'GROUPE WASSIA',
-    taux: '1\u00a0% par mois (6\u00a0% / 12\u00a0% / 18\u00a0%)',
-    exigences: 'Aucune assurance cachée, aucune retenue indue',
-    wassia: true,
-  },
-];
-
+/** Taux affiché dans le bandeau « 1 % par mois » de la page Services financiers. */
 export const SLOGAN =
-  'WASSIA, 1\u00a0% par mois, pas de frais cachés. On vous aide, on ne vous étouffe pas.';
+  'WASSIA, 1 % par mois, pas de frais cachés. On vous aide, on ne vous étouffe pas.';
 
 /*
  * Conditions reprises de la « Fiche d'enrôlement client & contrat d'adhésion compte épargne »
  * (Formulaire officiel d'enrôlement 2026, fourni par le client) : extrait des conditions générales
- * d'adhésion, discipline de remboursement et pièces demandées à l'ouverture.
+ * d'adhésion et pièces demandées à l'ouverture (la discipline de remboursement est retirée du site,
+ * demande de Cédric du 2026-11-17).
  * À FAIRE VALIDER PAR LE CLIENT avant la mise en ligne, comme le reste de ce fichier.
  */
 
@@ -176,30 +149,6 @@ export const CONDITIONS_EPARGNE: readonly { titre: string; texte: string }[] = [
       'L’épargne accumulée constitue une garantie. Une fois le prêt totalement remboursé, 100\u00a0% de votre épargne vous est restituée sur demande.',
   },
 ];
-
-/** Que se passe-t-il quand une échéance n'est pas payée à temps (article 5). */
-export const DISCIPLINE_REMBOURSEMENT: readonly { delai: string; titre: string; texte: string }[] =
-  [
-    {
-      delai: 'Jusqu’à 5 jours',
-      titre: 'Délai de grâce',
-      texte: 'Un délai de grâce de 5 jours est accordé pour chaque échéance, sans pénalité.',
-    },
-    {
-      delai: 'Après 5 jours',
-      titre: 'Pénalité de retard',
-      texte: 'Une pénalité de 400\u00a0F par jour de retard est appliquée.',
-    },
-    {
-      delai: 'À 30 jours',
-      titre: 'Procédure amiable',
-      texte:
-        'En cas d’impayé prolongé atteignant 30 jours, vous vous engagez à vous présenter en agence pour convenir d’un rééchelonnement amiable.',
-    },
-  ];
-
-export const DISCIPLINE_NOTE =
-  'Le recours à la justice ou à la force publique constitue l’ultime recours que GROUPE WASSIA s’efforce toujours d’éviter.';
 
 /** Pièces et informations demandées à l'enrôlement. */
 export const PIECES_A_FOURNIR: readonly { titre: string; texte: string }[] = [

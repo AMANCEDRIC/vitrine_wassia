@@ -13,7 +13,6 @@ import {
 import { PAGES_ACTIVITES } from './activites';
 import {
   CONDITIONS_EPARGNE,
-  DISCIPLINE_REMBOURSEMENT,
   DUREES_CREDIT,
   GRILLE_CREDIT,
   PIECES_A_FOURNIR,
@@ -170,13 +169,11 @@ describe('Contenus', () => {
     }
   });
 
-  it('indique le délai de grâce, la pénalité et la procédure amiable', () => {
-    const retards = DISCIPLINE_REMBOURSEMENT.map((d) => d.delai + ' ' + d.texte)
+  it('ne parle plus de retards ni de pénalités (section retirée, 2026-11-17)', () => {
+    const faq = FAQ_FINANCE.map((q) => q.question + ' ' + q.reponse)
       .join(' ')
       .replace(/\u00a0/g, ' ');
-    for (const extrait of ['5 jours', '400 F', '30 jours', 'amiable']) {
-      expect(retards).toContain(extrait);
-    }
+    expect(faq).not.toMatch(/retard|délai de grâce|pénalité|400 F/i);
   });
 
   it('liste les pièces à fournir, dont les cas particuliers', () => {
@@ -193,9 +190,8 @@ describe('Contenus', () => {
     }
   });
 
-  it('répond dans la FAQ aux questions sur les retards, les documents et la restitution', () => {
+  it('répond dans la FAQ aux questions sur les documents et la restitution', () => {
     const questions = FAQ_FINANCE.map((q) => q.question).join(' ');
-    expect(questions).toMatch(/retard/);
     expect(questions).toMatch(/documents/);
     expect(questions).toMatch(/récupérer/);
   });

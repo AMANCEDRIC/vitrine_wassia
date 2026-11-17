@@ -50,13 +50,8 @@ export const FAQ_FINANCE: readonly { question: string; reponse: string }[] = [
       'Oui. Votre épargne sert de garantie pendant le prêt. Une fois le prêt totalement remboursé, 100\u00a0% de votre épargne vous est restituée sur demande. Dès que vous recevez votre prêt, vous cessez d’épargner pour vous consacrer au remboursement.',
   },
   {
-    question: 'Que se passe-t-il si je suis en retard sur une échéance ?',
-    reponse:
-      'Vous avez 5 jours de délai de grâce pour chaque échéance. Au-delà, une pénalité de 400\u00a0F par jour de retard est appliquée. Si l’impayé atteint 30 jours, vous venez en agence convenir d’un rééchelonnement amiable. Le recours à la justice est l’ultime recours que WASSIA s’efforce d’éviter.',
-  },
-  {
     question: 'Quels sont les frais ?',
     reponse:
-      'Le taux est de 1\u00a0% par mois (6\u00a0% sur 6 mois, 12\u00a0% sur 12 mois, 18\u00a0% sur 18 mois). Vous réglez en plus des frais de dossier fixes, en espèces, au moment du décaissement. L’ouverture du compte coûte 5\u00a0000\u00a0F : 1\u00a0000\u00a0F en espèces à l’inscription, puis 4\u00a0000\u00a0F prélevés sur vos versements des 8 premières semaines. Aucune assurance cachée, aucune commission annexe ; seul un retard de plus de 5 jours sur une échéance entraîne une pénalité de 400\u00a0F par jour.',
+      'Le taux est de 1\u00a0% par mois (6\u00a0% sur 6 mois, 12\u00a0% sur 12 mois, 18\u00a0% sur 18 mois). Vous réglez en plus des frais de dossier fixes, en espèces, au moment du décaissement. L’ouverture du compte coûte 5\u00a0000\u00a0F : 1\u00a0000\u00a0F en espèces à l’inscription, puis 4\u00a0000\u00a0F prélevés sur vos versements des 8 premières semaines. Aucune assurance cachée, aucune commission annexe.',
   },
 ];

@@ -1,11 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import {
-  COMPARATIF,
   CONDITIONS_EPARGNE,
-  DISCIPLINE_NOTE,
-  DISCIPLINE_REMBOURSEMENT,
   ETAPES_CREDIT,
   EXEMPLES_CREDIT,
   PIECES_A_FOURNIR,
@@ -35,6 +32,12 @@ export class FinancePage {
   protected readonly faq = FAQ_FINANCE;
   protected readonly formulaire = FORMULAIRES['devenir-membre'];
   protected readonly formulaireDossier = FORMULAIRES['dossier-financement'];
+  /** Formulaire affiché dans la section Contact (boutons radio). */
+  protected readonly choix = signal<'membre' | 'dossier'>('membre');
+  protected readonly options = [
+    { valeur: 'membre' as const, libelle: 'Devenir membre' },
+    { valeur: 'dossier' as const, libelle: 'Faire accompagner mon dossier de financement' },
+  ];
   /** Sections « Comment ça se passe » et « Avec les autres pôles » de l'accompagnement de dossiers. */
   protected readonly accompagnement = PAGES_ACTIVITES.finance.sections.filter(
     (s) => s.id === 'etapes' || s.id === 'synergie',
@@ -48,12 +51,9 @@ export class FinancePage {
 
   protected readonly tauxMensuel = TAUX_MENSUEL;
   protected readonly conditions = CONDITIONS_EPARGNE;
-  protected readonly discipline = DISCIPLINE_REMBOURSEMENT;
-  protected readonly disciplineNote = DISCIPLINE_NOTE;
   protected readonly pieces = PIECES_A_FOURNIR;
   protected readonly etapesCredit = ETAPES_CREDIT;
   protected readonly exemples = EXEMPLES_CREDIT;
-  protected readonly comparatif = COMPARATIF;
   protected readonly slogan = SLOGAN;
 
   protected readonly etapes = [
